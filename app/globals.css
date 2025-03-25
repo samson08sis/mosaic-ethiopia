@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base colors */
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #f15d30;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+
+  /* Semantic colors */
+  --primary: #f15d30;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+
+  /* Tailwind primary color RGB values */
+  --primary-50: 254, 242, 238;
+  --primary-100: 253, 228, 221;
+  --primary-200: 252, 202, 187;
+  --primary-300: 249, 176, 153;
+  --primary-400: 247, 141, 110;
+  --primary-500: 241, 93, 48;
+  --primary-600: 224, 77, 31;
+  --primary-700: 187, 64, 26;
+  --primary-800: 149, 51, 21;
+  --primary-900: 112, 38, 16;
+  --primary-950: 74, 25, 10;
+
+  /* Background and text colors */
+  --background: 248, 249, 250; /* light background */
+  --foreground: 33, 37, 41; /* dark text */
+  --card: 255, 255, 255;
+  --card-foreground: 33, 37, 41;
+  --muted: 233, 236, 239;
+  --muted-foreground: 108, 117, 125;
+}
+
+.dark {
+  --background: 33, 37, 41; /* dark background */
+  --foreground: 248, 249, 250; /* light text */
+  --card: 52, 58, 64;
+  --card-foreground: 248, 249, 250;
+  --muted: 73, 80, 87;
+  --muted-foreground: 173, 181, 189;
+
+  /* Invert primary colors for dark mode */
+  --primary-50: 74, 25, 10;
+  --primary-100: 112, 38, 16;
+  --primary-200: 149, 51, 21;
+  --primary-300: 187, 64, 26;
+  --primary-400: 224, 77, 31;
+  --primary-500: 241, 93, 48;
+  --primary-600: 247, 141, 110;
+  --primary-700: 249, 176, 153;
+  --primary-800: 252, 202, 187;
+  --primary-900: 253, 228, 221;
+  --primary-950: 254, 242, 238;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+}
+
+/* Custom utility classes */
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--white);
+}
+
+.btn-success {
+  background-color: var(--success);
+  color: var(--white);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: var(--white);
+}
+
+.btn-warning {
+  background-color: var(--warning);
+  color: var(--dark);
+}
+
+.btn-info {
+  background-color: var(--info);
+  color: var(--white);
+}
+
+/* Font classes */
+.font-arizonia {
+  font-family: var(--font-arizonia), cursive;
+}
+
+/* Video modal */
+.video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.video-container {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 768px) {
+  .video-container {
+    width: 95%;
+  }
+}
+
+/* Custom background and text color utilities */
+.bg-theme {
+  background-color: rgb(var(--background));
+}
+
+.text-theme {
+  color: rgb(var(--foreground));
+}
+
+.bg-card {
+  background-color: rgb(var(--card));
+}
+
+.text-card {
+  color: rgb(var(--card-foreground));
+}
+
+.bg-muted {
+  background-color: rgb(var(--muted));
+}
+
+.text-muted {
+  color: rgb(var(--muted-foreground));
+}
+
+/* Hide scrollbars */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
