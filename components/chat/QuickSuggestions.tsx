@@ -47,11 +47,7 @@ export default function QuickSuggestions({
 
     startAutoScroll();
 
-    const handleManualScroll = (e: MouseEvent | TouchEvent | WheelEvent) => {
-      e.preventDefault();
-      if (suggestionsRef.current)
-        suggestionsRef.current.scrollLeft += e.deltaY / 3;
-
+    const handleManualScroll = (e: MouseEvent | TouchEvent) => {
       if (scrollInterval) {
         clearInterval(scrollInterval);
       }
@@ -71,9 +67,6 @@ export default function QuickSuggestions({
 
     scrollContainer.addEventListener("mousedown", handleManualScroll);
     scrollContainer.addEventListener("touchstart", handleManualScroll);
-    scrollContainer.addEventListener("wheel", handleManualScroll, {
-      passive: false,
-    });
 
     return () => {
       if (scrollInterval) clearInterval(scrollInterval);

@@ -12,9 +12,8 @@ import {
   ChevronRight,
   Info,
 } from "lucide-react";
-// import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import QuickSuggestions from "./QuickSuggestions";
-import { Button } from "../ui/button";
 
 // Types for our chat messages
 type Message = {
@@ -260,13 +259,13 @@ export default function ChatWidget() {
       </button>
 
       {/* Chat Widget */}
-      <div>
+      <AnimatePresence>
         {isOpen && (
-          <div
-            // initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            // animate={{ opacity: 1, y: 0, scale: 1 }}
-            // exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            // transition={{ duration: 0.3 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
             className="absolute bottom-20 right-0 w-80 sm:w-96 h-[500px] bg-white dark:bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700">
             {/* Chat Header with Ethiopian-inspired design */}
             <div className="bg-primary-600 text-white p-4 flex items-center relative">
@@ -299,8 +298,11 @@ export default function ChatWidget() {
               {/* FAQ Panel - Slides in from the right */}
               <div>
                 {showFaq && (
-                  <div
-                    // initial={{ x: "100%" }}  ease: "easeInOut" }}
+                  <motion.div
+                    initial={{ x: "100%" }}
+                    animate={{ x: 0 }}
+                    exit={{ x: "100%" }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="absolute inset-0 bg-white dark:bg-gray-900 z-10 overflow-y-auto">
                     <div className="p-4">
                       <div className="flex items-center justify-between mb-4">
@@ -339,7 +341,7 @@ export default function ChatWidget() {
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </div>
 
@@ -428,9 +430,9 @@ export default function ChatWidget() {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }
