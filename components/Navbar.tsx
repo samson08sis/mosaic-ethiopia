@@ -49,7 +49,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed w-full z-50 transition-all duration-300 ${navbarBackground}`}>
+        className={`fixed w-full z-50 transition-all duration-300 print-section ${navbarBackground}`}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
