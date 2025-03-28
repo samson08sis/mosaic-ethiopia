@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Compass, Shield, Clock } from "lucide-react";
 import clsx from "clsx";
+import Link from "next/link";
 
 export default function ImageFeatures() {
   const features = [
@@ -71,7 +72,9 @@ export default function ImageFeatures() {
               <p className="text-base text-gray-100 leading-relaxed">
                 {feature.description}
               </p>
-              <button className="mt-4 text-white hover:text-primary-200 font-medium text-sm flex items-center">
+              <Link
+                href="/ethiopia"
+                className="mt-4 text-white hover:text-primary-200 font-medium text-sm flex items-center">
                 Learn more
                 <svg
                   className="ml-1 w-4 h-4"
@@ -85,7 +88,7 @@ export default function ImageFeatures() {
                     strokeWidth="2"
                     d="M9 5l7 7-7 7"></path>
                 </svg>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
