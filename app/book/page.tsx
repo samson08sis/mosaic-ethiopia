@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   CalendarDays,
@@ -40,8 +40,16 @@ export default function BookPage() {
     email: "",
     phone: "",
     specialRequests: "",
+    // Custom package data
+    packageName: "",
+    customDuration: 0,
+    customPrice: 0,
+    customActivities: [],
+    customAccommodation: "",
+    customMeals: "",
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
   // Predefined packages
   const packages = [
@@ -84,18 +92,18 @@ export default function BookPage() {
     ? packages.find((pkg) => pkg.id === packageId)
     : null;
 
-  // Update destination if a package is selected
+  // Initialize form data once
   useEffect(() => {
-    if (selectedPackage) {
-      setFormData((prev) => ({
-        ...prev,
-        destination: selectedPackage.destinations.join(", "),
-      }));
-    }
-  }, [selectedPackage]);
+    if (initialized || formSubmitted) return;
 
-  // Parse customized package data if available
-  useEffect(() => {
+    let newFormData = { ...formData };
+
+    // Set destination from selected package
+    if (selectedPackage) {
+      newFormData.destination = selectedPackage.destinations.join(", ");
+    }
+
+    // Set customized package data
     if (isCustomized) {
       let activitiesArray = [];
       try {
@@ -106,26 +114,28 @@ export default function BookPage() {
         console.error("Error parsing activities:", e);
       }
 
-      setFormData((prev) => ({
-        ...prev,
+      newFormData = {
+        ...newFormData,
         packageName:
           packageName || (selectedPackage ? selectedPackage.name : ""),
         customDuration: customDuration
           ? Number.parseInt(customDuration)
-          : selectedPackage
-          ? selectedPackage.duration
-          : 0,
+          : selectedPackage?.duration || 0,
         customPrice: customPrice
           ? Number.parseInt(customPrice)
-          : selectedPackage
-          ? selectedPackage.price
-          : 0,
+          : selectedPackage?.price || 0,
         customActivities: activitiesArray,
         customAccommodation: customAccommodation || "",
         customMeals: customMeals || "",
-      }));
+      };
     }
+
+    setFormData(newFormData);
+    setInitialized(true);
   }, [
+    initialized,
+    formSubmitted,
+    selectedPackage,
     isCustomized,
     packageName,
     customDuration,
@@ -133,7 +143,7 @@ export default function BookPage() {
     customActivities,
     customAccommodation,
     customMeals,
-    selectedPackage,
+    formData,
   ]);
 
   const destinations = [
@@ -159,47 +169,46 @@ export default function BookPage() {
     { value: "suite", label: "Luxury Suite", price: "$350/night" },
   ];
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value, type, checked } = e.target;
 
     if (type === "checkbox") {
       if (checked) {
-        setFormData({
-          ...formData,
-          activities: [...formData.activities, name],
-        });
+        setFormData((prev) => ({
+          ...prev,
+          activities: [...prev.activities, name],
+        }));
       } else {
-        setFormData({
-          ...formData,
-          activities: formData.activities.filter(
-            (activity) => activity !== name
-          ),
-        });
+        setFormData((prev) => ({
+          ...prev,
+          activities: prev.activities.filter((activity) => activity !== name),
+        }));
       }
     } else {
-      setFormData({
-        ...formData,
+      setFormData((prev) => ({
+        ...prev,
         [name]: value,
-      });
+      }));
     }
-  };
+  }, []);
 
-  const nextStep = () => {
-    setBookingStep(bookingStep + 1);
-  };
+  const nextStep = useCallback(() => {
+    setBookingStep((prev) => prev + 1);
+  }, []);
 
-  const prevStep = () => {
-    setBookingStep(bookingStep - 1);
-  };
+  const prevStep = useCallback(() => {
+    setBookingStep((prev) => prev - 1);
+  }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     // In a real application, this would submit the booking to a server
     // For this demo, we'll just move to a confirmation step
     setBookingStep(3);
     setFormSubmitted(true);
-  };
+  }, []);
 
+  // Render the component
   return (
     <div className="pt-20 pb-16 bg-theme">
       <div className="bg-primary-600 text-white py-12">

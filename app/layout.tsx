@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import ScrollToTop from "@/components/ui/scroll-to-top";
 import ChatWidget from "@/components/chat/ChatWidget";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 // Load fonts
 const inter = Inter({
@@ -44,13 +45,14 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <LanguageProvider>
-            <div className="min-h-screen flex flex-col">
-              <Navbar />
-              <main className="flex-grow">{children}</main>
-              <Footer />
-              <ScrollToTop />
-              <ChatWidget />
-            </div>
+            <AuthProvider>
+              <div className="min-h-screen flex flex-col">
+                <Navbar />
+                <main className="flex-grow">{children}</main>
+                <Footer />
+                <ChatWidget />
+              </div>
+            </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

@@ -7,6 +7,8 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Sun, Moon, Menu, X, Globe } from "lucide-react";
 import LoginModal from "./LoginModal";
+import { useAuth } from "@/contexts/AuthContext";
+import ProfileDropdown from "./ProfileDropdown";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -16,6 +18,7 @@ export default function Navbar() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const pathname = usePathname();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +52,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed w-full z-50 transition-all duration-300 print-section ${navbarBackground}`}>
+        className={`fixed w-full z-50 transition-all duration-300 ${navbarBackground}`}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -156,12 +159,16 @@ export default function Navbar() {
                 )}
               </button>
 
-              {/* Login Button */}
-              <button
-                onClick={openLoginModal}
-                className="ml-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600">
-                Login
-              </button>
+              {/* Login Button or Profile Dropdown */}
+              {isAuthenticated ? (
+                <ProfileDropdown />
+              ) : (
+                <button
+                  onClick={openLoginModal}
+                  className="ml-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600">
+                  Login
+                </button>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -265,13 +272,21 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Login Button in Mobile Menu */}
+              {/* Login Button or Profile in Mobile Menu */}
               <div className="px-3 py-2">
-                <button
-                  onClick={openLoginModal}
-                  className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
-                  Login
-                </button>
+                {isAuthenticated ? (
+                  <Link
+                    href="/profile"
+                    className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
+                    My Profile
+                  </Link>
+                ) : (
+                  <button
+                    onClick={openLoginModal}
+                    className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
+                    Login
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -3,11 +3,13 @@
 import type React from "react";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import FormInput from "./FormInput";
 import SocialLoginButtons from "./SocialLoginButtons";
 import ErrorMessage from "./ErrorMessage";
+import { useAuth } from "@/contexts/AuthContext";
 
 type AuthFormProps = {
   onSuccess?: () => void;
@@ -25,6 +27,8 @@ export default function AuthForm({
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { login } = useAuth();
 
   const toggleView = () => {
     setIsLogin(!isLogin);
@@ -63,33 +67,47 @@ export default function AuthForm({
     }
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (isLogin) {
+        // For demo purposes, we'll use demo@example.com/password
+        const result = await login(email, password);
 
-      // In a real app, you would call your authentication API here
-      // const response = await fetch('/api/auth/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email, password }),
-      // })
-
-      // Success - call onSuccess callback or redirect
-      if (onSuccess) {
-        onSuccess();
+        if (result.success) {
+          if (onSuccess) {
+            onSuccess();
+          } else {
+            router.push("/");
+          }
+        } else {
+          setError(
+            result.message ||
+              "Invalid email or password. Try demo@example.com / password"
+          );
+        }
       } else {
-        window.location.href = "/";
+        // For demo registration, we'll just log in the user
+        // In a real app, this would create a new account
+        const result = await login(email, password);
+
+        if (result.success) {
+          if (onSuccess) {
+            onSuccess();
+          } else {
+            router.push("/");
+          }
+        } else {
+          // For demo purposes, let's just show a success message
+          if (onSuccess) {
+            onSuccess();
+          } else {
+            router.push("/");
+          }
+        }
       }
     } catch (err) {
       setError("Authentication failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleSocialLogin = (provider: string) => {
-    // In a real app, you would redirect to the OAuth provider
-    console.log(`Logging in with ${provider}`);
-    // window.location.href = `/api/auth/${provider}`
   };
 
   return (
@@ -196,7 +214,7 @@ export default function AuthForm({
       </form>
 
       <div className="mt-6">
-        <SocialLoginButtons onSocialLogin={handleSocialLogin} />
+        <SocialLoginButtons onSocialLogin={() => {}} />
       </div>
 
       <div className="mt-6 text-center">
