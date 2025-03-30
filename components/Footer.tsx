@@ -11,6 +11,65 @@ import {
   Mail,
 } from "lucide-react";
 
+const footerLinks = {
+  quickLinks: [
+    { name: "Home", href: "/" },
+    { name: "Destinations", href: "/destinations" },
+    { name: "Tour Packages", href: "/packages" },
+    { name: "Book a Trip", href: "/book" },
+    { name: "About Us", href: "/about" },
+    { name: "Contact", href: "/contact" },
+  ],
+  destinations: [
+    { name: "Lalibela, Ethiopia", href: "/destinations/lalibela" },
+    { name: "Gondar, Ethiopia", href: "/destinations/gondar" },
+    {
+      name: "Simien Mountains, Ethiopia",
+      href: "/destinations/simien-mountains",
+    },
+    {
+      name: "Danakil Depression, Ethiopia",
+      href: "/destinations/danakil",
+    },
+    {
+      name: "Omo Valley, Ethiopia",
+      href: "/destinations/omo-valley",
+    },
+  ],
+  contactInfo: [
+    {
+      icon: (
+        <MapPin className="h-5 w-5 text-primary dark:text-primary-400 mr-2" />
+      ),
+      text: "123 Ghana Avenue, Addis Ababa, AC 12345",
+    },
+    {
+      icon: (
+        <Phone className="h-5 w-5 text-primary dark:text-primary-400 mr-2" />
+      ),
+      text: "+251 (911) 234-5678",
+    },
+    {
+      icon: (
+        <Mail className="h-5 w-5 text-primary dark:text-primary-400 mr-2" />
+      ),
+      text: "info@mosaicethiopia.com",
+    },
+  ],
+  socialMedia: [
+    {
+      icon: <Facebook className="h-5 w-5" />,
+      href: "https://www.facebook.com",
+    },
+    { icon: <Twitter className="h-5 w-5" />, href: "https://www.twitter.com" },
+    {
+      icon: <Instagram className="h-5 w-5" />,
+      href: "https://www.instagram.com",
+    },
+    { icon: <Youtube className="h-5 w-5" />, href: "https://www.youtube.com" },
+  ],
+};
+
 export default function Footer() {
   return (
     <footer className="bg-gray-100 dark:bg-gray-900 pt-16 pb-6">
@@ -25,30 +84,15 @@ export default function Footer() {
               experiences with customized itineraries and exceptional service.
             </p>
             <div className="flex space-x-4">
-              <a
-                href="facebook.com"
-                target="_blank"
-                className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.twitter.com"
-                target="_blank"
-                className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.instagram.com"
-                target="_blank"
-                className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.youtube.com"
-                target="_blank"
-                className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                <Youtube className="h-5 w-5" />
-              </a>
+              {footerLinks.socialMedia.map((social) => (
+                <a
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  className="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
 
@@ -57,48 +101,15 @@ export default function Footer() {
               Quick Links
             </h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/destinations"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Destinations
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/packages"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Tour Packages
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/book"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Book a Trip
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Contact
-                </Link>
-              </li>
+              {footerLinks.quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -107,48 +118,15 @@ export default function Footer() {
               Popular Destinations
             </h3>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Bali, Indonesia
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Santorini, Greece
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Kyoto, Japan
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Machu Picchu, Peru
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  Paris, France
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
-                  New York, USA
-                </a>
-              </li>
+              {footerLinks.destinations.map((destination) => (
+                <li>
+                  <a
+                    href={destination.href}
+                    className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
+                    {destination.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -157,24 +135,14 @@ export default function Footer() {
               Contact Information
             </h3>
             <ul className="space-y-4">
-              <li className="flex items-start">
-                <MapPin className="h-5 w-5 text-primary dark:text-primary-400 mr-2 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-600 dark:text-gray-400">
-                  123 Travel Street, Adventure City, AC 12345
-                </span>
-              </li>
-              <li className="flex items-center">
-                <Phone className="h-5 w-5 text-primary dark:text-primary-400 mr-2" />
-                <span className="text-gray-600 dark:text-gray-400">
-                  +1 (555) 123-4567
-                </span>
-              </li>
-              <li className="flex items-center">
-                <Mail className="h-5 w-5 text-primary dark:text-primary-400 mr-2" />
-                <span className="text-gray-600 dark:text-gray-400">
-                  info@MosaicEthiopia.com
-                </span>
-              </li>
+              {footerLinks.contactInfo.map((info) => (
+                <li className="flex items-center">
+                  {info.icon}
+                  <span className="text-gray-600 dark:text-gray-400">
+                    {info.text}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
