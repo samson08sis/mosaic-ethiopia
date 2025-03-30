@@ -2,85 +2,12 @@
 
 import { useState } from "react";
 import { Search, MapPin, Star } from "lucide-react";
+import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
+import destinations from "@/data/destinations";
 
 export default function DestinationsPage() {
   const [searchTerm, setSearchTerm] = useState("");
-
-  const destinations = [
-    {
-      id: 1,
-      name: "Bali, Indonesia",
-      image:
-        "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      description:
-        "Experience the perfect blend of stunning beaches, lush rice terraces, and vibrant cultural heritage in Bali, Indonesia's tropical paradise.",
-      rating: 4.8,
-      reviews: 230,
-      continent: "Asia",
-      activities: ["Beach", "Culture", "Adventure"],
-    },
-    {
-      id: 2,
-      name: "Santorini, Greece",
-      image:
-        "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
-      description:
-        "Discover the iconic white-washed buildings and blue domes perched on cliffs overlooking the Aegean Sea in this breathtaking Greek island.",
-      rating: 4.9,
-      reviews: 312,
-      continent: "Europe",
-      activities: ["Sightseeing", "Beaches", "Cuisine"],
-    },
-    {
-      id: 3,
-      name: "Kyoto, Japan",
-      image:
-        "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      description:
-        "Step back in time in Kyoto, where ancient temples, traditional tea houses, and beautiful gardens showcase Japan's rich cultural heritage.",
-      rating: 4.7,
-      reviews: 189,
-      continent: "Asia",
-      activities: ["Culture", "History", "Nature"],
-    },
-    {
-      id: 4,
-      name: "Machu Picchu, Peru",
-      image:
-        "https://images.unsplash.com/photo-1587595431973-160d0d94add1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      description:
-        "Explore the ancient Incan citadel set high in the Andes Mountains, offering spectacular views and a glimpse into a fascinating lost civilization.",
-      rating: 4.9,
-      reviews: 275,
-      continent: "South America",
-      activities: ["Hiking", "History", "Adventure"],
-    },
-    {
-      id: 5,
-      name: "Paris, France",
-      image:
-        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      description:
-        "Fall in love with the City of Light, home to iconic landmarks like the Eiffel Tower, world-class museums, and charming cafés.",
-      rating: 4.7,
-      reviews: 420,
-      continent: "Europe",
-      activities: ["Culture", "Cuisine", "Shopping"],
-    },
-    {
-      id: 6,
-      name: "Cape Town, South Africa",
-      image:
-        "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      description:
-        "Experience the stunning beauty of Table Mountain, pristine beaches, and vibrant culture in this diverse coastal city.",
-      rating: 4.6,
-      reviews: 185,
-      continent: "Africa",
-      activities: ["Nature", "Wildlife", "Adventure"],
-    },
-    // Other destinations...
-  ];
 
   const filteredDestinations = destinations.filter(
     (destination) =>
@@ -96,28 +23,23 @@ export default function DestinationsPage() {
 
   return (
     <div className="pt-20 pb-16 bg-theme">
-      <div className="bg-primary-600 text-white py-16">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">
-            Explore Amazing Destinations
-          </h1>
-          <p className="text-xl max-w-2xl mb-8">
-            Discover breathtaking locations around the world and plan your next
-            unforgettable journey.
-          </p>
-
-          <div className="relative max-w-xl">
-            <input
-              type="text"
-              placeholder="Search destinations, activities, or regions..."
-              className="w-full p-4 pr-12 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-300"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Search className="absolute right-4 top-4 text-gray-500" />
-          </div>
+      <PageHeader
+        title="Explore Ethiopia"
+        subtitle="Discover the ancient wonders, breathtaking landscapes, and rich cultural heritage of Ethiopia, the land of origins."
+        backgroundImage="https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
+        overlayColor="primary"
+        overlayOpacity={0.7}>
+        <div className="relative max-w-xl mx-auto">
+          <input
+            type="text"
+            placeholder="Search destinations, activities, or regions..."
+            className="w-full p-4 pr-12 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-300"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <Search className="absolute right-4 top-4 text-gray-500" />
         </div>
-      </div>
+      </PageHeader>
 
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -173,11 +95,18 @@ export default function DestinationsPage() {
                   <span className="text-sm text-muted-foreground">
                     {destination.reviews} reviews
                   </span>
-                  <a
-                    href={`/destinations/${destination.id}`}
-                    className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
-                    View Details
-                  </a>
+                  <div className="flex gap-2">
+                    <Link
+                      href={`/destinations/${destination.id}`}
+                      className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
+                      View Details
+                    </Link>
+                    <Link
+                      href={`/book?destination=${destination.id}`}
+                      className="px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition-colors">
+                      Book Now
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   CalendarDays,
@@ -8,12 +8,24 @@ import {
   MapPin,
   CheckCircle,
   ArrowLeft,
+  Clock,
+  MapPinIcon,
+  Utensils,
+  Hotel,
+  CheckSquare,
+  XSquare,
+  Camera,
+  Star,
 } from "lucide-react";
 import Link from "next/link";
+import packages from "@/data/packages";
+import destinations from "@/data/destinations";
+import PageHeader from "@/components/PageHeader";
 
 export default function BookPage() {
   const searchParams = useSearchParams();
   const packageId = searchParams.get("package");
+  const destinationId = searchParams.get("destination");
   const packageName = searchParams.get("name");
   const customDuration = searchParams.get("duration");
   const customPrice = searchParams.get("price");
@@ -35,7 +47,7 @@ export default function BookPage() {
     adults: 2,
     children: 0,
     roomType: "standard",
-    activities: [],
+    activities: [] as string[],
     name: "",
     email: "",
     phone: "",
@@ -51,45 +63,14 @@ export default function BookPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [initialized, setInitialized] = useState(false);
 
-  // Predefined packages
-  const packages = [
-    {
-      id: "1",
-      name: "Bali Adventure",
-      price: 1299,
-      image:
-        "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      destinations: ["Ubud", "Kuta", "Nusa Penida"],
-    },
-    {
-      id: "2",
-      name: "Greek Island Hopping",
-      price: 1799,
-      image:
-        "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
-      destinations: ["Athens", "Santorini", "Mykonos"],
-    },
-    {
-      id: "3",
-      name: "Japan Cultural Experience",
-      price: 2299,
-      image:
-        "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      destinations: ["Tokyo", "Kyoto", "Osaka"],
-    },
-    {
-      id: "4",
-      name: "African Safari",
-      price: 3499,
-      image:
-        "https://images.unsplash.com/photo-1523805009345-7448845a9e53?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2344&q=80",
-      destinations: ["Serengeti", "Maasai Mara", "Ngorongoro"],
-    },
-  ];
-
   // Find selected package if packageId is provided
   const selectedPackage = packageId
     ? packages.find((pkg) => pkg.id === packageId)
+    : null;
+
+  // Find selected destination if destinationId is provided
+  const selectedDestination = destinationId
+    ? destinations.find((dest) => dest.id === destinationId)
     : null;
 
   // Initialize form data once
@@ -98,9 +79,11 @@ export default function BookPage() {
 
     let newFormData = { ...formData };
 
-    // Set destination from selected package
+    // Set destination from selected package or destination
     if (selectedPackage) {
       newFormData.destination = selectedPackage.destinations.join(", ");
+    } else if (selectedDestination) {
+      newFormData.destination = selectedDestination.name;
     }
 
     // Set customized package data
@@ -136,6 +119,7 @@ export default function BookPage() {
     initialized,
     formSubmitted,
     selectedPackage,
+    selectedDestination,
     isCustomized,
     packageName,
     customDuration,
@@ -146,13 +130,13 @@ export default function BookPage() {
     formData,
   ]);
 
-  const destinations = [
-    { value: "bali", label: "Bali, Indonesia" },
-    { value: "santorini", label: "Santorini, Greece" },
-    { value: "kyoto", label: "Kyoto, Japan" },
-    { value: "machu-picchu", label: "Machu Picchu, Peru" },
-    { value: "rome", label: "Rome, Italy" },
-    { value: "paris", label: "Paris, France" },
+  const destinationOptions = [
+    { value: "lalibela", label: "Lalibela, Ethiopia" },
+    { value: "gondar", label: "Gondar, Ethiopia" },
+    { value: "axum", label: "Axum, Ethiopia" },
+    { value: "danakil", label: "Danakil Depression, Ethiopia" },
+    { value: "omo-valley", label: "Omo Valley, Ethiopia" },
+    { value: "bale-mountains", label: "Bale Mountains, Ethiopia" },
   ];
 
   const activities = [
@@ -169,28 +153,39 @@ export default function BookPage() {
     { value: "suite", label: "Luxury Suite", price: "$350/night" },
   ];
 
-  const handleChange = useCallback((e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = useCallback(
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >
+    ) => {
+      const { name, value, type } = e.target;
+      const checked =
+        type === "checkbox" && e.target instanceof HTMLInputElement
+          ? e.target.checked
+          : undefined;
 
-    if (type === "checkbox") {
-      if (checked) {
-        setFormData((prev) => ({
-          ...prev,
-          activities: [...prev.activities, name],
-        }));
+      if (type === "checkbox") {
+        if (checked) {
+          setFormData((prev) => ({
+            ...prev,
+            activities: [...prev.activities, name],
+          }));
+        } else {
+          setFormData((prev) => ({
+            ...prev,
+            activities: prev.activities.filter((activity) => activity !== name),
+          }));
+        }
       } else {
         setFormData((prev) => ({
           ...prev,
-          activities: prev.activities.filter((activity) => activity !== name),
+          [name]: value,
         }));
       }
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-  }, []);
+    },
+    []
+  );
 
   const nextStep = useCallback(() => {
     setBookingStep((prev) => prev + 1);
@@ -200,7 +195,7 @@ export default function BookPage() {
     setBookingStep((prev) => prev - 1);
   }, []);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: FormEvent) => {
     e.preventDefault();
     // In a real application, this would submit the booking to a server
     // For this demo, we'll just move to a confirmation step
@@ -208,54 +203,191 @@ export default function BookPage() {
     setFormSubmitted(true);
   }, []);
 
+  // Calculate estimated price based on destination if no package is selected
+  const getEstimatedPrice = () => {
+    if (selectedPackage) return selectedPackage.price;
+    if (selectedDestination) {
+      // Base price on destination rating
+      return Math.round(selectedDestination.rating * 300);
+    }
+    return 1450; // Default price
+  };
+
   // Render the component
   return (
     <div className="pt-20 pb-16 bg-theme">
-      <div className="bg-primary-600 text-white py-12">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">Book Your Trip</h1>
-          <p className="text-xl max-w-2xl">
-            Complete your booking in just a few simple steps.
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="Book Your Trip"
+        subtitle="Complete your booking in just a few simple steps."
+        backgroundImage="https://images.unsplash.com/photo-1649433391719-2e784576d044?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        overlayColor="primary"
+        overlayOpacity={0.7}
+      />
 
       <div className="container mx-auto px-4 py-12">
         {/* Display package details if selected or customized */}
-        {(selectedPackage || isCustomized) && (
+        {(selectedPackage || selectedDestination || isCustomized) && (
           <div className="bg-card p-6 rounded-xl shadow-lg mb-8">
             <div className="flex flex-col md:flex-row items-start gap-6">
-              <div className="w-full md:w-1/4">
+              <div className="w-full md:w-1/3">
                 <img
                   src={
                     selectedPackage?.image ||
+                    selectedDestination?.image ||
                     "/placeholder.svg?height=300&width=400"
                   }
-                  alt={packageName || selectedPackage?.name || "Package"}
-                  className="w-full h-48 object-cover rounded-lg"
+                  alt={
+                    packageName ||
+                    selectedPackage?.name ||
+                    selectedDestination?.name ||
+                    "Package"
+                  }
+                  className="w-full h-64 object-cover rounded-lg"
                 />
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                  {packageName || selectedPackage?.name || "Custom Package"}
-                  {isCustomized && (
-                    <span className="ml-2 text-sm bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 px-2 py-1 rounded-full">
-                      Customized
-                    </span>
-                  )}
-                </h2>
+                {selectedPackage && (
+                  <>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      {packageName || selectedPackage.name}
+                      {isCustomized && (
+                        <span className="ml-2 text-sm bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 px-2 py-1 rounded-full">
+                          Customized
+                        </span>
+                      )}
+                    </h2>
 
-                {isCustomized ? (
-                  <div className="space-y-2 mb-4">
-                    <p className="text-gray-600 dark:text-gray-300">
-                      <span className="font-medium">Duration:</span>{" "}
-                      {customDuration || selectedPackage?.duration} days
+                    {selectedPackage.description && (
+                      <p className="text-gray-600 dark:text-gray-300 mb-4">
+                        {selectedPackage.description}
+                      </p>
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {customDuration || selectedPackage.duration} days
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <MapPinIcon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {selectedPackage.destinations.join(", ")}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <Hotel className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {customAccommodation || selectedPackage.accommodation}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <Utensils className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {customMeals || selectedPackage.meals}
+                        </span>
+                      </div>
+                    </div>
+
+                    {!isCustomized && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                        <div>
+                          <h3 className="font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                            <CheckSquare className="h-4 w-4 mr-2 text-green-600 dark:text-green-400" />
+                            Inclusions
+                          </h3>
+                          <ul className="list-disc pl-5 text-gray-600 dark:text-gray-400 text-sm space-y-1">
+                            {selectedPackage.inclusions.map((item, index) => (
+                              <li key={index}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                            <XSquare className="h-4 w-4 mr-2 text-red-600 dark:text-red-400" />
+                            Exclusions
+                          </h3>
+                          <ul className="list-disc pl-5 text-gray-600 dark:text-gray-400 text-sm space-y-1">
+                            {selectedPackage.exclusions.map((item, index) => (
+                              <li key={index}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {selectedDestination && !selectedPackage && (
+                  <>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      {selectedDestination.name}
+                    </h2>
+
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      {selectedDestination.description}
                     </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div className="flex items-center gap-2">
+                        <MapPinIcon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {selectedDestination.location}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <CalendarDays className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          Best time: {selectedDestination.bestTimeToVisit}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <Star
+                          className="h-5 w-5 text-yellow-400 mr-1"
+                          fill="currentColor"
+                        />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {selectedDestination.rating} (
+                          {selectedDestination.reviews} reviews)
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <Camera className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {selectedDestination.activities.join(", ")}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <h3 className="font-medium text-gray-900 dark:text-white mb-2">
+                        Highlights:
+                      </h3>
+                      <ul className="list-disc pl-5 text-gray-600 dark:text-gray-400 text-sm space-y-1">
+                        {selectedDestination.highlights
+                          .slice(0, 4)
+                          .map((highlight, index) => (
+                            <li key={index}>{highlight}</li>
+                          ))}
+                      </ul>
+                    </div>
+                  </>
+                )}
+
+                {isCustomized && (
+                  <div className="mb-4">
                     {customActivities && (
                       <div>
-                        <p className="font-medium text-gray-700 dark:text-gray-300">
+                        <h3 className="font-medium text-gray-900 dark:text-white mb-2">
                           Activities:
-                        </p>
+                        </h3>
                         <ul className="list-disc pl-5 text-gray-600 dark:text-gray-400 text-sm">
                           {formData.customActivities &&
                             formData.customActivities.map((activity, index) => (
@@ -264,36 +396,21 @@ export default function BookPage() {
                         </ul>
                       </div>
                     )}
-                    {customAccommodation && (
-                      <p className="text-gray-600 dark:text-gray-300">
-                        <span className="font-medium">Accommodation:</span>{" "}
-                        {customAccommodation}
-                      </p>
-                    )}
-                    {customMeals && (
-                      <p className="text-gray-600 dark:text-gray-300">
-                        <span className="font-medium">Meals:</span>{" "}
-                        {customMeals}
-                      </p>
-                    )}
                   </div>
-                ) : (
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Destinations: {selectedPackage?.destinations.join(", ")}
-                  </p>
                 )}
 
                 <div className="flex items-center text-2xl font-bold text-primary dark:text-primary-400 mb-4">
-                  ${customPrice || selectedPackage?.price}{" "}
+                  $
+                  {customPrice || selectedPackage?.price || getEstimatedPrice()}{" "}
                   <span className="text-sm font-normal text-gray-500 dark:text-gray-400 ml-1">
                     per person
                   </span>
                 </div>
                 <Link
-                  href="/packages"
+                  href={selectedPackage ? "/packages" : "/destinations"}
                   className="flex items-center text-primary dark:text-primary-400 hover:underline">
                   <ArrowLeft className="h-4 w-4 mr-1" />
-                  Back to packages
+                  Back to {selectedPackage ? "packages" : "destinations"}
                 </Link>
               </div>
             </div>
@@ -383,31 +500,33 @@ export default function BookPage() {
               {/* Step 1: Trip Details */}
               {bookingStep === 1 && (
                 <div className="space-y-6">
-                  {!selectedPackage && !isCustomized && (
-                    <div>
-                      <label
-                        htmlFor="destination"
-                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Destination
-                      </label>
-                      <select
-                        id="destination"
-                        name="destination"
-                        value={formData.destination}
-                        onChange={handleChange}
-                        className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required>
-                        <option value="">Select a destination</option>
-                        {destinations.map((destination) => (
-                          <option
-                            key={destination.value}
-                            value={destination.value}>
-                            {destination.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
+                  {!selectedPackage &&
+                    !selectedDestination &&
+                    !isCustomized && (
+                      <div>
+                        <label
+                          htmlFor="destination"
+                          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          Destination
+                        </label>
+                        <select
+                          id="destination"
+                          name="destination"
+                          value={formData.destination}
+                          onChange={handleChange}
+                          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                          required>
+                          <option value="">Select a destination</option>
+                          {destinationOptions.map((destination) => (
+                            <option
+                              key={destination.value}
+                              value={destination.value}>
+                              {destination.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -622,13 +741,12 @@ export default function BookPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">
-                          Package:
+                          Destination:
                         </p>
                         <p className="text-gray-900 dark:text-white font-medium">
-                          {packageName ||
-                            selectedPackage?.name ||
-                            formData.destination ||
-                            "Custom Package"}
+                          {selectedDestination?.name ||
+                            selectedPackage?.destinations.join(", ") ||
+                            formData.destination}
                         </p>
                       </div>
                       <div>
@@ -660,7 +778,10 @@ export default function BookPage() {
                           Price per person:
                         </p>
                         <p className="text-gray-900 dark:text-white font-medium">
-                          ${customPrice || selectedPackage?.price || "1450"}
+                          $
+                          {customPrice ||
+                            selectedPackage?.price ||
+                            getEstimatedPrice()}
                         </p>
                       </div>
                     </div>
@@ -693,12 +814,11 @@ export default function BookPage() {
                         <span className="font-medium">#TRV283947</span>
                       </li>
                       <li className="flex justify-between">
-                        <span>Package:</span>
+                        <span>Destination:</span>
                         <span>
-                          {packageName ||
-                            selectedPackage?.name ||
-                            formData.destination ||
-                            "Custom Package"}
+                          {selectedDestination?.name ||
+                            selectedPackage?.destinations.join(", ") ||
+                            formData.destination}
                         </span>
                       </li>
                       <li className="flex justify-between">
@@ -723,8 +843,9 @@ export default function BookPage() {
                         <span>Total Amount:</span>
                         <span className="font-medium">
                           $
-                          {(customPrice || selectedPackage?.price || 1450) *
-                            formData.adults}
+                          {(Number(customPrice) ||
+                            Number(selectedPackage?.price) ||
+                            getEstimatedPrice()) * formData.adults}
                         </span>
                       </li>
                     </ul>

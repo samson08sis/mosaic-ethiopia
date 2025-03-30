@@ -4,6 +4,34 @@ import type React from "react";
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
+
+const iconClass = "h-6 w-6 text-primary";
+const addresses = [
+  {
+    name: "Email",
+    icon: <Mail className={iconClass} />,
+    addressList: ["info@mosaicethiopia.com", "support@mosaicethiopia.com"],
+  },
+  {
+    name: "PhoneEmail",
+    icon: <Phone className={iconClass} />,
+    addressList: ["+251 (11) 123-4567", "+251 (11) 987-6543"],
+  },
+  {
+    name: "Address",
+    icon: <MapPin className={iconClass} />,
+    addressList: ["123 Adwa Street", "Addis Ababa, AC 12345", "Ethiopia"],
+  },
+  {
+    name: "Telegram",
+    icon: <Send className={iconClass} />,
+    addressList: [
+      "https://t.me/mosaicethiopia",
+      "https://t.me/mosaicethiopia_bot",
+    ],
+  },
+];
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -57,7 +85,7 @@ export default function ContactPage() {
   return (
     <div className="pt-20 pb-16 bg-theme">
       {/* Hero Section */}
-      <div className="bg-primary-600 text-white py-16">
+      {/* <div className="bg-primary-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-arizonia text-5xl md:text-6xl mb-4">
             Contact Us
@@ -67,7 +95,14 @@ export default function ContactPage() {
             perfect journey.
           </p>
         </div>
-      </div>
+      </div> */}
+      <PageHeader
+        title="Contact Us"
+        subtitle="Have questions or need assistance? We're here to help you plan your perfect journey."
+        backgroundImage="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
+        overlayColor="primary"
+        overlayOpacity={0.7}
+      />
 
       {/* Contact Form and Info */}
       <div className="container mx-auto px-4 py-16">
@@ -85,43 +120,23 @@ export default function ContactPage() {
             </p>
 
             <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 p-3 rounded-full">
-                  <Mail className="h-6 w-6 text-primary" />
+              {addresses.map((address) => (
+                <div className="flex items-start" key={address.name}>
+                  <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 p-3 rounded-full">
+                    {address.icon}
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium">{address.name}</h3>
+                    {address.addressList.map((addressItem) => (
+                      <p
+                        className="text-gray-700 dark:text-gray-300"
+                        key={addressItem}>
+                        {addressItem}
+                      </p>
+                    ))}
+                  </div>
                 </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium">Email</h3>
-                  <p className="text-muted-foreground">
-                    info@mosaicethiopia.com
-                  </p>
-                  <p className="text-muted-foreground">
-                    support@mosaicethiopia.com
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 p-3 rounded-full">
-                  <Phone className="h-6 w-6 text-primary" />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium">Phone</h3>
-                  <p className="text-muted-foreground">+251 (11) 123-4567</p>
-                  <p className="text-muted-foreground">+251 (11) 987-6543</p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 p-3 rounded-full">
-                  <MapPin className="h-6 w-6 text-primary" />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium">Address</h3>
-                  <p className="text-muted-foreground">123 Adwa Street</p>
-                  <p className="text-muted-foreground">Addis Ababa, AC 12345</p>
-                  <p className="text-muted-foreground">Ethiopia</p>
-                </div>
-              </div>
+              ))}
             </div>
 
             <div className="mt-10">

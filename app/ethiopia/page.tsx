@@ -59,8 +59,7 @@ export default function EthiopiaPage() {
       name: "Omo Valley",
       description:
         "Home to diverse indigenous tribes including the Mursi, Hamer, and Karo, each with unique cultural practices, body adornments, and traditions that have remained largely unchanged for centuries.",
-      image:
-        "https://images.unsplash.com/photo-1602517150353-4eb9d5d0bf5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-42.jpg",
       location: "Southern Nations Region",
       tags: ["Tribal Culture", "Photography", "Indigenous"],
       wikiUrl: "https://en.wikipedia.org/wiki/Omo_Valley",
@@ -70,8 +69,7 @@ export default function EthiopiaPage() {
       name: "Harar",
       description:
         "A walled city in eastern Ethiopia known for its colorful buildings, narrow alleyways, and unique tradition of feeding wild hyenas. It's considered the fourth holiest city in Islam with 82 mosques.",
-      image:
-        "https://images.unsplash.com/photo-1540541088-2bfbb1cee8c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-55.jpg",
       location: "Harari Region",
       tags: ["Islamic Heritage", "Architecture", "Hyena Feeding"],
       wikiUrl: "https://en.wikipedia.org/wiki/Harar",
@@ -81,8 +79,7 @@ export default function EthiopiaPage() {
       name: "Konso Cultural Landscape",
       description:
         "A UNESCO World Heritage site featuring stone-walled terraces and fortified settlements that showcase the Konso people's adaptive agricultural practices and social structure.",
-      image:
-        "https://images.unsplash.com/photo-1591518333331-f9b1a3e1fa4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-56.jpg",
       location: "Southern Nations Region",
       tags: ["UNESCO Site", "Terraced Agriculture", "Traditional Villages"],
       wikiUrl: "https://en.wikipedia.org/wiki/Konso_Cultural_Landscape",
@@ -95,8 +92,7 @@ export default function EthiopiaPage() {
       name: "Fasil Ghebbi (Royal Enclosure)",
       description:
         "A UNESCO World Heritage site in Gondar featuring a collection of castles and palaces built in the 17th and 18th centuries. The complex showcases a unique architectural style that blends Portuguese, Indian, and Moorish influences.",
-      image:
-        "https://images.unsplash.com/photo-1627894006066-b45ef4e6efa5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-58.jpg",
       location: "Gondar, Amhara Region",
       tags: ["UNESCO Site", "Medieval Architecture", "Royal History"],
       wikiUrl: "https://en.wikipedia.org/wiki/Fasil_Ghebbi",
@@ -106,8 +102,7 @@ export default function EthiopiaPage() {
       name: "Menelik's Palace",
       description:
         "Built by Emperor Menelik II in the late 19th century, this grand palace in Addis Ababa features European and traditional Ethiopian architectural elements and served as the imperial residence.",
-      image:
-        "https://images.unsplash.com/photo-1635948943482-31a7d6a850b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-57.jpg",
       location: "Addis Ababa",
       tags: ["Imperial History", "Colonial Architecture", "Museum"],
       wikiUrl: "https://en.wikipedia.org/wiki/Menelik_Palace",
@@ -117,8 +112,7 @@ export default function EthiopiaPage() {
       name: "Yeha Palace and Temple",
       description:
         "Dating back to 700 BCE, this pre-Aksumite temple is one of Ethiopia's oldest standing structures. The impressive stone building demonstrates the advanced architectural knowledge of the ancient D'mt Kingdom.",
-      image:
-        "https://images.unsplash.com/photo-1591518333331-f9b1a3e1fa4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-60.jpg",
       location: "Tigray Region",
       tags: ["Ancient History", "Pre-Aksumite", "Archaeological Site"],
       wikiUrl: "https://en.wikipedia.org/wiki/Yeha",
@@ -131,8 +125,7 @@ export default function EthiopiaPage() {
       name: "Rock-Hewn Churches of Lalibela",
       description:
         "A UNESCO World Heritage site featuring 11 medieval monolithic churches carved from solid rock in the 12th-13th centuries. These remarkable structures are still active places of worship for Ethiopian Orthodox Christians.",
-      image:
-        "https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/lalibela-2.jpg",
       location: "Lalibela, Amhara Region",
       tags: ["UNESCO Site", "Orthodox Christianity", "Rock Architecture"],
       wikiUrl: "https://en.wikipedia.org/wiki/Rock-Hewn_Churches,_Lalibela",
@@ -142,8 +135,7 @@ export default function EthiopiaPage() {
       name: "Debre Damo Monastery",
       description:
         "An ancient monastery accessible only by climbing a 15-meter rope up a sheer cliff. Founded in the 6th century, it houses one of Ethiopia's oldest existing churches and important religious manuscripts.",
-      image:
-        "https://images.unsplash.com/photo-1591518333331-f9b1a3e1fa4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-62.jpg",
       location: "Tigray Region",
       tags: ["Monastery", "Ancient Manuscripts", "Religious History"],
       wikiUrl: "https://en.wikipedia.org/wiki/Debre_Damo",
@@ -153,8 +145,7 @@ export default function EthiopiaPage() {
       name: "Holy Trinity Cathedral",
       description:
         "The highest-ranking Ethiopian Orthodox cathedral in Addis Ababa, known for its distinctive architecture and as the final resting place of Emperor Haile Selassie and other notable Ethiopians.",
-      image:
-        "https://images.unsplash.com/photo-1635948943482-31a7d6a850b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-61.jpg",
       location: "Addis Ababa",
       tags: ["Orthodox Cathedral", "Imperial Tombs", "Modern Architecture"],
       wikiUrl:
@@ -168,8 +159,7 @@ export default function EthiopiaPage() {
       name: "Timkat (Epiphany)",
       description:
         "Ethiopia's most colorful festival celebrating the baptism of Jesus in the Jordan River. Processions of tabots (replicas of the Ark of the Covenant) and ritual baptism in water are central to the celebrations.",
-      image:
-        "https://images.unsplash.com/photo-1627894006066-b45ef4e6efa5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-64.jpg",
       date: "January 19-20",
       location: "Nationwide (especially Gondar and Lalibela)",
       tags: ["Orthodox Christian", "Processions", "Water Ritual"],
@@ -180,8 +170,7 @@ export default function EthiopiaPage() {
       name: "Meskel (Finding of the True Cross)",
       description:
         "A festival commemorating the discovery of the True Cross by Queen Helena. Features the burning of the Damera (bonfire) in town squares across Ethiopia, with the most spectacular celebration in Addis Ababa.",
-      image:
-        "https://images.unsplash.com/photo-1635948943482-31a7d6a850b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "/bg-63.jpg",
       date: "September 27-28",
       location: "Nationwide (especially Addis Ababa)",
       tags: ["Orthodox Christian", "Bonfires", "Processions"],
@@ -192,24 +181,11 @@ export default function EthiopiaPage() {
       name: "Irreecha (Oromo Thanksgiving)",
       description:
         "The most important cultural and spiritual festival for the Oromo people, celebrating the end of the rainy season and giving thanks for harvests and blessings. Features colorful ceremonies at Lake Hora.",
-      image:
-        "https://images.unsplash.com/photo-1602517150353-4eb9d5d0bf5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      image: "bg-65.jpg",
       date: "Late September/Early October",
       location: "Bishoftu (Debre Zeit)",
       tags: ["Oromo Culture", "Thanksgiving", "Traditional Dress"],
       wikiUrl: "https://en.wikipedia.org/wiki/Irreechaa",
-    },
-    {
-      id: 4,
-      name: "Kulubi Gabriel Festival",
-      description:
-        "A major pilgrimage event where thousands of pilgrims trek to St. Gabriel Church on Mount Kulubi to celebrate the archangel Gabriel with prayers, feasting, and dancing.",
-      image:
-        "https://images.unsplash.com/photo-1591518333331-f9b1a3e1fa4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
-      date: "December 28",
-      location: "Kulubi, Eastern Ethiopia",
-      tags: ["Pilgrimage", "Orthodox Christian", "Feast Day"],
-      wikiUrl: "https://en.wikipedia.org/wiki/Ethiopia#Religion",
     },
   ];
 
@@ -236,8 +212,7 @@ export default function EthiopiaPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80')",
+            backgroundImage: "url('/lake-tana.jpg')",
             transform: `translateY(${scrollY * 0.5}px)`,
           }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent"></div>

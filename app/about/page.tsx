@@ -1,13 +1,29 @@
 "use client";
 
+import PageHeader from "@/components/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
+
+const values = [
+  {
+    h3: " Authenticity",
+    p: "We believe in authentic travel experiences that connect you withlocal cultures, traditions, and people. Our packages are designed to go beyond tourist attractions and provide genuine insights into each destination.",
+  },
+  {
+    h3: "Sustainability",
+    p: "We are committed to responsible tourism that respects and preserves the environment, wildlife, and local communities. We partner with eco-friendly accommodations and support conservation initiatives worldwide.",
+  },
+  {
+    h3: "Excellence",
+    p: "We strive for excellence in every aspect of your journey. From meticulous planning to 24/7 support during your travels, our team is dedicated to ensuring your experience exceeds expectations at every turn.",
+  },
+];
 
 export default function AboutPage() {
   return (
     <div className="pt-20 pb-16 bg-theme">
       {/* Hero Section */}
-      <div className="bg-primary-600 text-white py-16">
+      {/* <div className="bg-primary-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-arizonia text-5xl md:text-6xl mb-4">About Us</h1>
           <p className="text-xl max-w-3xl mx-auto">
@@ -15,7 +31,14 @@ export default function AboutPage() {
             creating unforgettable journeys.
           </p>
         </div>
-      </div>
+      </div> */}
+      <PageHeader
+        title="About Us"
+        subtitle="Discover the story behind Travel Explorer and our passion for creating unforgettable journeys."
+        backgroundImage="https://images.unsplash.com/photo-1488085061387-422e29b40080?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
+        overlayColor="primary"
+        overlayOpacity={0.7}
+      />
 
       {/* Our Story Section */}
       <div className="container mx-auto px-4 py-16">
@@ -66,41 +89,14 @@ export default function AboutPage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-card p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-card-foreground mb-4">
-                Authenticity
-              </h3>
-              <p className="text-muted-foreground">
-                We believe in authentic travel experiences that connect you with
-                local cultures, traditions, and people. Our packages are
-                designed to go beyond tourist attractions and provide genuine
-                insights into each destination.
-              </p>
-            </div>
-
-            <div className="bg-card p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-card-foreground mb-4">
-                Sustainability
-              </h3>
-              <p className="text-muted-foreground">
-                We are committed to responsible tourism that respects and
-                preserves the environment, wildlife, and local communities. We
-                partner with eco-friendly accommodations and support
-                conservation initiatives worldwide.
-              </p>
-            </div>
-
-            <div className="bg-card p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-card-foreground mb-4">
-                Excellence
-              </h3>
-              <p className="text-muted-foreground">
-                We strive for excellence in every aspect of your journey. From
-                meticulous planning to 24/7 support during your travels, our
-                team is dedicated to ensuring your experience exceeds
-                expectations at every turn.
-              </p>
-            </div>
+            {values.map((value) => (
+              <div id={value.h3} className="bg-card p-8 rounded-lg shadow-md">
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">
+                  {"#" + value.h3}
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300">{value.p}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

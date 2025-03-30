@@ -2,47 +2,44 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import Link from "next/link";
+// import destinations from "@/data/destinations";
 
 export default function PopularDestinations() {
   const { translations } = useLanguage();
 
   const destinations = [
     {
-      id: 1,
-      name: "Bali, Indonesia",
-      image:
-        "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+      id: "lalibela",
+      name: "Lalibela, Ethiopia",
+      image: "/lalibela-bete-giorgis.jpg",
+      rating: 4.9,
+      reviews: 245,
+    },
+    {
+      id: "simien-mountains",
+      name: "Simien Mountains, Ethiopia",
+      image: "/bg-2.jpg",
       rating: 4.8,
-      reviews: 230,
+      reviews: 187,
     },
     {
-      id: 2,
-      name: "Santorini, Greece",
-      image:
-        "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
-      rating: 4.9,
-      reviews: 312,
-    },
-    {
-      id: 3,
-      name: "Kyoto, Japan",
-      image:
-        "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+      id: "danakil",
+      name: "Danakil Depression, Ethiopia",
+      image: "/bg-53.jpg",
       rating: 4.7,
-      reviews: 189,
+      reviews: 156,
     },
     {
-      id: 4,
-      name: "Machu Picchu, Peru",
-      image:
-        "https://images.unsplash.com/photo-1587595431973-160d0d94add1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      rating: 4.9,
-      reviews: 275,
+      id: "gondar",
+      name: "Gondar, Ethiopia",
+      image: "/bg-54.jpg",
+      rating: 4.6,
+      reviews: 132,
     },
   ];
 
   return (
-    <section id="destinations" className="py-16">
+    <section id="destinations" className="pb-16">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
           {translations.popularDestinations || "Popular Destinations"}
@@ -88,6 +85,16 @@ export default function PopularDestinations() {
               <div className="mt-4 flex flex-col sm:flex-row gap-2">
                 <Link
                   href={`/destinations/${destination.id}`}
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
+                  View Details
+                </Link>
+                <Link
+                  href={`/book?destination=${destination.id}`}
+                  className="px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition-colors">
+                  Book Now
+                </Link>
+                {/* <Link
+                  href={`/destinations/${destination.id}`}
                   className="px-4 py-2 bg-primary hover:bg-primary-600 text-white rounded-md transition-colors text-center">
                   View Details
                 </Link>
@@ -97,7 +104,7 @@ export default function PopularDestinations() {
                   )}`}
                   className="px-4 py-2 border border-primary text-primary hover:bg-primary-50 dark:hover:bg-gray-700 rounded-md transition-colors text-center">
                   Book Now
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

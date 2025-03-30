@@ -117,7 +117,7 @@ const slides = [
   },
   {
     id: "19",
-    image: "/simien-mountains.jpg",
+    image: "/bg-11.jpg",
     alt: "",
   },
   {
@@ -232,12 +232,12 @@ export default function Hero() {
             {/* Left Content */}
             <div className="text-white max-w-2xl">
               <h2 className="font-arizonia text-primary-400 text-3xl mb-2">
-                Welcome to Paradise
+                Discover Ethiopia
               </h2>
               <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
-                Discover Your
+                Land of
                 <br />
-                Favorite Place with Us
+                Origins and Wonders
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-gray-200">
                 Travel to any corner of the world, without going around in
