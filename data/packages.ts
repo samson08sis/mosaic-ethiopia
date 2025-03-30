@@ -541,8 +541,7 @@ const packages: TourPackage[] = [
   {
     id: "6",
     name: "Ethiopian Festivals & Celebrations",
-    image:
-      "https://images.unsplash.com/photo-1627894006066-b45ef4e6efa5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+    image: "/bg-70.jpg",
     price: 1499,
     duration: 10,
     destinations: ["Gondar", "Lalibela", "Addis Ababa", "Axum"],
