@@ -280,45 +280,6 @@ export default function AboutPage() {
                         </a>
                       )
                   )}
-
-                  {/* {member.social.email && (
-                    <a
-                      href={`mailto:${member.social.email}`}
-                      className="text-gray-500 hover:text-primary-600 transition-colors">
-                      <Mail size={18} />
-                      <span className="sr-only">Email {member.name}</span>
-                    </a>
-                  )}
-                  {member.social.github && (
-                    <a
-                      href={member.social.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-500 hover:text-primary-600 transition-colors">
-                      <Github size={18} />
-                      <span className="sr-only">{member.name}'s GitHub</span>
-                    </a>
-                  )}
-                  {member.social.linkedin && (
-                    <a
-                      href={member.social.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-500 hover:text-primary-600 transition-colors">
-                      <Linkedin size={18} />
-                      <span className="sr-only">{member.name}'s LinkedIn</span>
-                    </a>
-                  )}
-                  {member.social.twitter && (
-                    <a
-                      href={member.social.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-500 hover:text-primary-600 transition-colors">
-                      <Twitter size={18} />
-                      <span className="sr-only">{member.name}'s Twitter</span>
-                    </a>
-                  )} */}
                 </div>
               </div>
             </div>

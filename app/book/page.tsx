@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, FormEvent } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   CalendarDays,
   Users,
@@ -21,8 +21,10 @@ import Link from "next/link";
 import packages from "@/data/packages";
 import destinations from "@/data/destinations";
 import PageHeader from "@/components/PageHeader";
+import DestinationSelector from "@/components/DestinationSelector";
 
 export default function BookPage() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const packageId = searchParams.get("package");
   const destinationId = searchParams.get("destination");
@@ -153,6 +155,24 @@ export default function BookPage() {
     { value: "suite", label: "Luxury Suite", price: "$350/night" },
   ];
 
+  const handleDestinationChange = useCallback(
+    (value: string, type: string) => {
+      setFormData((prev) => ({
+        ...prev,
+        destination: value,
+        destinationType: type,
+      }));
+
+      // Update URL to reflect selection
+      if (type === "package") {
+        router.push(`/book?package=${value}`);
+      } else if (type === "destination") {
+        router.push(`/book?destination=${value}`);
+      }
+    },
+    [router]
+  );
+
   const handleChange = useCallback(
     (
       e: React.ChangeEvent<
@@ -216,6 +236,19 @@ export default function BookPage() {
   // Render the component
   return (
     <div className="pt-20 pb-16 bg-theme">
+      {/* <div className="bg-primary-600 text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <h1 className="text-4xl font-bold mb-2">Book Your Trip</h1>
+              <p className="text-xl max-w-2xl">
+                Complete your booking in just a few simple steps.
+              </p>
+            </div>
+            <SearchDestination />
+          </div>
+        </div>
+      </div> */}
       <PageHeader
         title="Book Your Trip"
         subtitle="Complete your booking in just a few simple steps."
@@ -507,6 +540,21 @@ export default function BookPage() {
                         <label
                           htmlFor="destination"
                           className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          Destination or Package
+                        </label>
+                        <DestinationSelector
+                          value={formData.destination}
+                          onChange={handleDestinationChange}
+                        />
+                      </div>
+                    )}
+                  {/* {!selectedPackage &&
+                    !selectedDestination &&
+                    !isCustomized && (
+                      <div>
+                        <label
+                          htmlFor="destination"
+                          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                           Destination
                         </label>
                         <select
@@ -526,7 +574,7 @@ export default function BookPage() {
                           ))}
                         </select>
                       </div>
-                    )}
+                    )} */}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
