@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   title: "Mosaic Ethiopia - Your Ultimate Travel Companion",
   description:
     "Discover amazing places, book customized tour packages, and create unforgettable travel memories with Mosaic Ethiopia.",
-  generator: "v0.dev",
+  generator: "",
 };
 
 export default function RootLayout({
@@ -50,6 +50,7 @@ export default function RootLayout({
                 <Navbar />
                 <main className="flex-grow">{children}</main>
                 <Footer />
+                <ScrollToTop />
                 <ChatWidget />
               </div>
             </AuthProvider>
