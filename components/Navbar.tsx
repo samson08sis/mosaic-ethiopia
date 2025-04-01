@@ -10,6 +10,21 @@ import LoginModal from "./LoginModal";
 import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "./ProfileDropdown";
 
+const navItems = {
+  links: [
+    { name: "Home", href: "/" },
+    { name: "Destinations", href: "/destinations" },
+    { name: "Packages", href: "/packages" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
+  ],
+  langs: [
+    { name: "English", code: "en" },
+    { name: "Español", code: "es" },
+    { name: "Français", code: "fr" },
+  ],
+};
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { language, changeLanguage } = useLanguage();
@@ -64,49 +79,16 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex md:items-center md:space-x-4">
-              <Link
-                href="/"
-                className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
-                  pathname === "/" ? "text-primary dark:text-primary-400" : ""
-                }`}>
-                Home
-              </Link>
-              <Link
-                href="/destinations"
-                className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
-                  pathname === "/destinations"
-                    ? "text-primary dark:text-primary-400"
-                    : ""
-                }`}>
-                Destinations
-              </Link>
-              <Link
-                href="/packages"
-                className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
-                  pathname === "/packages"
-                    ? "text-primary dark:text-primary-400"
-                    : ""
-                }`}>
-                Packages
-              </Link>
-              <Link
-                href="/about"
-                className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
-                  pathname === "/about"
-                    ? "text-primary dark:text-primary-400"
-                    : ""
-                }`}>
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
-                  pathname === "/contact"
-                    ? "text-primary dark:text-primary-400"
-                    : ""
-                }`}>
-                Contact
-              </Link>
+              {navItems.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
+                    pathname === "/" ? "text-primary dark:text-primary-400" : ""
+                  }`}>
+                  {link.name}
+                </Link>
+              ))}
 
               {/* Language Selector */}
               <div className="relative">
@@ -119,30 +101,17 @@ export default function Navbar() {
 
                 {isLanguageMenuOpen && (
                   <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-10">
-                    <button
-                      onClick={() => {
-                        changeLanguage("en");
-                        toggleLanguageMenu();
-                      }}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                      English
-                    </button>
-                    <button
-                      onClick={() => {
-                        changeLanguage("es");
-                        toggleLanguageMenu();
-                      }}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                      Español
-                    </button>
-                    <button
-                      onClick={() => {
-                        changeLanguage("fr");
-                        toggleLanguageMenu();
-                      }}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                      Français
-                    </button>
+                    {navItems.langs.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => {
+                          changeLanguage(lang.code);
+                          toggleLanguageMenu();
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        {lang.name}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
@@ -191,31 +160,15 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden bg-white dark:bg-gray-900 p-4">
             <div className="space-y-1">
-              <Link
-                href="/"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-                Home
-              </Link>
-              <Link
-                href="/destinations"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-                Destinations
-              </Link>
-              <Link
-                href="/packages"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-                Packages
-              </Link>
-              <Link
-                href="/about"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-                Contact
-              </Link>
+              {navItems.links.map((link) => (
+                <Link
+                  onClick={toggleMenu}
+                  key={link.href}
+                  href={link.href}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
+                  {link.name}
+                </Link>
+              ))}
 
               {/* Theme Toggle in Mobile Menu */}
               <div className="flex items-center px-3 py-2">
@@ -242,33 +195,20 @@ export default function Navbar() {
                   Language
                 </div>
                 <div className="flex space-x-4">
-                  <button
-                    onClick={() => changeLanguage("en")}
-                    className={`text-sm ${
-                      language === "en"
-                        ? "font-bold text-primary dark:text-primary-400"
-                        : "text-gray-700 dark:text-gray-300"
-                    }`}>
-                    English
-                  </button>
-                  <button
-                    onClick={() => changeLanguage("es")}
-                    className={`text-sm ${
-                      language === "es"
-                        ? "font-bold text-primary dark:text-primary-400"
-                        : "text-gray-700 dark:text-gray-300"
-                    }`}>
-                    Español
-                  </button>
-                  <button
-                    onClick={() => changeLanguage("fr")}
-                    className={`text-sm ${
-                      language === "fr"
-                        ? "font-bold text-primary dark:text-primary-400"
-                        : "text-gray-700 dark:text-gray-300"
-                    }`}>
-                    Français
-                  </button>
+                  {navItems.langs.map((lang) => (
+                    <button
+                      onClick={() => {
+                        changeLanguage(lang.code);
+                        toggleMenu();
+                      }}
+                      className={`text-sm ${
+                        language === lang.code
+                          ? "font-bold text-primary dark:text-primary-400"
+                          : "text-gray-700 dark:text-gray-300"
+                      }`}>
+                      {lang.name}
+                    </button>
+                  ))}
                 </div>
               </div>
 
