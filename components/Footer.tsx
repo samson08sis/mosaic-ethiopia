@@ -119,7 +119,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               {footerLinks.destinations.map((destination) => (
-                <li>
+                <li key={destination.href}>
                   <a
                     href={destination.href}
                     className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400">
@@ -136,7 +136,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-4">
               {footerLinks.contactInfo.map((info) => (
-                <li className="flex items-center">
+                <li key={info.text} className="flex items-center">
                   {info.icon}
                   <span className="text-gray-600 dark:text-gray-400">
                     {info.text}
