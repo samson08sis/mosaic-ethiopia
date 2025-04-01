@@ -5,7 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Sun, Moon, Menu, X, Globe } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Menu,
+  X,
+  Globe,
+  Computer,
+  CircleFadingArrowUp,
+} from "lucide-react";
 import LoginModal from "./LoginModal";
 import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "./ProfileDropdown";
@@ -122,9 +130,11 @@ export default function Navbar() {
                 className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
                 aria-label="Toggle theme">
                 {theme === "dark" ? (
+                  <Moon className="h-5 w-5 text-blue-400" />
+                ) : theme === "light" ? (
                   <Sun className="h-5 w-5 text-yellow-400" />
                 ) : (
-                  <Moon className="h-5 w-5 text-gray-700" />
+                  <Computer className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                 )}
               </button>
 
