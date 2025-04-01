@@ -1,37 +1,138 @@
 "use client";
 
-import PageHeader from "@/components/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
-
-const values = [
-  {
-    h3: " Authenticity",
-    p: "We believe in authentic travel experiences that connect you withlocal cultures, traditions, and people. Our packages are designed to go beyond tourist attractions and provide genuine insights into each destination.",
-  },
-  {
-    h3: "Sustainability",
-    p: "We are committed to responsible tourism that respects and preserves the environment, wildlife, and local communities. We partner with eco-friendly accommodations and support conservation initiatives worldwide.",
-  },
-  {
-    h3: "Excellence",
-    p: "We strive for excellence in every aspect of your journey. From meticulous planning to 24/7 support during your travels, our team is dedicated to ensuring your experience exceeds expectations at every turn.",
-  },
-];
+import PageHeader from "@/components/PageHeader";
+import Carousel from "@/components/ui/carousel";
+import {
+  Mail,
+  Github,
+  Linkedin,
+  Twitter,
+  Link as LucideLink,
+} from "lucide-react";
 
 export default function AboutPage() {
+  // Team members data - with shorter descriptions
+  const teamMembers = [
+    {
+      id: 1,
+      name: "Abebe Bekele",
+      role: "Founder & CEO",
+      bio: "15+ years in travel, passionate about sharing Ethiopian culture with the world.",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
+      social: {
+        email: "abebe@example.com",
+        linkedin: "https://linkedin.com",
+        twitter: "https://twitter.com",
+      },
+    },
+    {
+      id: 2,
+      name: "Tigist Haile",
+      role: "Head of Operations",
+      bio: "Logistics expert ensuring seamless travel experiences from start to finish.",
+      image: "https://randomuser.me/api/portraits/women/44.jpg",
+      social: {
+        email: "tigist@example.com",
+        linkedin: "https://linkedin.com",
+        github: "https://github.com",
+      },
+    },
+    {
+      id: 3,
+      name: "Dawit Tadesse",
+      role: "Senior Tour Guide",
+      bio: "Expert in Ethiopian history, bringing destinations to life with storytelling.",
+      image: "https://randomuser.me/api/portraits/men/22.jpg",
+      social: {
+        email: "dawit@example.com",
+        twitter: "https://twitter.com",
+      },
+    },
+    {
+      id: 4,
+      name: "Hiwot Mengistu",
+      role: "Customer Relations",
+      bio: "Dedicated to exceptional customer experiences before, during, and after travel.",
+      image: "https://randomuser.me/api/portraits/women/29.jpg",
+      social: {
+        email: "hiwot@example.com",
+        linkedin: "https://linkedin.com",
+      },
+    },
+    {
+      id: 5,
+      name: "Solomon Girma",
+      role: "Marketing Director",
+      bio: "Creative visionary showcasing Ethiopia's beauty through compelling campaigns.",
+      image: "https://randomuser.me/api/portraits/men/42.jpg",
+      social: {
+        email: "solomon@example.com",
+        twitter: "https://twitter.com",
+        github: "https://github.com",
+      },
+    },
+    {
+      id: 6,
+      name: "Bethlehem Alemu",
+      role: "Sustainability Officer",
+      bio: "Developing initiatives to protect natural resources and support local communities.",
+      image: "https://randomuser.me/api/portraits/women/56.jpg",
+      social: {
+        email: "bethlehem@example.com",
+        linkedin: "https://linkedin.com",
+      },
+    },
+    {
+      id: 7,
+      name: "Yonas Tesfaye",
+      role: "Lead Developer",
+      bio: "Full-stack developer building our core booking platform and payment systems.",
+      image: "https://randomuser.me/api/portraits/men/11.jpg",
+      social: {
+        email: "yonas@example.com",
+        github: "https://github.com",
+        linkedin: "https://linkedin.com",
+        web: "yonasTes.io",
+      },
+    },
+    {
+      id: 8,
+      name: "Meron Hailu",
+      role: "Frontend Developer",
+      bio: "UI/UX specialist creating our intuitive and beautiful responsive design.",
+      image: "https://randomuser.me/api/portraits/women/12.jpg",
+      social: {
+        email: "meron@example.com",
+        github: "https://github.com",
+        twitter: "https://twitter.com",
+        web: "merryHailu.io",
+      },
+    },
+    {
+      id: 9,
+      name: "Eyob Mekonnen",
+      role: "Backend Developer",
+      bio: "Database expert designing our secure booking and availability tracking systems.",
+      image: "https://randomuser.me/api/portraits/men/13.jpg",
+      social: {
+        email: "eyob@example.com",
+        github: "https://github.com",
+      },
+    },
+  ];
+
+  const socialLinks = [
+    { key: "email", hrefPrefix: "mailto:", icon: Mail, label: "Email" },
+    { key: "github", hrefPrefix: "", icon: Github, label: "GitHub" },
+    { key: "linkedin", hrefPrefix: "", icon: Linkedin, label: "LinkedIn" },
+    { key: "twitter", hrefPrefix: "", icon: Twitter, label: "Twitter" },
+    { key: "web", hrefPrefix: "", icon: LucideLink, label: "Website" },
+  ];
+
   return (
     <div className="pt-20 pb-16 bg-theme">
-      {/* Hero Section */}
-      {/* <div className="bg-primary-600 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="font-arizonia text-5xl md:text-6xl mb-4">About Us</h1>
-          <p className="text-xl max-w-3xl mx-auto">
-            Discover the story behind Mosaic Ethiopia and our passion for
-            creating unforgettable journeys.
-          </p>
-        </div>
-      </div> */}
       <PageHeader
         title="About Us"
         subtitle="Discover the story behind Travel Explorer and our passion for creating unforgettable journeys."
@@ -48,7 +149,7 @@ export default function AboutPage() {
               Our Story
             </h2>
             <p className="mb-4">
-              Mosaic Ethiopia was founded in 2010 by a group of passionate
+              Travel Explorer was founded in 2010 by a group of passionate
               travelers who believed that exploring the world should be
               accessible to everyone. What started as a small blog sharing
               travel tips and hidden gems has grown into a full-service travel
@@ -73,7 +174,7 @@ export default function AboutPage() {
           <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
             <Image
               src="https://images.unsplash.com/photo-1522199710521-72d69614c702?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
-              alt="Mosaic Ethiopias' Team"
+              alt="Travel Explorer Team"
               fill
               className="object-cover"
             />
@@ -89,27 +190,140 @@ export default function AboutPage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {values.map((value) => (
-              <div id={value.h3} className="bg-card p-8 rounded-lg shadow-md">
-                <h3 className="text-2xl font-bold text-card-foreground mb-4">
-                  {"#" + value.h3}
-                </h3>
-                <p className="text-gray-700 dark:text-gray-300">{value.p}</p>
-              </div>
-            ))}
+            <div className="bg-card p-8 rounded-lg shadow-md">
+              <h3 className="text-2xl font-bold text-card-foreground mb-4">
+                Authenticity
+              </h3>
+              <p className="text-muted-foreground">
+                We believe in authentic travel experiences that connect you with
+                local cultures, traditions, and people. Our packages are
+                designed to go beyond tourist attractions and provide genuine
+                insights into each destination.
+              </p>
+            </div>
+
+            <div className="bg-card p-8 rounded-lg shadow-md">
+              <h3 className="text-2xl font-bold text-card-foreground mb-4">
+                Sustainability
+              </h3>
+              <p className="text-muted-foreground">
+                We are committed to responsible tourism that respects and
+                preserves the environment, wildlife, and local communities. We
+                partner with eco-friendly accommodations and support
+                conservation initiatives worldwide.
+              </p>
+            </div>
+
+            <div className="bg-card p-8 rounded-lg shadow-md">
+              <h3 className="text-2xl font-bold text-card-foreground mb-4">
+                Excellence
+              </h3>
+              <p className="text-muted-foreground">
+                We strive for excellence in every aspect of your journey. From
+                meticulous planning to 24/7 support during your travels, our
+                team is dedicated to ensuring your experience exceeds
+                expectations at every turn.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Meet the Team Section */}
+      {/* Meet the Team Section - Combined team and developers */}
       <div className="container mx-auto px-4 py-16">
         <h2 className="font-arizonia text-4xl text-primary text-center mb-12">
-          Meet the Team
+          Meet Our Team
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Team members remain the same... */}
-        </div>
+        <Carousel itemsPerView={4} gap={24} className="px-4 sm:px-8">
+          {teamMembers.map((member) => (
+            <div
+              key={member.id}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden h-full">
+              <div className="p-6 flex flex-col items-center">
+                {/* Smaller round profile image */}
+                <div className="w-24 h-24 rounded-full overflow-hidden mb-4 relative">
+                  <Image
+                    src={member.image || "/placeholder.svg"}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center">
+                  {member.name}
+                </h3>
+                <p className="text-primary-600 font-medium mb-2 text-center">
+                  {member.role}
+                </p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 text-center">
+                  {member.bio}
+                </p>
+
+                <div className="flex space-x-3 mt-auto">
+                  {socialLinks.map(
+                    ({ key, hrefPrefix, icon: Icon, label }) =>
+                      member.social[key as keyof typeof member.social] && (
+                        <a
+                          key={key}
+                          href={`${hrefPrefix}${
+                            member.social[key as keyof typeof member.social]
+                          }`}
+                          target={key === "email" ? undefined : "_blank"}
+                          rel={
+                            key === "email" ? undefined : "noopener noreferrer"
+                          }
+                          className="text-gray-500 hover:text-primary-600 transition-colors">
+                          <Icon size={18} />
+                          <span className="sr-only">{`${label} ${member.name}`}</span>
+                        </a>
+                      )
+                  )}
+
+                  {/* {member.social.email && (
+                    <a
+                      href={`mailto:${member.social.email}`}
+                      className="text-gray-500 hover:text-primary-600 transition-colors">
+                      <Mail size={18} />
+                      <span className="sr-only">Email {member.name}</span>
+                    </a>
+                  )}
+                  {member.social.github && (
+                    <a
+                      href={member.social.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-primary-600 transition-colors">
+                      <Github size={18} />
+                      <span className="sr-only">{member.name}'s GitHub</span>
+                    </a>
+                  )}
+                  {member.social.linkedin && (
+                    <a
+                      href={member.social.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-primary-600 transition-colors">
+                      <Linkedin size={18} />
+                      <span className="sr-only">{member.name}'s LinkedIn</span>
+                    </a>
+                  )}
+                  {member.social.twitter && (
+                    <a
+                      href={member.social.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-primary-600 transition-colors">
+                      <Twitter size={18} />
+                      <span className="sr-only">{member.name}'s Twitter</span>
+                    </a>
+                  )} */}
+                </div>
+              </div>
+            </div>
+          ))}
+        </Carousel>
       </div>
 
       {/* Call to Action */}
@@ -120,7 +334,7 @@ export default function AboutPage() {
           </h2>
           <p className="text-xl max-w-3xl mx-auto mb-8">
             Join thousands of satisfied travelers who have experienced the world
-            with Mosaic Ethiopia.
+            with Travel Explorer.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
