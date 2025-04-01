@@ -58,6 +58,9 @@ export default function Home() {
             Mosaic Provides Customizable Packages
           </h2>
           <TourPackages />
+          <h2 className="font-arizonia text-primary-400 text-3xl mb-6 mt-16 text-center">
+            Customers' Feedback
+          </h2>
           <Testimonials />
         </div>
       </div>

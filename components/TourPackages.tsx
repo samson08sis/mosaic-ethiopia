@@ -172,7 +172,7 @@ export default function TourPackages() {
   };
 
   return (
-    <section id="packages" className="py-16">
+    <section id="packages" className="pb-16">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
           {translations.customizablePackages || "Ethiopian Tour Packages"}
