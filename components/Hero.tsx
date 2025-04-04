@@ -268,6 +268,12 @@ export default function Hero() {
             </div>
           </div>
         </div>
+        <button
+          onClick={scrollToContent}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white animate-bounce"
+          aria-label="Scroll down">
+          <ChevronDown className="h-10 w-10" />
+        </button>
       </div>
 
       {/* Video Modal */}
