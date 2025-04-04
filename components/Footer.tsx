@@ -97,14 +97,14 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               {footerLinks.socialMedia.map((social) => (
-                <a
+                <Link
                   key={social.href}
                   href={social.href}
                   target="_blank"
                   className="text-gray-300 hover:text-primary transition-colors duration-300"
                   rel="noreferrer">
                   <social.icon className="h-5 w-5" />
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -132,12 +132,12 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               {footerLinks.destinations.map((destination) => (
-                <li>
-                  <a
+                <li key={destination.href}>
+                  <Link
                     href={destination.href}
                     className="text-gray-300 hover:text-primary transition-colors duration-300">
                     {destination.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -167,12 +167,12 @@ export default function Footer() {
           </p>
           <div className="flex space-x-6">
             {footerLinks.bottomSection.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className="text-sm text-gray-300 hover:text-primary transition-colors duration-300">
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
