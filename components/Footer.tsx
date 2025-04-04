@@ -167,7 +167,7 @@ export default function Footer() {
           <div className="flex space-x-6">
             {footerLinks.bottomSection.map((item) => (
               <Link
-                key={item.href}
+                key={item.name}
                 href={item.href}
                 className="text-sm text-gray-300 hover:text-primary transition-colors duration-300">
                 {item.name}
