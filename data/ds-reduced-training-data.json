@@ -1,0 +1,171 @@
+{
+  "website": {
+    "name": "Mosaic Ethiopia",
+    "purpose": "To provide exceptional travel experiences with a focus on cultural immersion and authentic adventures, particularly in Ethiopia and other unique destinations.",
+    "features": [
+      "Destination guides and information",
+      "Tour package booking",
+      "Custom itinerary creation",
+      "Cultural insights and local experiences",
+      "24/7 customer support",
+      "Flexible booking options",
+      "Small group tours",
+      "Expert local guides"
+    ],
+    "uniqueSellingPoints": [
+      "Specialization in Ethiopian travel experiences",
+      "Focus on authentic cultural immersion",
+      "Sustainable and responsible tourism practices",
+      "Support for local communities",
+      "Expert knowledge of off-the-beaten-path destinations"
+    ]
+  },
+  "company": {
+    "founded": 2010,
+    "mission": "To inspire and enable people to explore the world, experience different cultures, and create memories that last a lifetime.",
+    "values": [
+      {
+        "name": "Authenticity",
+        "description": "We believe in authentic travel experiences that connect you with local cultures, traditions, and people."
+      },
+      {
+        "name": "Sustainability",
+        "description": "We are committed to responsible tourism that respects and preserves the environment, wildlife, and local communities."
+      },
+      {
+        "name": "Excellence",
+        "description": "We strive for excellence in every aspect of your journey, from meticulous planning to 24/7 support during your travels."
+      }
+    ],
+    "team": [
+      {
+        "name": "Abebe Bekele",
+        "role": "Founder & CEO",
+        "bio": "With over 15 years of experience in the travel industry, Abebe founded Mosaic Ethiopia to share his passion for Ethiopian culture and landscapes with the world."
+      },
+      {
+        "name": "Tigist Haile",
+        "role": "Head of Operations",
+        "bio": "Tigist ensures that every tour runs smoothly, from transportation logistics to accommodations. Her attention to detail makes every journey seamless."
+      },
+      {
+        "name": "Dawit Tadesse",
+        "role": "Senior Tour Guide",
+        "bio": "An expert in Ethiopian history and culture, Dawit brings destinations to life with his storytelling and deep knowledge of local traditions."
+      }
+    ],
+    "contactInformation": {
+      "address": "123 Travel Street, Adventure City, AC 12345",
+      "phone": "+1 (555) 123-4567",
+      "email": "info@mosaicethiopia.com",
+      "socialMedia": {
+        "facebook": "facebook.com/mosaicethiopia",
+        "twitter": "twitter.com/mosaicethiopia",
+        "instagram": "instagram.com/mosaicethiopia"
+      }
+    }
+  },
+  "destinations": [
+    {
+      "id": "lalibela",
+      "name": "Lalibela, Ethiopia",
+      "description": "Home to 11 medieval monolithic rock-hewn churches, Lalibela is Ethiopia's Jerusalem and a place of pilgrimage for Orthodox Christians.",
+      "activities": ["Cultural", "Historical", "Religious"],
+      "highlights": [
+        "Rock-hewn churches",
+        "Bete Giyorgis (Church of St. George)",
+        "Ethiopian Orthodox ceremonies"
+      ]
+    },
+    {
+      "id": "simien-mountains",
+      "name": "Simien Mountains, Ethiopia",
+      "description": "A UNESCO World Heritage site with dramatic mountain scenery, deep valleys, and rare wildlife including the Gelada baboon and Walia ibex.",
+      "activities": ["Trekking", "Wildlife", "Nature"],
+      "highlights": [
+        "Dramatic escarpments and peaks",
+        "Endemic wildlife species",
+        "Spectacular viewpoints"
+      ]
+    },
+    {
+      "id": "danakil",
+      "name": "Danakil Depression, Ethiopia",
+      "description": "One of the hottest places on Earth with otherworldly landscapes featuring colorful sulfur springs, salt lakes, and active volcanoes.",
+      "activities": ["Adventure", "Geological", "Photography"],
+      "highlights": [
+        "Dallol sulfur springs",
+        "Erta Ale active volcano",
+        "Salt flats and caravans"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "id": "1",
+      "name": "Ethiopian Historical Route",
+      "description": "Explore Ethiopia's rich history through its ancient churches, castles, and historical sites.",
+      "price": 1299,
+      "duration": 8,
+      "destinations": ["Lalibela", "Gondar", "Axum", "Bahir Dar"],
+      "activities": ["Church Tours", "Castle Visits", "Boat Trip on Lake Tana"]
+    },
+    {
+      "id": "2",
+      "name": "Ethiopian Nature & Wildlife",
+      "description": "Discover Ethiopia's incredible biodiversity and stunning landscapes.",
+      "price": 1599,
+      "duration": 10,
+      "destinations": [
+        "Simien Mountains",
+        "Bale Mountains",
+        "Awash National Park"
+      ],
+      "activities": ["Trekking", "Wildlife Viewing", "Bird Watching"]
+    }
+  ],
+  "ethiopiaInfo": {
+    "general": {
+      "capital": "Addis Ababa",
+      "currency": "Ethiopian Birr (ETB)",
+      "uniqueFeatures": [
+        "Only African country never colonized",
+        "Birthplace of coffee",
+        "Home to 9 UNESCO World Heritage sites"
+      ]
+    },
+    "culture": {
+      "cuisine": {
+        "staples": [
+          "Injera (sourdough flatbread)",
+          "Berbere (spice blend)",
+          "Teff (ancient grain)"
+        ]
+      }
+    }
+  },
+  "bookingInfo": {
+    "policies": {
+      "payment": {
+        "deposit": "30% of total tour cost required at booking",
+        "finalPayment": "Due 60 days before departure"
+      }
+    }
+  },
+  "faq": [
+    {
+      "question": "What is the best time to visit Ethiopia?",
+      "answer": "The best time to visit Ethiopia is during the dry season from October to March."
+    },
+    {
+      "question": "Do I need a visa to visit Ethiopia?",
+      "answer": "Yes, most visitors need a visa to enter Ethiopia."
+    }
+  ],
+  "chatbotResponses": {
+    "greetings": [
+      "Hello! Welcome to Mosaic Ethiopia. How can I help you plan your Ethiopian adventure today?"
+    ],
+    "farewell": ["Thank you for chatting with Mosaic Ethiopia."]
+  }
+}
