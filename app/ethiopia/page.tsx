@@ -16,6 +16,7 @@ import Image from "next/image";
 import EthiopianPattern from "./components/EthiopianPattern";
 import AttractionCard from "./components/AttractionCard";
 import FestivalCard from "./components/FestivalCard";
+import DishCard from "./components/DishCard";
 
 export default function EthiopiaPage() {
   const [activeTab, setActiveTab] = useState("cultural");
@@ -189,6 +190,127 @@ export default function EthiopiaPage() {
     },
   ];
 
+  const ethiopianDishes = [
+    {
+      id: 1,
+      name: "Injera",
+      description:
+        "A sourdough flatbread with a unique, slightly spongy texture. It's the foundation of Ethiopian cuisine, serving both as the plate and the utensil for most meals.",
+      image:
+        "https://images.unsplash.com/photo-1566918214014-a3b1dc72a7f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      ingredients: ["Teff flour", "Water", "Fermentation starter"],
+      significance:
+        "Injera symbolizes community and sharing, as multiple people eat from the same plate, tearing pieces to scoop up stews and vegetables.",
+    },
+    {
+      id: 2,
+      name: "Doro Wat",
+      description:
+        "A spicy chicken stew considered Ethiopia's national dish. It's slow-cooked with berbere spice blend, onions, and clarified butter, often served with boiled eggs.",
+      image:
+        "https://images.unsplash.com/photo-1547637589-f54c34f5d7a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      ingredients: [
+        "Chicken",
+        "Berbere spice",
+        "Onions",
+        "Niter kibbeh (spiced butter)",
+        "Eggs",
+      ],
+      significance:
+        "Traditionally served during festivals and special occasions, offering doro wat to guests is a sign of respect and hospitality.",
+    },
+    {
+      id: 3,
+      name: "Shiro",
+      description:
+        "A highly seasoned, pureed chickpea or broad bean stew. It's a staple in Ethiopian cuisine and is especially popular during fasting periods when meat is avoided.",
+      image:
+        "https://images.unsplash.com/photo-1547637589-f54c34f5d7a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      ingredients: [
+        "Chickpea flour",
+        "Berbere spice",
+        "Garlic",
+        "Onions",
+        "Tomatoes",
+      ],
+      significance:
+        "Shiro is an essential dish during the numerous fasting days observed by Ethiopian Orthodox Christians.",
+    },
+    {
+      id: 4,
+      name: "Gomen Besiga",
+      description:
+        "A hearty dish of collard greens cooked with beef, spices, and niter kibbeh (Ethiopian spiced butter). The greens are finely chopped and slow-cooked to perfection.",
+      image:
+        "https://images.unsplash.com/photo-1547637589-f54c34f5d7a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      ingredients: [
+        "Collard greens",
+        "Beef",
+        "Niter kibbeh",
+        "Garlic",
+        "Onions",
+        "Spices",
+      ],
+      significance:
+        "This dish represents the Ethiopian tradition of combining vegetables and meat for a balanced meal.",
+    },
+    {
+      id: 5,
+      name: "Difo Dabo",
+      description:
+        "A large, round, slightly sweet bread baked in a clay pot. It's often prepared for special occasions and holidays, with a golden crust and soft interior.",
+      image:
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      ingredients: ["Wheat flour", "Honey", "Eggs", "Butter", "Spices"],
+      significance:
+        "Difo dabo is traditionally made for celebrations and religious holidays, often blessed before being shared among family and guests.",
+    },
+    {
+      id: 6,
+      name: "Kolo",
+      description:
+        "A popular Ethiopian snack made from roasted barley, chickpeas, and peanuts. It's seasoned with salt and sometimes spices, making it a perfect on-the-go energy food.",
+      image:
+        "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      ingredients: ["Barley", "Chickpeas", "Peanuts", "Salt", "Spices"],
+      significance:
+        "Kolo is a traditional travel food and is often served to welcome guests alongside coffee during the Ethiopian coffee ceremony.",
+    },
+    {
+      id: 7,
+      name: "Kitfo",
+      description:
+        "A traditional dish of minced raw beef, marinated in mitmita (a spicy chili powder) and niter kibbeh. It can be served slightly warmed (leb leb) or fully cooked (yebesele).",
+      image:
+        "https://images.unsplash.com/photo-1547637589-f54c34f5d7a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      ingredients: [
+        "Raw beef",
+        "Mitmita spice",
+        "Niter kibbeh",
+        "Kocho (false banana bread)",
+      ],
+      significance:
+        "Kitfo is a delicacy in Ethiopian cuisine and is often prepared during special celebrations and festivals.",
+    },
+    {
+      id: 8,
+      name: "Tibs",
+      description:
+        "Sautéed meat (usually beef or lamb) cooked with vegetables and aromatic spices. It can be prepared mild or spicy and is often served sizzling hot.",
+      image:
+        "https://images.unsplash.com/photo-1547637589-f54c34f5d7a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+      ingredients: [
+        "Beef or lamb",
+        "Onions",
+        "Peppers",
+        "Rosemary",
+        "Berbere spice",
+      ],
+      significance:
+        "Tibs is often prepared to honor guests or celebrate special occasions, symbolizing prosperity and generosity.",
+    },
+  ];
+
   // Get current data based on active tab
   const getCurrentData = () => {
     switch (activeTab) {
@@ -200,8 +322,58 @@ export default function EthiopiaPage() {
         return religiousPlaces;
       case "festivals":
         return festivals;
+      case "dishes":
+        return ethiopianDishes;
       default:
         return culturalPlaces;
+    }
+  };
+
+  // Get current icon based on active tab
+  const getCurrentIcon = () => {
+    switch (activeTab) {
+      case "cultural":
+        return (
+          <MapPin className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+        );
+      case "castles":
+        return (
+          <Info className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+        );
+      case "religious":
+        return (
+          <Info className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+        );
+      case "festivals":
+        return (
+          <Calendar className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+        );
+      case "dishes":
+        return (
+          <Utensils className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+        );
+      default:
+        return (
+          <MapPin className="h-6 w-6 text-primary-600 dark:text-primary-400" />
+        );
+    }
+  };
+
+  // Get current title based on active tab
+  const getCurrentTitle = () => {
+    switch (activeTab) {
+      case "cultural":
+        return "Cultural Places";
+      case "castles":
+        return "Castles & Palaces";
+      case "religious":
+        return "Religious Sites";
+      case "festivals":
+        return "Festivals & Celebrations";
+      case "dishes":
+        return "Ethiopian Dishes";
+      default:
+        return "Cultural Places";
     }
   };
 
@@ -212,7 +384,8 @@ export default function EthiopiaPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/lake-tana.jpg')",
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80')",
             transform: `translateY(${scrollY * 0.5}px)`,
           }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent"></div>
@@ -342,30 +515,25 @@ export default function EthiopiaPage() {
               }`}>
               Festivals & Celebrations
             </button>
+            <button
+              onClick={() => setActiveTab("dishes")}
+              className={`px-6 py-3 rounded-full text-sm font-medium transition-colors ${
+                activeTab === "dishes"
+                  ? "bg-primary-600 text-white"
+                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+              }`}>
+              Ethiopian Dishes
+            </button>
           </div>
         </div>
 
         {/* Category Title */}
         <div className="flex items-center mb-6">
           <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mr-4">
-            {activeTab === "cultural" && (
-              <MapPin className="h-6 w-6 text-primary-600 dark:text-primary-400" />
-            )}
-            {activeTab === "castles" && (
-              <Info className="h-6 w-6 text-primary-600 dark:text-primary-400" />
-            )}
-            {activeTab === "religious" && (
-              <Info className="h-6 w-6 text-primary-600 dark:text-primary-400" />
-            )}
-            {activeTab === "festivals" && (
-              <Calendar className="h-6 w-6 text-primary-600 dark:text-primary-400" />
-            )}
+            {getCurrentIcon()}
           </div>
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {activeTab === "cultural" && "Cultural Places"}
-            {activeTab === "castles" && "Castles & Palaces"}
-            {activeTab === "religious" && "Religious Sites"}
-            {activeTab === "festivals" && "Festivals & Celebrations"}
+            {getCurrentTitle()}
           </h3>
         </div>
 
@@ -383,6 +551,12 @@ export default function EthiopiaPage() {
             ? festivals.map((festival) => (
                 <motion.div key={festival.id} variants={itemVariants}>
                   <FestivalCard festival={festival} />
+                </motion.div>
+              ))
+            : activeTab === "dishes"
+            ? ethiopianDishes.map((dish) => (
+                <motion.div key={dish.id} variants={itemVariants}>
+                  <DishCard dish={dish} />
                 </motion.div>
               ))
             : getCurrentData().map((item) => (
