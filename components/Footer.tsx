@@ -10,7 +10,6 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-import { Item } from "@radix-ui/react-accordion";
 
 const footerLinks = {
   quickLinks: [
@@ -97,14 +96,14 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               {footerLinks.socialMedia.map((social) => (
-                <Link
+                <a
                   key={social.href}
                   href={social.href}
                   target="_blank"
                   className="text-gray-300 hover:text-primary transition-colors duration-300"
                   rel="noreferrer">
                   <social.icon className="h-5 w-5" />
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -148,8 +147,8 @@ export default function Footer() {
               Contact Information
             </h3>
             <ul className="space-y-4">
-              {footerLinks.contactInfo.map((info) => (
-                <li>
+              {footerLinks.contactInfo.map((info, i) => (
+                <li key={i}>
                   <info.icon className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
                   <span className="text-gray-300">{info.text}</span>
                 </li>
