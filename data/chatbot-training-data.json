@@ -1,0 +1,1060 @@
+{
+  "website": {
+    "name": "Mosaic Ethiopia",
+    "purpose": "To provide exceptional travel experiences with a focus on cultural immersion and authentic adventures, particularly in Ethiopia and other unique destinations.",
+    "features": [
+      "Destination guides and information",
+      "Tour package booking",
+      "Custom itinerary creation",
+      "Cultural insights and local experiences",
+      "24/7 customer support",
+      "Flexible booking options",
+      "Small group tours",
+      "Expert local guides"
+    ],
+    "uniqueSellingPoints": [
+      "Specialization in Ethiopian travel experiences",
+      "Focus on authentic cultural immersion",
+      "Sustainable and responsible tourism practices",
+      "Support for local communities",
+      "Expert knowledge of off-the-beaten-path destinations"
+    ]
+  },
+
+  "company": {
+    "founded": 2010,
+    "mission": "To inspire and enable people to explore the world, experience different cultures, and create memories that last a lifetime.",
+    "values": [
+      {
+        "name": "Authenticity",
+        "description": "We believe in authentic travel experiences that connect you with local cultures, traditions, and people."
+      },
+      {
+        "name": "Sustainability",
+        "description": "We are committed to responsible tourism that respects and preserves the environment, wildlife, and local communities."
+      },
+      {
+        "name": "Excellence",
+        "description": "We strive for excellence in every aspect of your journey, from meticulous planning to 24/7 support during your travels."
+      }
+    ],
+    "team": [
+      {
+        "name": "Abebe Bekele",
+        "role": "Founder & CEO",
+        "bio": "With over 15 years of experience in the travel industry, Abebe founded Mosaic Ethiopia to share his passion for Ethiopian culture and landscapes with the world."
+      },
+      {
+        "name": "Tigist Haile",
+        "role": "Head of Operations",
+        "bio": "Tigist ensures that every tour runs smoothly, from transportation logistics to accommodations. Her attention to detail makes every journey seamless."
+      },
+      {
+        "name": "Dawit Tadesse",
+        "role": "Senior Tour Guide",
+        "bio": "An expert in Ethiopian history and culture, Dawit brings destinations to life with his storytelling and deep knowledge of local traditions."
+      },
+      {
+        "name": "Hiwot Mengistu",
+        "role": "Customer Relations",
+        "bio": "Hiwot is dedicated to ensuring every traveler has an exceptional experience, providing personalized support before, during, and after their journey."
+      },
+      {
+        "name": "Solomon Girma",
+        "role": "Marketing Director",
+        "bio": "Solomon's creative vision helps showcase Ethiopia's beauty to the world, developing campaigns that capture the essence of our unique experiences."
+      },
+      {
+        "name": "Bethlehem Alemu",
+        "role": "Sustainability Officer",
+        "bio": "Passionate about responsible tourism, Bethlehem develops initiatives that protect Ethiopia's natural resources and support local communities."
+      }
+    ],
+    "contactInformation": {
+      "address": "123 Travel Street, Adventure City, AC 12345",
+      "phone": "+1 (555) 123-4567",
+      "email": "info@mosaicethiopia.com",
+      "socialMedia": {
+        "facebook": "facebook.com/mosaicethiopia",
+        "twitter": "twitter.com/mosaicethiopia",
+        "instagram": "instagram.com/mosaicethiopia",
+        "youtube": "youtube.com/mosaicethiopia"
+      }
+    }
+  },
+
+  "destinations": [
+    {
+      "id": "lalibela",
+      "name": "Lalibela, Ethiopia",
+      "description": "Home to 11 medieval monolithic rock-hewn churches, Lalibela is Ethiopia's Jerusalem and a place of pilgrimage for Orthodox Christians.",
+      "rating": 4.9,
+      "reviews": 245,
+      "continent": "Africa",
+      "activities": ["Cultural", "Historical", "Religious"],
+      "location": "Northern Ethiopia, Amhara Region",
+      "bestTimeToVisit": "October to March",
+      "highlights": [
+        "Rock-hewn churches",
+        "Bete Giyorgis (Church of St. George)",
+        "Ethiopian Orthodox ceremonies",
+        "Traditional village life"
+      ],
+      "thingsToDo": [
+        "Tour the 11 monolithic churches",
+        "Witness religious ceremonies",
+        "Hike in the surrounding mountains",
+        "Experience local cuisine"
+      ],
+      "historicalImportance": "Built in the 12th-13th centuries, Lalibela was meant to be a 'New Jerusalem' after Muslim conquests halted Christian pilgrimages to the Holy Land.",
+      "culturalSignificance": "One of the holiest sites in Ethiopian Orthodox Christianity and a major pilgrimage destination."
+    },
+    {
+      "id": "simien-mountains",
+      "name": "Simien Mountains, Ethiopia",
+      "description": "A UNESCO World Heritage site with dramatic mountain scenery, deep valleys, and rare wildlife including the Gelada baboon and Walia ibex.",
+      "rating": 4.8,
+      "reviews": 187,
+      "continent": "Africa",
+      "activities": ["Trekking", "Wildlife", "Nature"],
+      "location": "Northern Ethiopia, Amhara Region",
+      "bestTimeToVisit": "October to March",
+      "highlights": [
+        "Dramatic escarpments and peaks",
+        "Endemic wildlife species",
+        "Spectacular viewpoints",
+        "Traditional villages"
+      ],
+      "thingsToDo": [
+        "Multi-day trekking expeditions",
+        "Wildlife spotting (Gelada baboons, Ethiopian wolves)",
+        "Photography at Jinbar Waterfall",
+        "Visit local communities"
+      ],
+      "naturalFeatures": "The park features jagged mountain peaks, deep valleys, and sharp precipices dropping some 1,500m."
+    },
+    {
+      "id": "danakil",
+      "name": "Danakil Depression, Ethiopia",
+      "description": "One of the hottest places on Earth with otherworldly landscapes featuring colorful sulfur springs, salt lakes, and active volcanoes.",
+      "rating": 4.7,
+      "reviews": 156,
+      "continent": "Africa",
+      "activities": ["Adventure", "Geological", "Photography"],
+      "location": "Northeastern Ethiopia, Afar Region",
+      "bestTimeToVisit": "November to March",
+      "highlights": [
+        "Dallol sulfur springs",
+        "Erta Ale active volcano",
+        "Salt flats and caravans",
+        "Lake Asale"
+      ],
+      "thingsToDo": [
+        "Hike to Erta Ale volcano crater",
+        "Photograph the colorful mineral formations at Dallol",
+        "Witness traditional salt mining",
+        "Camp under the stars"
+      ],
+      "naturalFeatures": "The Danakil Depression sits at 410 feet below sea level and features some of the most extreme environments on Earth."
+    },
+    {
+      "id": "gondar",
+      "name": "Gondar, Ethiopia",
+      "description": "Known as the 'Camelot of Africa' for its medieval castles and imperial compound, Gondar was Ethiopia's royal capital in the 17th century.",
+      "rating": 4.6,
+      "reviews": 132,
+      "continent": "Africa",
+      "activities": ["Historical", "Cultural", "Architecture"],
+      "location": "Northern Ethiopia, Amhara Region",
+      "bestTimeToVisit": "October to March",
+      "highlights": [
+        "Fasil Ghebbi (Royal Enclosure)",
+        "Debre Berhan Selassie Church",
+        "Fasilides Bath",
+        "Timkat Festival celebrations"
+      ],
+      "thingsToDo": [
+        "Explore the medieval castles",
+        "Visit Debre Berhan Selassie Church with its angel-covered ceiling",
+        "Attend Timkat Festival (January)",
+        "Discover local markets"
+      ],
+      "historicalImportance": "Gondar served as Ethiopia's capital from 1636 to 1855, and its architecture shows Portuguese, Indian and Moorish influences."
+    },
+    {
+      "id": "axum",
+      "name": "Axum, Ethiopia",
+      "description": "Ancient city with towering obelisks, royal tombs, and ruins of palaces that was once the center of the powerful Aksumite Empire.",
+      "rating": 4.5,
+      "reviews": 118,
+      "continent": "Africa",
+      "activities": ["Historical", "Archaeological", "Religious"],
+      "location": "Northern Ethiopia, Tigray Region",
+      "bestTimeToVisit": "October to March",
+      "highlights": [
+        "Obelisks (stelae) of Axum",
+        "Church of St. Mary of Zion",
+        "Queen of Sheba's Palace ruins",
+        "Ark of the Covenant (not viewable)"
+      ],
+      "thingsToDo": [
+        "Marvel at the ancient stelae",
+        "Visit the Church of St. Mary of Zion",
+        "Explore the archaeological museum",
+        "See the Queen of Sheba's Bath"
+      ],
+      "historicalImportance": "Axum was the center of the Aksumite Empire, one of the world's four great powers in the 3rd century, alongside Rome, Persia, and China.",
+      "culturalSignificance": "Ethiopians believe the original Ark of the Covenant is housed in the Chapel of the Tablet next to St. Mary of Zion Church."
+    },
+    {
+      "id": "bale-mountains",
+      "name": "Bale Mountains, Ethiopia",
+      "description": "A biodiversity hotspot with alpine plateaus, cloud forests, and volcanic outcrops, home to rare Ethiopian wolves and over 300 bird species.",
+      "rating": 4.7,
+      "reviews": 142,
+      "continent": "Africa",
+      "activities": ["Trekking", "Wildlife", "Nature"],
+      "location": "Southeastern Ethiopia, Oromia Region",
+      "bestTimeToVisit": "November to March",
+      "highlights": [
+        "Sanetti Plateau",
+        "Ethiopian wolves",
+        "Harenna Forest",
+        "Web Valley"
+      ],
+      "thingsToDo": [
+        "Spot the endangered Ethiopian wolf",
+        "Trek across the Sanetti Plateau",
+        "Birdwatching for endemic species",
+        "Visit the Harenna Forest"
+      ],
+      "naturalFeatures": "The park contains the largest continuous area of Afroalpine habitat in Africa and is home to numerous endemic species."
+    },
+    {
+      "id": "omo-valley",
+      "name": "Omo Valley, Ethiopia",
+      "description": "Cultural melting pot where diverse indigenous tribes maintain their traditional ways of life, known for colorful ceremonies and body art.",
+      "rating": 4.6,
+      "reviews": 165,
+      "continent": "Africa",
+      "activities": ["Cultural", "Tribal", "Photography"],
+      "location": "Southwestern Ethiopia, Southern Nations Region",
+      "bestTimeToVisit": "September to March",
+      "highlights": [
+        "Tribal villages (Mursi, Hamer, Karo, Daasanach)",
+        "Traditional ceremonies and dances",
+        "Body painting and adornment",
+        "Weekly markets"
+      ],
+      "thingsToDo": [
+        "Visit tribal villages with local guides",
+        "Attend traditional ceremonies (bull jumping, etc.)",
+        "Explore local markets",
+        "Learn about traditional crafts"
+      ],
+      "culturalSignificance": "The Lower Omo Valley is a UNESCO World Heritage site and home to some of Africa's most traditional ethnic groups who have maintained their cultural practices for centuries."
+    },
+    {
+      "id": "addis-ababa",
+      "name": "Addis Ababa, Ethiopia",
+      "description": "Ethiopia's vibrant capital and diplomatic hub with museums, markets, and restaurants showcasing the country's rich history and diverse cuisine.",
+      "rating": 4.4,
+      "reviews": 210,
+      "continent": "Africa",
+      "activities": ["Urban", "Cultural", "Culinary"],
+      "location": "Central Ethiopia",
+      "bestTimeToVisit": "October to May",
+      "highlights": [
+        "National Museum of Ethiopia",
+        "Mercato (largest open-air market in Africa)",
+        "Holy Trinity Cathedral",
+        "Entoto Mountain"
+      ],
+      "thingsToDo": [
+        "See Lucy at the National Museum",
+        "Shop at Mercato",
+        "Taste traditional Ethiopian coffee",
+        "Enjoy live Ethiopian music and dance"
+      ],
+      "historicalImportance": "Founded in 1886, Addis Ababa ('New Flower') is home to the African Union headquarters and many international organizations.",
+      "culturalSignificance": "The city represents the meeting point of Ethiopia's many cultures and is known for its distinctive cuisine, music, and coffee ceremonies."
+    }
+  ],
+
+  "packages": [
+    {
+      "id": "1",
+      "name": "Ethiopian Historical Route",
+      "description": "Explore Ethiopia's rich history through its ancient churches, castles, and historical sites. This journey takes you through the northern historical circuit, visiting UNESCO World Heritage sites and experiencing the country's deep cultural heritage.",
+      "price": 1299,
+      "duration": 8,
+      "destinations": ["Lalibela", "Gondar", "Axum", "Bahir Dar"],
+      "activities": [
+        "Church Tours",
+        "Castle Visits",
+        "Boat Trip on Lake Tana",
+        "Blue Nile Falls"
+      ],
+      "accommodation": "3-4 Star Hotels",
+      "meals": "Breakfast and Dinner",
+      "inclusions": [
+        "Airport transfers",
+        "Domestic flights",
+        "English-speaking guide",
+        "Entrance fees",
+        "Welcome dinner"
+      ],
+      "exclusions": [
+        "International flights",
+        "Visa fees",
+        "Lunch meals",
+        "Personal expenses"
+      ],
+      "additionalActivities": [
+        {
+          "name": "Traditional Coffee Ceremony",
+          "price": 35,
+          "description": "Experience Ethiopia's famous coffee ceremony with local families"
+        },
+        {
+          "name": "Tej House Visit",
+          "price": 45,
+          "description": "Visit a traditional house to taste tej (honey wine) and local music"
+        },
+        {
+          "name": "Ethiopian Cooking Class",
+          "price": 65,
+          "description": "Learn to prepare injera and traditional Ethiopian dishes"
+        },
+        {
+          "name": "Craft Shopping Tour",
+          "price": 40,
+          "description": "Guided shopping for traditional crafts with expert advice"
+        }
+      ],
+      "accommodationOptions": [
+        {
+          "name": "3-4 Star Hotels",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "4-5 Star Hotels",
+          "price": 350,
+          "description": "Upgrade to premium hotels where available"
+        },
+        {
+          "name": "Local Guesthouses",
+          "price": -200,
+          "description": "Authentic experience with local families"
+        }
+      ],
+      "mealOptions": [
+        {
+          "name": "Breakfast Only",
+          "price": -150,
+          "description": "Reduce package price"
+        },
+        {
+          "name": "Breakfast and Dinner",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Full Board",
+          "price": 200,
+          "description": "All meals included"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Ethiopian Nature & Wildlife",
+      "description": "Discover Ethiopia's incredible biodiversity and stunning landscapes. From the endemic wildlife of the Simien Mountains to the unique flora of the Bale Mountains, this tour showcases the country's natural wonders and offers opportunities for hiking, wildlife viewing, and connecting with nature.",
+      "price": 1599,
+      "duration": 10,
+      "destinations": [
+        "Simien Mountains",
+        "Bale Mountains",
+        "Awash National Park",
+        "Lake Langano"
+      ],
+      "activities": [
+        "Trekking",
+        "Wildlife Viewing",
+        "Bird Watching",
+        "Hot Springs"
+      ],
+      "accommodation": "Mix of Hotels and Lodges",
+      "meals": "Full Board",
+      "inclusions": [
+        "All transportation",
+        "Park entrance fees",
+        "Experienced guides",
+        "Camping equipment",
+        "All meals"
+      ],
+      "exclusions": [
+        "International flights",
+        "Alcoholic beverages",
+        "Personal equipment",
+        "Travel insurance"
+      ],
+      "additionalActivities": [
+        {
+          "name": "Gelada Baboon Tracking",
+          "price": 75,
+          "description": "Dedicated tracking of the endemic Gelada baboons with a specialist"
+        },
+        {
+          "name": "Fishing on Lake Langano",
+          "price": 60,
+          "description": "Half-day fishing trip with equipment provided"
+        },
+        {
+          "name": "Hot Air Balloon Ride",
+          "price": 250,
+          "description": "Sunrise balloon ride over the Ethiopian highlands"
+        },
+        {
+          "name": "Night Safari",
+          "price": 85,
+          "description": "Evening wildlife spotting with spotlight in Awash National Park"
+        }
+      ],
+      "accommodationOptions": [
+        {
+          "name": "Mix of Hotels and Lodges",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Full Camping Experience",
+          "price": -300,
+          "description": "Camp under the stars every night"
+        },
+        {
+          "name": "Luxury Lodges",
+          "price": 450,
+          "description": "Upgrade to premium lodges where available"
+        }
+      ],
+      "mealOptions": [
+        {
+          "name": "Half Board",
+          "price": -200,
+          "description": "Breakfast and dinner only"
+        },
+        {
+          "name": "Full Board",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Gourmet Experience",
+          "price": 300,
+          "description": "Premium meals with local specialties"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Danakil Depression Expedition",
+      "description": "Journey to one of the hottest and most geologically active places on Earth. The Danakil Depression offers otherworldly landscapes of colorful mineral deposits, salt flats, and active volcanoes. This expedition is challenging but rewards adventurous travelers with some of the most unique scenery on the planet.",
+      "price": 1899,
+      "duration": 6,
+      "destinations": [
+        "Danakil Depression",
+        "Erta Ale Volcano",
+        "Dallol",
+        "Afar Region"
+      ],
+      "activities": [
+        "Volcano Hiking",
+        "Salt Flats Visit",
+        "Hot Springs",
+        "Camel Caravan Observation"
+      ],
+      "accommodation": "Basic Hotels and Camping",
+      "meals": "Full Board",
+      "inclusions": [
+        "4WD transportation",
+        "Camping equipment",
+        "Armed escorts",
+        "Local guides",
+        "All meals and water"
+      ],
+      "exclusions": [
+        "International flights",
+        "Domestic flights to/from Mekele",
+        "Alcoholic beverages",
+        "Tips"
+      ],
+      "additionalActivities": [
+        {
+          "name": "Helicopter Tour",
+          "price": 450,
+          "description": "Aerial view of the colorful Danakil landscape"
+        },
+        {
+          "name": "Salt Mining Experience",
+          "price": 65,
+          "description": "Try traditional salt mining with local Afar people"
+        },
+        {
+          "name": "Camel Riding",
+          "price": 40,
+          "description": "Cross the salt plains on camelback"
+        },
+        {
+          "name": "Guided Stargazing",
+          "price": 35,
+          "description": "Night sky observation with expert astronomer"
+        }
+      ],
+      "accommodationOptions": [
+        {
+          "name": "Basic Hotels and Camping",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Upgraded Camping",
+          "price": 150,
+          "description": "Better tents and camping facilities"
+        },
+        {
+          "name": "Hotels Only",
+          "price": 300,
+          "description": "No camping, hotels where possible"
+        }
+      ],
+      "mealOptions": [
+        {
+          "name": "Standard Meals",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Premium Meals",
+          "price": 120,
+          "description": "Higher quality food and more variety"
+        },
+        {
+          "name": "Special Diet",
+          "price": 80,
+          "description": "Vegetarian, vegan or other special diets"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Omo Valley Cultural Immersion",
+      "description": "Experience the diverse cultures and traditions of Ethiopia's Omo Valley, home to some of Africa's most fascinating indigenous tribes. Visit local markets, participate in cultural ceremonies, and learn about the unique customs and lifestyles of the various ethnic groups in this culturally rich region.",
+      "price": 1799,
+      "duration": 9,
+      "destinations": ["Omo Valley", "Konso", "Jinka", "Turmi"],
+      "activities": [
+        "Tribal Village Visits",
+        "Local Markets",
+        "Cultural Ceremonies",
+        "Museum Visits"
+      ],
+      "accommodation": "Hotels and Guest Houses",
+      "meals": "Breakfast and Dinner",
+      "inclusions": [
+        "4WD transportation",
+        "English-speaking guide",
+        "Local guides",
+        "Entrance fees",
+        "Photography permits"
+      ],
+      "exclusions": [
+        "International flights",
+        "Alcoholic beverages",
+        "Special ceremonies",
+        "Personal gifts to locals"
+      ],
+      "additionalActivities": [
+        {
+          "name": "Bull Jumping Ceremony",
+          "price": 120,
+          "description": "Witness the Hamer tribe's coming-of-age ceremony (seasonal)"
+        },
+        {
+          "name": "Body Painting with Karo Tribe",
+          "price": 85,
+          "description": "Learn and participate in traditional body painting"
+        },
+        {
+          "name": "Omo River Boat Trip",
+          "price": 70,
+          "description": "Travel along the Omo River to remote villages"
+        },
+        {
+          "name": "Traditional Craft Workshop",
+          "price": 45,
+          "description": "Learn beadwork or pottery from tribal artisans"
+        }
+      ],
+      "accommodationOptions": [
+        {
+          "name": "Hotels and Guest Houses",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Tribal Homestays",
+          "price": -100,
+          "description": "Stay with local families (basic conditions)"
+        },
+        {
+          "name": "Comfort Upgrade",
+          "price": 250,
+          "description": "Best available accommodations in each location"
+        }
+      ],
+      "mealOptions": [
+        {
+          "name": "Breakfast Only",
+          "price": -150,
+          "description": "Reduce package price"
+        },
+        {
+          "name": "Breakfast and Dinner",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Full Board",
+          "price": 180,
+          "description": "All meals included"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Ethiopian Coffee Trail",
+      "description": "Follow the journey of coffee from its birthplace in Ethiopia. Visit coffee farms, participate in traditional coffee ceremonies, and learn about the cultivation, processing, and cultural significance of coffee in its country of origin. Perfect for coffee enthusiasts and cultural explorers alike.",
+      "price": 1299,
+      "duration": 7,
+      "destinations": ["Addis Ababa", "Jimma", "Kaffa", "Yirgacheffe"],
+      "activities": [
+        "Coffee Farm Visits",
+        "Cupping Sessions",
+        "Coffee Ceremonies",
+        "Roastery Tours"
+      ],
+      "accommodation": "3-4 Star Hotels",
+      "meals": "Breakfast and Coffee Tastings",
+      "inclusions": [
+        "All transportation",
+        "Expert coffee guide",
+        "Farm entrance fees",
+        "Coffee samples to take home"
+      ],
+      "exclusions": [
+        "International flights",
+        "Alcoholic beverages",
+        "Personal expenses",
+        "Additional meals"
+      ],
+      "additionalActivities": [
+        {
+          "name": "Barista Workshop",
+          "price": 60,
+          "description": "Learn professional coffee preparation techniques"
+        },
+        {
+          "name": "Coffee Roasting Class",
+          "price": 75,
+          "description": "Hands-on experience roasting green coffee beans"
+        },
+        {
+          "name": "Wild Coffee Forest Trek",
+          "price": 90,
+          "description": "Hike through forests where coffee grows naturally"
+        },
+        {
+          "name": "Coffee Market Tour",
+          "price": 40,
+          "description": "Visit Ethiopia's Coffee Exchange and local markets"
+        }
+      ],
+      "accommodationOptions": [
+        {
+          "name": "3-4 Star Hotels",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Coffee Farm Homestays",
+          "price": -150,
+          "description": "Stay with coffee farming families"
+        },
+        {
+          "name": "Luxury Hotels",
+          "price": 300,
+          "description": "5-star accommodations where available"
+        }
+      ],
+      "mealOptions": [
+        {
+          "name": "Breakfast and Coffee Tastings",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Half Board",
+          "price": 150,
+          "description": "Add dinner at selected restaurants"
+        },
+        {
+          "name": "Full Board",
+          "price": 280,
+          "description": "All meals included"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Ethiopian Festivals & Celebrations",
+      "description": "Time your visit to coincide with Ethiopia's vibrant festivals and celebrations. Experience the colorful Timkat (Epiphany) celebrations, the Meskel Festival commemorating the finding of the True Cross, or other significant religious and cultural events that showcase Ethiopia's living traditions.",
+      "price": 1499,
+      "duration": 10,
+      "destinations": ["Gondar", "Lalibela", "Addis Ababa", "Axum"],
+      "activities": [
+        "Timkat Festival",
+        "Meskel Celebration",
+        "Religious Ceremonies",
+        "Cultural Performances"
+      ],
+      "accommodation": "3-4 Star Hotels",
+      "meals": "Breakfast and Special Festival Dinners",
+      "inclusions": [
+        "All transportation",
+        "Festival access",
+        "Cultural guide",
+        "Special event seating",
+        "Welcome dinner"
+      ],
+      "exclusions": [
+        "International flights",
+        "Visa fees",
+        "Personal expenses",
+        "Some meals"
+      ],
+      "additionalActivities": [
+        {
+          "name": "VIP Festival Access",
+          "price": 150,
+          "description": "Premium viewing positions and special access"
+        },
+        {
+          "name": "Festival Photography Workshop",
+          "price": 120,
+          "description": "Expert guidance for capturing festival moments"
+        },
+        {
+          "name": "Traditional Music Class",
+          "price": 65,
+          "description": "Learn Ethiopian instruments and rhythms"
+        },
+        {
+          "name": "Ethiopian Dance Lessons",
+          "price": 50,
+          "description": "Learn traditional Eskista shoulder dancing"
+        }
+      ],
+      "accommodationOptions": [
+        {
+          "name": "3-4 Star Hotels",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "4-5 Star Hotels",
+          "price": 400,
+          "description": "Luxury accommodations"
+        },
+        {
+          "name": "Historic Hotels",
+          "price": 200,
+          "description": "Stay in heritage properties where available"
+        }
+      ],
+      "mealOptions": [
+        {
+          "name": "Breakfast Only",
+          "price": -200,
+          "description": "Reduce package price"
+        },
+        {
+          "name": "Breakfast and Festival Dinners",
+          "price": 0,
+          "description": "Included in package price"
+        },
+        {
+          "name": "Full Board",
+          "price": 250,
+          "description": "All meals included"
+        }
+      ]
+    }
+  ],
+
+  "ethiopiaInfo": {
+    "general": {
+      "officialName": "Federal Democratic Republic of Ethiopia",
+      "capital": "Addis Ababa",
+      "population": "Approximately 120 million",
+      "languages": [
+        "Amharic (official)",
+        "Oromo",
+        "Tigrinya",
+        "Somali",
+        "And over 80 other languages"
+      ],
+      "currency": "Ethiopian Birr (ETB)",
+      "timeZone": "East Africa Time (GMT+3)",
+      "electricalOutlets": "220-240 volts, 50Hz (European style plugs)",
+      "drivingSide": "Right",
+      "calendarSystem": "Ethiopian calendar (approximately 7-8 years behind the Gregorian calendar)",
+      "uniqueFeatures": [
+        "Only African country never colonized",
+        "Uses a 13-month calendar",
+        "Birthplace of coffee",
+        "Home to 9 UNESCO World Heritage sites"
+      ]
+    },
+    "history": {
+      "ancientHistory": "Ethiopia is considered one of the earliest sites of human existence, with 'Lucy' (Dinkinesh), a 3.2 million-year-old hominid skeleton, discovered in the Afar region.",
+      "aksumiteEmpire": "The Aksumite Empire (1st-8th centuries CE) was one of the four great powers of the ancient world alongside Rome, Persia, and China. It was known for its sophisticated architecture, writing system, and as an early adopter of Christianity.",
+      "medievalPeriod": "The Zagwe Dynasty (10th-13th centuries) is known for constructing the rock-hewn churches of Lalibela. The Solomonic Dynasty claimed descent from King Solomon and the Queen of Sheba and ruled from 1270 to 1974 with some interruptions.",
+      "modernEra": "Emperor Menelik II (1889-1913) expanded Ethiopia's territory and defeated Italian forces at the Battle of Adwa in 1896, preserving Ethiopia's independence. Emperor Haile Selassie (1930-1974) modernized the country and helped establish the Organization of African Unity.",
+      "recentHistory": "After the overthrow of Haile Selassie, Ethiopia experienced a period of communist rule under the Derg regime (1974-1991). Since 1991, Ethiopia has been a federal republic, experiencing both economic growth and political challenges."
+    },
+    "culture": {
+      "ethnicGroups": "Ethiopia is home to over 80 ethnic groups, with the Oromo, Amhara, Somali, and Tigrayans being the largest.",
+      "religion": "Ethiopian Orthodox Christianity (43%), Islam (34%), Protestantism (19%), and traditional beliefs are the main religions.",
+      "music": "Ethiopian music features unique scales and rhythms, with instruments like the krar (lyre), masenqo (single-stringed violin), and kebero (drum). Ethio-jazz, pioneered by Mulatu Astatke, blends traditional sounds with jazz.",
+      "dance": "Eskista, the famous shoulder dance, is a distinctive Ethiopian dance style where dancers isolate and vibrate their shoulders, neck, and chest.",
+      "literature": "Ethiopia has a rich literary tradition dating back to ancient Ge'ez manuscripts. The national epic, Kebra Nagast (Glory of Kings), details the Solomonic dynasty's origins.",
+      "art": "Traditional Ethiopian art is primarily religious, featuring distinctive iconography in paintings and illuminated manuscripts. Contemporary Ethiopian art is gaining international recognition.",
+      "festivals": [
+        {
+          "name": "Timkat",
+          "description": "Ethiopian Epiphany celebrating the baptism of Jesus, featuring processions of tabots (replicas of the Ark of the Covenant).",
+          "date": "January 19-20"
+        },
+        {
+          "name": "Meskel",
+          "description": "Commemorates the finding of the True Cross by Queen Helena, featuring the burning of the Damera (bonfire).",
+          "date": "September 27-28"
+        },
+        {
+          "name": "Irreecha",
+          "description": "Oromo thanksgiving festival celebrating the end of the rainy season and giving thanks for harvests and blessings.",
+          "date": "Late September/Early October"
+        },
+        {
+          "name": "Kulubi Gabriel Festival",
+          "description": "A major pilgrimage event where thousands trek to St. Gabriel Church on Mount Kulubi.",
+          "date": "December 28"
+        },
+        {
+          "name": "Ethiopian New Year (Enkutatash)",
+          "description": "Celebrated at the end of the rainy season, marking the beginning of the Ethiopian New Year.",
+          "date": "September 11 (September 12 in leap years)"
+        }
+      ]
+    },
+    "cuisine": {
+      "overview": "Ethiopian cuisine is known for its rich flavors, communal dining style, and unique ingredients. Meals are typically served on injera (sourdough flatbread) which serves as both plate and utensil.",
+      "staples": [
+        "Injera (sourdough flatbread)",
+        "Berbere (spice blend)",
+        "Niter kibbeh (spiced clarified butter)",
+        "Teff (ancient grain)"
+      ],
+      "traditionalDishes": [
+        {
+          "name": "Injera",
+          "description": "A sourdough flatbread with a unique, slightly spongy texture. It's the foundation of Ethiopian cuisine, serving both as the plate and the utensil for most meals.",
+          "ingredients": ["Teff flour", "Water", "Fermentation starter"],
+          "significance": "Injera symbolizes community and sharing, as multiple people eat from the same plate, tearing pieces to scoop up stews and vegetables."
+        },
+        {
+          "name": "Doro Wat",
+          "description": "A spicy chicken stew considered Ethiopia's national dish. It's slow-cooked with berbere spice blend, onions, and clarified butter, often served with boiled eggs.",
+          "ingredients": [
+            "Chicken",
+            "Berbere spice",
+            "Onions",
+            "Niter kibbeh (spiced butter)",
+            "Eggs"
+          ],
+          "significance": "Traditionally served during festivals and special occasions, offering doro wat to guests is a sign of respect and hospitality."
+        },
+        {
+          "name": "Shiro",
+          "description": "A highly seasoned, pureed chickpea or broad bean stew. It's a staple in Ethiopian cuisine and is especially popular during fasting periods when meat is avoided.",
+          "ingredients": [
+            "Chickpea flour",
+            "Berbere spice",
+            "Garlic",
+            "Onions",
+            "Tomatoes"
+          ],
+          "significance": "Shiro is an essential dish during the numerous fasting days observed by Ethiopian Orthodox Christians."
+        },
+        {
+          "name": "Gomen Besiga",
+          "description": "A hearty dish of collard greens cooked with beef, spices, and niter kibbeh (Ethiopian spiced butter). The greens are finely chopped and slow-cooked to perfection.",
+          "ingredients": [
+            "Collard greens",
+            "Beef",
+            "Niter kibbeh",
+            "Garlic",
+            "Onions",
+            "Spices"
+          ],
+          "significance": "This dish represents the Ethiopian tradition of combining vegetables and meat for a balanced meal."
+        },
+        {
+          "name": "Difo Dabo",
+          "description": "A large, round, slightly sweet bread baked in a clay pot. It's often prepared for special occasions and holidays, with a golden crust and soft interior.",
+          "ingredients": ["Wheat flour", "Honey", "Eggs", "Butter", "Spices"],
+          "significance": "Difo dabo is traditionally made for celebrations and religious holidays, often blessed before being shared among family and guests."
+        },
+        {
+          "name": "Kitfo",
+          "description": "A traditional dish of minced raw beef, marinated in mitmita (a spicy chili powder) and niter kibbeh. It can be served slightly warmed (leb leb) or fully cooked (yebesele).",
+          "ingredients": [
+            "Raw beef",
+            "Mitmita spice",
+            "Niter kibbeh",
+            "Kocho (false banana bread)"
+          ],
+          "significance": "Kitfo is a delicacy in Ethiopian cuisine and is often prepared during special celebrations and festivals."
+        }
+      ],
+      "coffeeCeremony": {
+        "description": "The Ethiopian coffee ceremony (jebena buna) is a central cultural ritual that can last for hours. Fresh beans are roasted, ground, and brewed in a special pot called a jebena.",
+        "steps": [
+          "Roasting the coffee beans over hot coals",
+          "Grinding the beans with a mortar and pestle",
+          "Brewing in a traditional clay pot (jebena)",
+          "Serving in small cups, often with popcorn or other snacks"
+        ],
+        "significance": "The ceremony is a sign of respect and friendship. An invitation to attend a coffee ceremony is considered a mark of friendship and respect."
+      }
+    },
+    "naturalAttractions": {
+      "mountains": [
+        {
+          "name": "Simien Mountains",
+          "description": "UNESCO World Heritage site with dramatic escarpments, deep valleys, and endemic wildlife like the Gelada baboon and Walia ibex.",
+          "location": "Northern Ethiopia, Amhara Region",
+          "highlights": [
+            "Ras Dashen (Ethiopia's highest peak)",
+            "Gelada baboons",
+            "Spectacular viewpoints"
+          ]
+        },
+        {
+          "name": "Bale Mountains",
+          "description": "Home to the largest alpine habitat in Africa, with unique wildlife including the Ethiopian wolf, mountain nyala, and over 300 bird species.",
+          "location": "Southeastern Ethiopia, Oromia Region",
+          "highlights": [
+            "Sanetti Plateau",
+            "Ethiopian wolves",
+            "Harenna Forest"
+          ]
+        }
+      ],
+      "lakes": [
+        {
+          "name": "Lake Tana",
+          "description": "Ethiopia's largest lake and the source of the Blue Nile. Home to numerous island monasteries with ancient religious artifacts and paintings.",
+          "location": "Northern Ethiopia, Amhara Region",
+          "highlights": [
+            "Island monasteries",
+            "Blue Nile source",
+            "Diverse birdlife"
+          ]
+        },
+        {
+          "name": "Rift Valley Lakes",
+          "description": "A chain of lakes including Ziway, Langano, Abijatta, Shalla, Awassa, and Chamo, each with unique characteristics and wildlife.",
+          "location": "Central Ethiopia",
+          "highlights": [
+            "Flamingos at Lake Abijatta",
+            "Crocodiles at Lake Chamo",
+            "Hot springs"
+          ]
+        }
+      ],
+      "geologicalFeatures": [
+        {
+          "name": "Danakil Depression",
+          "description": "One of the hottest and lowest places on Earth, featuring colorful sulfur springs, salt flats, and active volcanoes.",
+          "location": "Northeastern Ethiopia, Afar Region",
+          "highlights": [
+            "Dallol sulfur springs",
+            "Erta Ale active volcano",
+            "Salt caravans"
+          ]
+        },
+        {
+          "name": "Blue Nile Falls (Tis Abay)",
+          "description": "A spectacular waterfall on the Blue Nile river, known locally as 'Tis Abay' or 'Smoking Water' due to the mist it creates.",
+          "location": "Near Bahir Dar, Amhara Region",
+          "highlights": [
+            "400-meter wide falls",
+            "Rainbow formations",
+            "Historic Portuguese bridge"
+          ]
+        }
+      ]
+    }
+  },
+
+  "bookingInfo": {
+    "process": {
+      "steps": [
+        "Browse destinations and packages on our website",
+        "Select your preferred tour or create a custom itinerary",
+        "Choose your travel dates and group size",
+        "Select accommodation and meal preferences",
+        "Add optional activities and special requests",
+        "Complete the booking form with traveler details",
+        "Make a deposit payment to secure your booking",
+        "Receive confirmation and detailed itinerary"
+      ]
+    },
+    "policies": {
+      "payment": {
+        "deposit": "30% of total tour cost required at booking",
+        "finalPayment": "Due 60 days before departure",
+        "acceptedMethods": ["Credit/Debit Cards", "Bank Transfer", "PayPal"]
+      },
+      "cancellation": {
+        "61DaysOrMore": "Full refund minus $100 administrative fee",
+        "31-60Days": "50% of deposit refunded",
+        "15-30Days": "25% of total tour cost refunded",
+        "0-14Days": "No refund available"
+      },
+      "changes": {
+        "byClient": "Changes to bookings can be made up to 30 days before departure, subject to a $50 change fee and any difference in tour costs.",
+        "byCompany": "We reserve the right to make minor changes to itineraries if necessary. Major changes will be communicated promptly with options provided."
+      },
+      "insurance": "Travel insurance is strongly recommended for all travelers. We offer insurance packages or you can arrange your own coverage."
+    },
+    "specialRequirements": {
+      "dietary": "We can accommodate most dietary requirements with advance notice. Please specify any needs during booking.",
+      "accessibility": "Some tours involve challenging terrain. Contact us to discuss accessibility needs and we'll recommend suitable options.",
+      "healthRestrictions": "Certain tours require good physical fitness. High-altitude destinations may not be suitable for those with respiratory or cardiovascular conditions."
+    }
+  }
+}
