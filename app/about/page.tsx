@@ -11,9 +11,27 @@ import {
   Twitter,
   Link as LucideLink,
 } from "lucide-react";
+import clsx from "clsx";
+import { bg } from "date-fns/locale";
 
 export default function AboutPage() {
-  // Team members data - with shorter descriptions
+  const header = {
+    title: "About Us",
+    subtitle:
+      "Discover the story behind Travel Explorer and our passion for creating unforgettable journeys.",
+    bgImage:
+      "https://images.unsplash.com/photo-1488085061387-422e29b40080?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+  };
+
+  const story = {
+    title: "Our Story",
+    paragraphs: [
+      "Travel Explorer was founded in 2010 by a group of passionate travelers who believed that exploring the world should be accessible to everyone. What started as a small blog sharing travel tips and hidden gems has grown into a full-service travel platform helping thousands of adventurers discover new destinations every year.",
+      "Our mission is simple: to inspire and enable people to explore the world, experience different cultures, and create memories that last a lifetime. We believe that travel has the power to transform lives, broaden perspectives, and foster understanding between people from all walks of life.",
+      "Today, our team of experienced travel experts works tirelessly to curate exceptional travel experiences tailored to your preferences and interests. Whether you're seeking adventure, relaxation, cultural immersion, or a bit of everything, we're here to make your travel dreams a reality.",
+    ],
+  };
+
   const teamMembers = [
     {
       id: 1,
@@ -131,12 +149,30 @@ export default function AboutPage() {
     { key: "web", hrefPrefix: "", icon: LucideLink, label: "Website" },
   ];
 
+  const ourValues = [
+    {
+      title: "Authenticity",
+      description:
+        "We believe in authentic travel experiences that connect you with local cultures, traditions, and people. Our packages are designed to go beyond tourist attractions and provide genuine insights into each destination.",
+    },
+    {
+      title: "Sustainability",
+      description:
+        "We are committed to responsible tourism that respects and preserves the environment, wildlife, and local communities. We partner with eco-friendly accommodations and support conservation initiatives worldwide.",
+    },
+    {
+      title: "Excellence",
+      description:
+        "We strive for excellence in every aspect of your journey. From meticulous planning to 24/7 support during your travels, our team is dedicated to ensuring your experience exceeds expectations at every turn.",
+    },
+  ];
+
   return (
     <div className="pt-20 pb-16 bg-theme">
       <PageHeader
-        title="About Us"
-        subtitle="Discover the story behind Travel Explorer and our passion for creating unforgettable journeys."
-        backgroundImage="https://images.unsplash.com/photo-1488085061387-422e29b40080?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
+        title={header.title}
+        subtitle={header.subtitle}
+        backgroundImage={header.bgImage}
         overlayColor="primary"
         overlayOpacity={0.7}
       />
@@ -146,30 +182,15 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-arizonia text-4xl text-primary mb-6">
-              Our Story
+              {story.title}
             </h2>
-            <p className="mb-4">
-              Travel Explorer was founded in 2010 by a group of passionate
-              travelers who believed that exploring the world should be
-              accessible to everyone. What started as a small blog sharing
-              travel tips and hidden gems has grown into a full-service travel
-              platform helping thousands of adventurers discover new
-              destinations every year.
-            </p>
-            <p className="mb-4">
-              Our mission is simple: to inspire and enable people to explore the
-              world, experience different cultures, and create memories that
-              last a lifetime. We believe that travel has the power to transform
-              lives, broaden perspectives, and foster understanding between
-              people from all walks of life.
-            </p>
-            <p>
-              Today, our team of experienced travel experts works tirelessly to
-              curate exceptional travel experiences tailored to your preferences
-              and interests. Whether you're seeking adventure, relaxation,
-              cultural immersion, or a bit of everything, we're here to make
-              your travel dreams a reality.
-            </p>
+            {story.paragraphs.map((p, i) => (
+              <p
+                key={i}
+                className={clsx("mb-4", i !== story.paragraphs.length - 1)}>
+                {p}
+              </p>
+            ))}
           </div>
           <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
             <Image
@@ -190,46 +211,21 @@ export default function AboutPage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-card p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-card-foreground mb-4">
-                Authenticity
-              </h3>
-              <p className="text-muted-foreground">
-                We believe in authentic travel experiences that connect you with
-                local cultures, traditions, and people. Our packages are
-                designed to go beyond tourist attractions and provide genuine
-                insights into each destination.
-              </p>
-            </div>
-
-            <div className="bg-card p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-card-foreground mb-4">
-                Sustainability
-              </h3>
-              <p className="text-muted-foreground">
-                We are committed to responsible tourism that respects and
-                preserves the environment, wildlife, and local communities. We
-                partner with eco-friendly accommodations and support
-                conservation initiatives worldwide.
-              </p>
-            </div>
-
-            <div className="bg-card p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-card-foreground mb-4">
-                Excellence
-              </h3>
-              <p className="text-muted-foreground">
-                We strive for excellence in every aspect of your journey. From
-                meticulous planning to 24/7 support during your travels, our
-                team is dedicated to ensuring your experience exceeds
-                expectations at every turn.
-              </p>
-            </div>
+            {ourValues.map((value) => (
+              <div
+                key={value.title}
+                className="bg-card p-8 rounded-lg shadow-md">
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">
+                  {value.title}
+                </h3>
+                <p>{value.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Meet the Team Section - Combined team and developers */}
+      {/* Meet the Team Section */}
       <div className="container mx-auto px-4 py-16">
         <h2 className="font-arizonia text-4xl text-primary text-center mb-12">
           Meet Our Team
