@@ -48,7 +48,7 @@ export default function ImageFeatures() {
       title: "Authentic Cultural Experiences",
       description:
         "Participate in traditional coffee ceremonies, colorful festivals, and connect with Ethiopia's diverse ethnic communities.",
-      image: "/bg-51.jpg",
+      image: "/bg-71.jpg",
       color: "#00a8b5",
     },
     {
@@ -65,7 +65,7 @@ export default function ImageFeatures() {
       title: "Stunning Natural Landscapes",
       description:
         "From the otherworldly Danakil Depression to the lush Simien Mountains, Ethiopia offers some of Africa's most dramatic scenery.",
-      image: "/bg-12.jpg",
+      image: "/bg-72.jpg",
     },
   ];
 
