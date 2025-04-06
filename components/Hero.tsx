@@ -154,9 +154,11 @@ const slides = [
 export default function Hero() {
   const { translations } = useLanguage();
   const [isFixed, setIsFixed] = useState(true);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(
+    Math.floor(Math.random() * slides.length)
+  );
   const [showVideo, setShowVideo] = useState(false);
-  const watchedSlides = useRef<number[]>([0]);
+  const watchedSlides = useRef<number[]>([currentSlide]);
 
   useEffect(() => {
     const handleScroll = () => {
