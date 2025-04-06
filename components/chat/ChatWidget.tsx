@@ -267,7 +267,7 @@ export default function ChatWidget() {
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
             className="absolute bottom-20 right-0 w-80 sm:w-96 h-[500px] bg-white dark:bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700">
-            {/* Chat Header with Ethiopian-inspired design */}
+            {/* Chat Header */}
             <div className="bg-primary-600 text-white p-4 flex items-center relative">
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
                 <button onClick={scrollToEnd}>
@@ -275,7 +275,7 @@ export default function ChatWidget() {
                 </button>
               </div>
               <div>
-                <h3 className="font-bold">Ethiopian Travel Guide</h3>
+                <h3 className="font-bold">Mosaic Travel Guide</h3>
                 <p className="text-xs opacity-80">
                   ጥያቄዎን ይጠይቁ • Ask me anything
                 </p>
