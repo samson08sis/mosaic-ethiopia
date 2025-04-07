@@ -11,6 +11,7 @@ import "./globals.css";
 import ScrollToTop from "@/components/ui/scroll-to-top";
 import ChatWidget from "@/components/chat/ChatWidget";
 import { AuthProvider } from "@/contexts/AuthContext";
+import JotFormChatbot from "@/components/chat/JotFormChatBot";
 
 // Load fonts
 const inter = Inter({
@@ -51,7 +52,8 @@ export default function RootLayout({
                 <main className="flex-grow">{children}</main>
                 <Footer />
                 <ScrollToTop />
-                <ChatWidget />
+                {/* <ChatWidget /> */}
+                <JotFormChatbot />
               </div>
             </AuthProvider>
           </LanguageProvider>
