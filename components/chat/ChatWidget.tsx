@@ -127,22 +127,22 @@ export default function ChatWidget() {
     }
   };
 
-  const generateResponse = async () => {
-    if (!inputValue.trim()) return;
+  const generateResponse = async (input = inputValue) => {
+    if (!input.trim()) return;
 
     setIsTyping(true);
     setMessages((prev) => [
       ...prev,
       {
         id: new Date().toString(),
-        content: inputValue,
+        content: input,
         sender: "user",
         timestamp: new Date(),
       },
     ]);
     try {
       const response = await axios.post("http://localhost:3000/api/ask-groq", {
-        prompt: inputValue,
+        prompt: input,
         history,
       });
       console.log(response.data?.answer);
@@ -158,7 +158,7 @@ export default function ChatWidget() {
 
       setHistory((prev) => [
         ...prev,
-        { role: "user", content: inputValue },
+        { role: "user", content: input },
         { role: "assistant", content: response.data.answer },
       ]);
 
@@ -195,11 +195,11 @@ export default function ChatWidget() {
     setInputValue("");
     setShowFaq(false); // Close FAQ when sending a message
 
-    await generateResponse();
+    await generateResponse(messageText);
   };
 
-  const handleFaqClick = (question: string) => {
-    handleSendMessage(question);
+  const handleFaqClick = async (question: string) => {
+    await handleSendMessage(question);
   };
 
   // Function to generate responses based on user input
