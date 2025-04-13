@@ -52,8 +52,8 @@ export default function RootLayout({
                 <main className="flex-grow">{children}</main>
                 <Footer />
                 <ScrollToTop />
-                {/* <ChatWidget /> */}
-                <JotFormChatbot />
+                <ChatWidget />
+                {/* <JotFormChatbot /> */}
               </div>
             </AuthProvider>
           </LanguageProvider>
