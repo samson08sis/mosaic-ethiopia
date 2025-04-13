@@ -3,6 +3,8 @@
 import type React from "react";
 
 import { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import ReactMarkdown from "react-markdown";
 import {
   MessageSquare,
   X,
@@ -11,6 +13,8 @@ import {
   HelpCircle,
   ChevronRight,
   Info,
+  ChevronUp,
+  ChevronDown,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import QuickSuggestions from "./QuickSuggestions";
@@ -19,8 +23,12 @@ import QuickSuggestions from "./QuickSuggestions";
 type Message = {
   id: string;
   content: string;
-  sender: "user" | "bot";
+  sender: "user" | "bot" | "bot-error";
   timestamp: Date;
+};
+type History = {
+  role: "user" | "assistant";
+  content: string;
 };
 
 // FAQ categories and questions
@@ -66,14 +74,18 @@ export default function ChatWidget() {
     {
       id: "welcome",
       content:
-        "ሰላም! Hello! I'm your Ethiopian travel assistant. How can I help you plan your journey to Ethiopia?",
+        "ሰላም! Hello! I'm your Mosaic travel assistant. How can I help you plan your journey to Ethiopia?",
       sender: "bot",
       timestamp: new Date(),
     },
   ]);
+  const [history, setHistory] = useState<History[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showFaq, setShowFaq] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState<
+    Record<string, boolean>
+  >({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom of messages
@@ -97,18 +109,79 @@ export default function ChatWidget() {
     setShowFaq(!showFaq);
   };
 
+  const toggleCategory = (categoryId: string) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [categoryId]: !prev[categoryId],
+    }));
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = async (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
   };
 
-  const handleSendMessage = (messageText = inputValue) => {
+  const generateResponse = async () => {
+    if (!inputValue.trim()) return;
+
+    setIsTyping(true);
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: new Date().toString(),
+        content: inputValue,
+        sender: "user",
+        timestamp: new Date(),
+      },
+    ]);
+    try {
+      const response = await axios.post("http://localhost:3000/api/ask-groq", {
+        prompt: inputValue,
+        history,
+      });
+      console.log(response.data?.answer);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: new Date().toString(),
+          content: response.data.answer,
+          sender: "bot",
+          timestamp: new Date(),
+        },
+      ]);
+
+      setHistory((prev) => [
+        ...prev,
+        { role: "user", content: inputValue },
+        { role: "assistant", content: response.data.answer },
+      ]);
+
+      setInputValue(""); // Clear input after sending
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: new Date().toString(),
+          content:
+            axios.isAxiosError(error) && error.response?.data?.error
+              ? error.response.data.error
+              : "Couldn't process your request. Please try again or seek support on support@mosaic.com.",
+          sender: "bot-error",
+          timestamp: new Date(),
+        },
+      ]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  const handleSendMessage = async (messageText = inputValue) => {
     if (messageText.trim() === "") return;
 
     // Add user message
@@ -119,25 +192,10 @@ export default function ChatWidget() {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
-    setIsTyping(true);
     setShowFaq(false); // Close FAQ when sending a message
 
-    // Simulate bot response after a delay
-    setTimeout(() => {
-      const botResponse = generateResponse(messageText);
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: (Date.now() + 1).toString(),
-          content: botResponse,
-          sender: "bot",
-          timestamp: new Date(),
-        },
-      ]);
-      setIsTyping(false);
-    }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+    await generateResponse();
   };
 
   const handleFaqClick = (question: string) => {
@@ -145,100 +203,100 @@ export default function ChatWidget() {
   };
 
   // Function to generate responses based on user input
-  const generateResponse = (userInput: string): string => {
-    const input = userInput.toLowerCase();
+  // const generateResponse = (userInput: string): string => {
+  //   const input = userInput.toLowerCase();
 
-    // Check for keywords and return appropriate responses
-    if (input.includes("lalibela") || input.includes("churches")) {
-      return "Lalibela is famous for its 11 rock-hewn churches carved from solid red volcanic rock in the 12th-13th centuries. These UNESCO World Heritage sites are still active places of worship. The best time to visit is during Ethiopian Orthodox celebrations like Timkat (January) or Genna (Ethiopian Christmas). Our Ethiopian Historical Route package includes 2 days in Lalibela.";
-    } else if (
-      input.includes("danakil") ||
-      input.includes("volcano") ||
-      input.includes("hottest")
-    ) {
-      return "The Danakil Depression is one of the hottest places on Earth with otherworldly landscapes including colorful sulfur springs, salt flats, and the active Erta Ale volcano with its lava lake. It's best visited between November and March. Our 6-day Danakil Depression Expedition takes you safely through this extreme but fascinating environment.";
-    } else if (
-      input.includes("simien") ||
-      input.includes("mountains") ||
-      input.includes("trekking")
-    ) {
-      return "The Simien Mountains offer spectacular trekking opportunities with dramatic escarpments and are home to endemic wildlife like the Gelada baboon (bleeding heart monkey) and Walia ibex. The best hiking season is from October to March. Our Ethiopian Nature & Wildlife package includes a comprehensive Simien Mountains experience with options for 2-5 day treks.";
-    } else if (
-      input.includes("omo") ||
-      input.includes("tribes") ||
-      input.includes("cultural")
-    ) {
-      return "The Omo Valley is home to diverse indigenous tribes including the Mursi, Hamer, Karo, and Daasanach, each with unique cultural practices. Our 9-day Omo Valley Cultural Immersion tour provides respectful opportunities to learn about these communities while supporting local initiatives. The experience includes visiting markets, witnessing ceremonies (when available), and learning about traditional lifestyles.";
-    } else if (input.includes("addis") || input.includes("addis ababa")) {
-      return "Addis Ababa, Ethiopia's capital, is worth at least 1-2 days of exploration. Visit the National Museum to see Lucy (3.2 million-year-old hominid fossil), Holy Trinity Cathedral, Merkato (Africa's largest open-air market), and enjoy the city's excellent restaurants. Addis is also the gateway to Ethiopia at 2,355m elevation, so it's a good place to acclimatize before heading to higher altitudes.";
-    } else if (input.includes("coffee") || input.includes("ceremony")) {
-      return "Ethiopia is the birthplace of coffee! The traditional coffee ceremony is a central part of Ethiopian social and cultural life. It involves roasting green beans over hot coals, grinding them with a mortar and pestle, and brewing in a special clay pot called a jebena. The coffee is served in small cups with sugar or salt, often alongside popcorn. Our Ethiopian Coffee Trail tour takes you to the origins of coffee in Kaffa, visits farms in Yirgacheffe, and includes multiple traditional coffee ceremonies.";
-    } else if (
-      input.includes("festival") ||
-      input.includes("timkat") ||
-      input.includes("meskel")
-    ) {
-      return "Ethiopian festivals are vibrant cultural experiences. Timkat (January) celebrates Epiphany with colorful processions and ritual baptism. Meskel (September) commemorates the finding of the True Cross with massive bonfires. Genna (Ethiopian Christmas, January 7) and Fasika (Ethiopian Easter) are also significant. Our Ethiopian Festivals package is timed around these major celebrations for an unforgettable experience.";
-    } else if (
-      input.includes("cost") ||
-      input.includes("price") ||
-      input.includes("how much")
-    ) {
-      return "Our Ethiopian tour packages range from $1,299 to $1,899 per person, depending on the itinerary, duration, and inclusions. This typically includes accommodation, most meals, domestic transportation, guides, and entrance fees. International flights, visa fees, and personal expenses are not included. All packages can be customized to fit your preferences and budget.";
-    } else if (
-      input.includes("best time") ||
-      input.includes("when to visit") ||
-      input.includes("season")
-    ) {
-      return "The best time to visit Ethiopia is during the dry season from October to March. The northern historical route is accessible year-round, while some areas like the Danakil Depression are best visited in winter months (November-February). The southern regions including Omo Valley are accessible year-round but some roads may be difficult during the rainy season (June-September).";
-    } else if (
-      input.includes("food") ||
-      input.includes("cuisine") ||
-      input.includes("injera")
-    ) {
-      return "Ethiopian cuisine is delicious and unique! The staple is injera, a sourdough flatbread with a slightly tangy taste, served with various wats (stews) and tibs (sautéed meat). Don't miss doro wat (spicy chicken stew), shiro (chickpea puree), and kitfo (minced raw beef). Ethiopia has many fasting days when only vegetarian dishes are served, making it excellent for vegetarians. Coffee is also an essential part of Ethiopian culture.";
-    } else if (
-      input.includes("days") ||
-      input.includes("how long") ||
-      input.includes("spend")
-    ) {
-      return "For a comprehensive Ethiopian experience, we recommend 10-14 days. This allows you to visit the northern historical route (Lalibela, Gondar, Axum), experience natural wonders like the Simien Mountains, and possibly include the Danakil Depression or southern cultural areas. If you have limited time, a focused 7-day trip covering just the northern highlights can still be rewarding.";
-    } else if (
-      input.includes("safe") ||
-      input.includes("safety") ||
-      input.includes("danger")
-    ) {
-      return "Ethiopia is generally safe for tourists, especially in the main tourist areas. Like any destination, it's important to take standard precautions. Political situations can change, so we always monitor conditions and adjust itineraries if needed. Our guides are experienced in ensuring visitor safety, and we provide pre-trip safety information. We recommend checking your government's travel advisories before booking.";
-    } else if (
-      input.includes("vaccination") ||
-      input.includes("vaccine") ||
-      input.includes("health")
-    ) {
-      return "For Ethiopia, recommended vaccinations typically include Yellow Fever (required for entry), Hepatitis A and B, Typhoid, and routine vaccines. Malaria prophylaxis is recommended for some regions. It's best to consult with a travel health specialist 4-8 weeks before your trip for personalized advice. We also recommend bringing a basic medical kit and purchasing comprehensive travel insurance.";
-    } else if (
-      input.includes("language") ||
-      input.includes("speak") ||
-      input.includes("amharic")
-    ) {
-      return "Amharic is Ethiopia's official language, but over 80 languages are spoken throughout the country. English is commonly used in tourism, and our guides are fluent in English. Learning a few basic Amharic phrases like 'Selam' (hello) and 'Ameseginalehu' (thank you) is appreciated by locals. In the Omo Valley, local guides help translate tribal languages.";
-    } else if (
-      input.includes("souvenir") ||
-      input.includes("buy") ||
-      input.includes("shopping")
-    ) {
-      return "Ethiopia offers wonderful souvenirs including traditional coffee sets, handwoven scarves and textiles, Orthodox icons and crosses, traditional baskets (mesob), leather goods, and of course, Ethiopian coffee beans. Addis Ababa has excellent shopping at Merkato and Shiromeda Market. We can arrange shopping excursions with guides who can help with fair pricing and authentic items.";
-    } else if (
-      input.includes("hello") ||
-      input.includes("hi") ||
-      input.includes("hey")
-    ) {
-      return "ሰላም (Selam)! Hello! I'm your Ethiopian travel assistant. I can help with information about destinations, tour packages, best times to visit, and more. What would you like to know about traveling to Ethiopia?";
-    } else if (input.includes("thank")) {
-      return "አመሰግናለሁ (Ameseginalehu) - You're welcome! If you have any more questions about traveling to Ethiopia, feel free to ask. We're here to help you plan an unforgettable journey!";
-    } else {
-      return "That's a great question about Ethiopia! Our team specializes in customized Ethiopian experiences. Would you like me to connect you with a travel specialist who can provide more detailed information about this?";
-    }
-  };
+  //   // Check for keywords and return appropriate responses
+  //   if (input.includes("lalibela") || input.includes("churches")) {
+  //     return "Lalibela is famous for its 11 rock-hewn churches carved from solid red volcanic rock in the 12th-13th centuries. These UNESCO World Heritage sites are still active places of worship. The best time to visit is during Ethiopian Orthodox celebrations like Timkat (January) or Genna (Ethiopian Christmas). Our Ethiopian Historical Route package includes 2 days in Lalibela.";
+  //   } else if (
+  //     input.includes("danakil") ||
+  //     input.includes("volcano") ||
+  //     input.includes("hottest")
+  //   ) {
+  //     return "The Danakil Depression is one of the hottest places on Earth with otherworldly landscapes including colorful sulfur springs, salt flats, and the active Erta Ale volcano with its lava lake. It's best visited between November and March. Our 6-day Danakil Depression Expedition takes you safely through this extreme but fascinating environment.";
+  //   } else if (
+  //     input.includes("simien") ||
+  //     input.includes("mountains") ||
+  //     input.includes("trekking")
+  //   ) {
+  //     return "The Simien Mountains offer spectacular trekking opportunities with dramatic escarpments and are home to endemic wildlife like the Gelada baboon (bleeding heart monkey) and Walia ibex. The best hiking season is from October to March. Our Ethiopian Nature & Wildlife package includes a comprehensive Simien Mountains experience with options for 2-5 day treks.";
+  //   } else if (
+  //     input.includes("omo") ||
+  //     input.includes("tribes") ||
+  //     input.includes("cultural")
+  //   ) {
+  //     return "The Omo Valley is home to diverse indigenous tribes including the Mursi, Hamer, Karo, and Daasanach, each with unique cultural practices. Our 9-day Omo Valley Cultural Immersion tour provides respectful opportunities to learn about these communities while supporting local initiatives. The experience includes visiting markets, witnessing ceremonies (when available), and learning about traditional lifestyles.";
+  //   } else if (input.includes("addis") || input.includes("addis ababa")) {
+  //     return "Addis Ababa, Ethiopia's capital, is worth at least 1-2 days of exploration. Visit the National Museum to see Lucy (3.2 million-year-old hominid fossil), Holy Trinity Cathedral, Merkato (Africa's largest open-air market), and enjoy the city's excellent restaurants. Addis is also the gateway to Ethiopia at 2,355m elevation, so it's a good place to acclimatize before heading to higher altitudes.";
+  //   } else if (input.includes("coffee") || input.includes("ceremony")) {
+  //     return "Ethiopia is the birthplace of coffee! The traditional coffee ceremony is a central part of Ethiopian social and cultural life. It involves roasting green beans over hot coals, grinding them with a mortar and pestle, and brewing in a special clay pot called a jebena. The coffee is served in small cups with sugar or salt, often alongside popcorn. Our Ethiopian Coffee Trail tour takes you to the origins of coffee in Kaffa, visits farms in Yirgacheffe, and includes multiple traditional coffee ceremonies.";
+  //   } else if (
+  //     input.includes("festival") ||
+  //     input.includes("timkat") ||
+  //     input.includes("meskel")
+  //   ) {
+  //     return "Ethiopian festivals are vibrant cultural experiences. Timkat (January) celebrates Epiphany with colorful processions and ritual baptism. Meskel (September) commemorates the finding of the True Cross with massive bonfires. Genna (Ethiopian Christmas, January 7) and Fasika (Ethiopian Easter) are also significant. Our Ethiopian Festivals package is timed around these major celebrations for an unforgettable experience.";
+  //   } else if (
+  //     input.includes("cost") ||
+  //     input.includes("price") ||
+  //     input.includes("how much")
+  //   ) {
+  //     return "Our Ethiopian tour packages range from $1,299 to $1,899 per person, depending on the itinerary, duration, and inclusions. This typically includes accommodation, most meals, domestic transportation, guides, and entrance fees. International flights, visa fees, and personal expenses are not included. All packages can be customized to fit your preferences and budget.";
+  //   } else if (
+  //     input.includes("best time") ||
+  //     input.includes("when to visit") ||
+  //     input.includes("season")
+  //   ) {
+  //     return "The best time to visit Ethiopia is during the dry season from October to March. The northern historical route is accessible year-round, while some areas like the Danakil Depression are best visited in winter months (November-February). The southern regions including Omo Valley are accessible year-round but some roads may be difficult during the rainy season (June-September).";
+  //   } else if (
+  //     input.includes("food") ||
+  //     input.includes("cuisine") ||
+  //     input.includes("injera")
+  //   ) {
+  //     return "Ethiopian cuisine is delicious and unique! The staple is injera, a sourdough flatbread with a slightly tangy taste, served with various wats (stews) and tibs (sautéed meat). Don't miss doro wat (spicy chicken stew), shiro (chickpea puree), and kitfo (minced raw beef). Ethiopia has many fasting days when only vegetarian dishes are served, making it excellent for vegetarians. Coffee is also an essential part of Ethiopian culture.";
+  //   } else if (
+  //     input.includes("days") ||
+  //     input.includes("how long") ||
+  //     input.includes("spend")
+  //   ) {
+  //     return "For a comprehensive Ethiopian experience, we recommend 10-14 days. This allows you to visit the northern historical route (Lalibela, Gondar, Axum), experience natural wonders like the Simien Mountains, and possibly include the Danakil Depression or southern cultural areas. If you have limited time, a focused 7-day trip covering just the northern highlights can still be rewarding.";
+  //   } else if (
+  //     input.includes("safe") ||
+  //     input.includes("safety") ||
+  //     input.includes("danger")
+  //   ) {
+  //     return "Ethiopia is generally safe for tourists, especially in the main tourist areas. Like any destination, it's important to take standard precautions. Political situations can change, so we always monitor conditions and adjust itineraries if needed. Our guides are experienced in ensuring visitor safety, and we provide pre-trip safety information. We recommend checking your government's travel advisories before booking.";
+  //   } else if (
+  //     input.includes("vaccination") ||
+  //     input.includes("vaccine") ||
+  //     input.includes("health")
+  //   ) {
+  //     return "For Ethiopia, recommended vaccinations typically include Yellow Fever (required for entry), Hepatitis A and B, Typhoid, and routine vaccines. Malaria prophylaxis is recommended for some regions. It's best to consult with a travel health specialist 4-8 weeks before your trip for personalized advice. We also recommend bringing a basic medical kit and purchasing comprehensive travel insurance.";
+  //   } else if (
+  //     input.includes("language") ||
+  //     input.includes("speak") ||
+  //     input.includes("amharic")
+  //   ) {
+  //     return "Amharic is Ethiopia's official language, but over 80 languages are spoken throughout the country. English is commonly used in tourism, and our guides are fluent in English. Learning a few basic Amharic phrases like 'Selam' (hello) and 'Ameseginalehu' (thank you) is appreciated by locals. In the Omo Valley, local guides help translate tribal languages.";
+  //   } else if (
+  //     input.includes("souvenir") ||
+  //     input.includes("buy") ||
+  //     input.includes("shopping")
+  //   ) {
+  //     return "Ethiopia offers wonderful souvenirs including traditional coffee sets, handwoven scarves and textiles, Orthodox icons and crosses, traditional baskets (mesob), leather goods, and of course, Ethiopian coffee beans. Addis Ababa has excellent shopping at Merkato and Shiromeda Market. We can arrange shopping excursions with guides who can help with fair pricing and authentic items.";
+  //   } else if (
+  //     input.includes("hello") ||
+  //     input.includes("hi") ||
+  //     input.includes("hey")
+  //   ) {
+  //     return "ሰላም (Selam)! Hello! I'm your Ethiopian travel assistant. I can help with information about destinations, tour packages, best times to visit, and more. What would you like to know about traveling to Ethiopia?";
+  //   } else if (input.includes("thank")) {
+  //     return "አመሰግናለሁ (Ameseginalehu) - You're welcome! If you have any more questions about traveling to Ethiopia, feel free to ask. We're here to help you plan an unforgettable journey!";
+  //   } else {
+  //     return "That's a great question about Ethiopia! Our team specializes in customized Ethiopian experiences. Would you like me to connect you with a travel specialist who can provide more detailed information about this?";
+  //   }
+  // };
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -322,21 +380,49 @@ export default function ChatWidget() {
                           <div
                             key={category.id}
                             className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                            <div className="bg-gray-100 dark:bg-gray-800 p-3 font-medium text-gray-900 dark:text-white flex items-center">
-                              <Info className="h-4 w-4 mr-2 text-primary-600 dark:text-primary-400" />
-                              {category.name}
-                            </div>
-                            <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                              {category.questions.map((question, idx) => (
-                                <button
-                                  key={idx}
-                                  className="w-full text-left p-3 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-between text-gray-700 dark:text-gray-300 text-sm"
-                                  onClick={() => handleFaqClick(question)}>
-                                  <span>{question}</span>
-                                  <ChevronRight className="h-4 w-4 text-gray-400" />
-                                </button>
-                              ))}
-                            </div>
+                            {/* Clickable Category Header */}
+                            <button
+                              onClick={() => toggleCategory(category.id)}
+                              className="w-full bg-neutral-100 dark:bg-gray-800 p-3 font-medium text-gray-900 dark:text-white flex items-center justify-between transition-colors hover:bg-neutral-200 dark:hover:bg-gray-700"
+                              aria-expanded={
+                                expandedCategories[category.id] || false
+                              }>
+                              <div className="flex items-center">
+                                <Info className="h-4 w-4 mr-2 text-primary-600 dark:text-primary-400" />
+                                {category.name}
+                              </div>
+                              {expandedCategories[category.id] ? (
+                                <ChevronUp className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                              ) : (
+                                <ChevronDown className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                              )}
+                            </button>
+
+                            {/* Questions - Only shown when category is expanded */}
+                            <AnimatePresence>
+                              {expandedCategories[category.id] && (
+                                <motion.div
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: "auto", opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="overflow-hidden">
+                                  <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                                    {category.questions.map((question, idx) => (
+                                      <button
+                                        key={idx}
+                                        className="w-full text-left p-3 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-between text-gray-700 dark:text-gray-300 text-sm"
+                                        onClick={() =>
+                                          handleFaqClick(question)
+                                        }>
+                                        <span>{question}</span>
+                                        <ChevronRight className="h-4 w-4 text-gray-400" />
+                                      </button>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
                           </div>
                         ))}
                       </div>
@@ -355,18 +441,73 @@ export default function ChatWidget() {
                         ? "justify-end"
                         : "justify-start"
                     }`}>
-                    {message.sender === "bot" && (
-                      <div className="w-8 h-8 rounded-full bg-primary-600 flex-shrink-0 mr-2 flex items-center justify-center text-white text-xs font-bold">
-                        ET
-                      </div>
-                    )}
                     <div
-                      className={`max-w-[80%] rounded-lg p-3 ${
+                      className={`max-w-[80%] rounded-xl p-3 ${
                         message.sender === "user"
-                          ? "bg-gradient-to-r from-green-600 to-green-700 text-white"
-                          : "bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow border border-gray-100 dark:border-gray-600"
+                          ? "bg-gradient-to-r from-sky-400 to-sky-500 text-white rounded-br-none"
+                          : "bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow border border-gray-100 dark:border-gray-600 rounded-bl-none"
                       }`}>
-                      <p className="text-sm">{message.content}</p>
+                      {message.sender === "bot" ? (
+                        <ReactMarkdown
+                          components={{
+                            h1: ({ node, ...props }) => (
+                              <h1
+                                className="text-xl font-bold mt-2 mb-1"
+                                {...props}
+                              />
+                            ),
+                            h2: ({ node, ...props }) => (
+                              <h2
+                                className="text-lg font-semibold mt-2 mb-1 text-cyan-300"
+                                {...props}
+                              />
+                            ),
+                            h3: ({ node, ...props }) => (
+                              <h3
+                                className="text-base font-medium mt-1 mb-1 text-rose-400"
+                                {...props}
+                              />
+                            ),
+                            p: ({ node, ...props }) => (
+                              <p className="text-sm mb-2" {...props} />
+                            ),
+                            ul: ({ node, ...props }) => (
+                              <ul
+                                className="list-disc pl-5 my-1 text-sm"
+                                {...props}
+                              />
+                            ),
+                            ol: ({ node, ...props }) => (
+                              <ol
+                                className="list-decimal pl-5 my-1 text-sm"
+                                {...props}
+                              />
+                            ),
+                            li: ({ node, ...props }) => (
+                              <li className="mb-1" {...props} />
+                            ),
+                            strong: ({ node, ...props }) => (
+                              <strong className="font-semibold" {...props} />
+                            ),
+                            em: ({ node, ...props }) => (
+                              <em className="italic" {...props} />
+                            ),
+                            a: ({ node, ...props }) => (
+                              <a
+                                className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                {...props}
+                              />
+                            ),
+                          }}
+                          remarkPlugins={[]}>
+                          {message.content}
+                        </ReactMarkdown>
+                      ) : (
+                        <p className="text-sm">{message.content}</p>
+                      )}
+
                       <p className="text-xs mt-1 opacity-70">
                         {message.timestamp.toLocaleTimeString([], {
                           hour: "2-digit",
