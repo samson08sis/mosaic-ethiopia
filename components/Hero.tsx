@@ -241,8 +241,8 @@ export default function Hero() {
                 Origins and Wonders
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-gray-200">
-                Travel to any corner of the world, without going around in
-                circles
+                Experience ancient history, diverse cultures, and breathtaking
+                landscapes
               </p>
               <div className="flex space-x-4">
                 <Link
