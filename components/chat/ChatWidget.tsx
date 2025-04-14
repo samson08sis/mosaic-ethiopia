@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import QuickSuggestions from "./QuickSuggestions";
+import CopyButton from "../ui/CopyButton";
 
 // Types for our chat messages
 type Message = {
@@ -458,7 +459,7 @@ export default function ChatWidget() {
                             ),
                             h2: ({ node, ...props }) => (
                               <h2
-                                className="text-lg font-semibold mt-2 mb-1 text-cyan-300"
+                                className="text-base font-normal mt-2 mb-1 text-cyan-300"
                                 {...props}
                               />
                             ),
@@ -487,10 +488,13 @@ export default function ChatWidget() {
                               <li className="mb-1" {...props} />
                             ),
                             strong: ({ node, ...props }) => (
-                              <strong className="font-semibold" {...props} />
+                              <strong
+                                className="font-semibold text-cyan-400"
+                                {...props}
+                              />
                             ),
                             em: ({ node, ...props }) => (
-                              <em className="italic" {...props} />
+                              <em className="italic font-thin" {...props} />
                             ),
                             a: ({ node, ...props }) => (
                               <a
@@ -507,13 +511,15 @@ export default function ChatWidget() {
                       ) : (
                         <p className="text-sm">{message.content}</p>
                       )}
-
-                      <p className="text-xs mt-1 opacity-70">
-                        {message.timestamp.toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </p>
+                      <div className="flex flex-row space-x-4">
+                        <p className="text-xs mt-1 opacity-70">
+                          {message.timestamp.toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                        <CopyButton textToCopy={message.content} />
+                      </div>
                     </div>
                   </div>
                 ))}
