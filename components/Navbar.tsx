@@ -94,7 +94,7 @@ export default function Navbar() {
                   className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
                     pathname === "/" ? "text-primary dark:text-primary-400" : ""
                   }`}>
-                  {translations[link.name] || link.name}
+                  {(translations as any)[link.name] || link.name}
                 </Link>
               ))}
 
