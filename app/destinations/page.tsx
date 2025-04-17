@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, MapPin, Star } from "lucide-react";
+import { Search, MapPin, Star, Tag } from "lucide-react";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import destinations from "@/data/destinations";
@@ -77,15 +77,14 @@ export default function DestinationsPage() {
                   </div>
                 </div>
 
-                <p className="text-muted-foreground mb-4">
-                  {destination.description}
-                </p>
+                <p className=" mb-4">{destination.description}</p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {destination.activities.map((activity) => (
                     <span
                       key={activity}
-                      className="bg-muted text-muted-foreground px-3 py-1 rounded-full text-sm">
+                      className="bg-muted px-3 py-1 rounded-full text-sm flex flex-row">
+                      <Tag size={16} className="mr-2 text-cyan-300" />
                       {activity}
                     </span>
                   ))}
