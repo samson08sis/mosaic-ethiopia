@@ -20,11 +20,11 @@ import ProfileDropdown from "./ProfileDropdown";
 
 const navItems = {
   links: [
-    { name: "Home", href: "/" },
-    { name: "Destinations", href: "/destinations" },
-    { name: "Packages", href: "/packages" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: "home", href: "/" },
+    { name: "destinations", href: "/destinations" },
+    { name: "packages", href: "/packages" },
+    { name: "about", href: "/about" },
+    { name: "contact", href: "/contact" },
   ],
   langs: [
     { name: "English", code: "en" },
@@ -35,7 +35,7 @@ const navItems = {
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const { language, changeLanguage } = useLanguage();
+  const { language, changeLanguage, translations } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -94,7 +94,7 @@ export default function Navbar() {
                   className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
                     pathname === "/" ? "text-primary dark:text-primary-400" : ""
                   }`}>
-                  {link.name}
+                  {translations[link.name] || link.name}
                 </Link>
               ))}
 
@@ -145,7 +145,7 @@ export default function Navbar() {
                 <button
                   onClick={openLoginModal}
                   className="ml-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600">
-                  Login
+                  {translations.login || "Login"}
                 </button>
               )}
             </div>
@@ -188,12 +188,12 @@ export default function Navbar() {
                   {theme === "dark" ? (
                     <>
                       <Sun className="h-5 w-5 text-yellow-400 mr-2" />
-                      Light Mode
+                      {translations.lightMode || "Light Mode"}
                     </>
                   ) : (
                     <>
                       <Moon className="h-5 w-5 text-gray-700 mr-2" />
-                      Dark Mode
+                      {translations.darkMode || "Dark Mode"}
                     </>
                   )}
                 </button>
@@ -202,7 +202,7 @@ export default function Navbar() {
               {/* Language Options in Mobile Menu */}
               <div className="px-3 py-2">
                 <div className="text-gray-900 dark:text-white mb-2">
-                  Language
+                  {translations.language || "Language"}
                 </div>
                 <div className="flex space-x-4">
                   {navItems.langs.map((lang) => (
@@ -228,13 +228,13 @@ export default function Navbar() {
                   <Link
                     href="/profile"
                     className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
-                    My Profile
+                    {translations.myProfile || "My Profile"}
                   </Link>
                 ) : (
                   <button
                     onClick={openLoginModal}
                     className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
-                    Login
+                    {translations.login || "Login"}
                   </button>
                 )}
               </div>

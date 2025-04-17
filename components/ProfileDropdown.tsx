@@ -5,12 +5,36 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { User, LogOut, Calendar, Clock, Settings } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+const iconClass = "h-4 w-4 mr-2 text-gray-500 dark:text-gray-400";
+const menuItems = [
+  {
+    href: "/profile",
+    icon: <Settings className={iconClass} />,
+    text: "Profile Settings",
+    translation: "profileSettings",
+  },
+  {
+    href: "/bookings/current",
+    icon: <Calendar className={iconClass} />,
+    text: "Current Bookings",
+    translation: "currentBookings",
+  },
+  {
+    href: "/bookings/history",
+    icon: <Clock className={iconClass} />,
+    text: "Booking History",
+    translation: "bookingHistory",
+  },
+];
 
 export default function ProfileDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, logout } = useAuth();
   const router = useRouter();
+  const { translations } = useLanguage();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -69,29 +93,15 @@ export default function ProfileDropdown() {
             </p>
           </div>
 
-          <Link
-            href="/profile"
-            className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={() => setIsOpen(false)}>
-            <Settings className="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400" />
-            Profile Settings
-          </Link>
-
-          <Link
-            href="/bookings/current"
-            className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={() => setIsOpen(false)}>
-            <Calendar className="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400" />
-            Current Bookings
-          </Link>
-
-          <Link
-            href="/bookings/history"
-            className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={() => setIsOpen(false)}>
-            <Clock className="h-4 w-4 mr-2 text-gray-500 dark:text-gray-400" />
-            Booking History
-          </Link>
+          {menuItems.map((item) => (
+            <Link
+              href={item.href}
+              className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              onClick={() => setIsOpen(false)}>
+              {item.icon}
+              {translations[item.translation] || item.text}
+            </Link>
+          ))}
 
           <div className="border-t border-gray-200 dark:border-gray-700"></div>
 
@@ -99,7 +109,7 @@ export default function ProfileDropdown() {
             onClick={handleLogout}
             className="flex w-full items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
             <LogOut className="h-4 w-4 mr-2" />
-            Sign out
+            {translations.signOut || "Sign out"}
           </button>
         </div>
       )}
