@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
@@ -15,16 +14,26 @@ import {
   Info,
   ChevronUp,
   ChevronDown,
+  MessageSquarePlus,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import QuickSuggestions from "./QuickSuggestions";
 import CopyButton from "../ui/CopyButton";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 
 // Types for our chat messages
 type Message = {
   id: string;
   content: string;
-  sender: "user" | "bot" | "bot-error";
+  sender: "user" | "bot" | "bot-error" | "system";
+  type: "chat" | "info";
   timestamp: Date;
 };
 type History = {
@@ -73,20 +82,33 @@ export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
+      id: "start-date",
+      content: new Date().toDateString(),
+      sender: "system",
+      type: "info",
+      timestamp: new Date(),
+    },
+    {
       id: "welcome",
       content:
         "ሰላም! Hello! I'm your Mosaic travel assistant. How can I help you plan your journey to Ethiopia?",
       sender: "bot",
+      type: "chat",
       timestamp: new Date(),
     },
   ]);
   const [history, setHistory] = useState<History[]>([]);
+  const [lastDate, setLastDate] = useState<Date>(
+    messages[messages.length - 1].timestamp
+  );
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showFaq, setShowFaq] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<
     Record<string, boolean>
   >({});
+  const [showNewThreadConfirmation, setShowNewThreadConfirmation] =
+    useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom of messages
@@ -132,12 +154,14 @@ export default function ChatWidget() {
     if (!input.trim()) return;
 
     setIsTyping(true);
+    isDifferentDate();
     setMessages((prev) => [
       ...prev,
       {
-        id: new Date().toString(),
+        id: crypto.randomUUID(),
         content: input,
         sender: "user",
+        type: "chat",
         timestamp: new Date(),
       },
     ]);
@@ -150,9 +174,10 @@ export default function ChatWidget() {
       setMessages((prev) => [
         ...prev,
         {
-          id: new Date().toString(),
+          id: crypto.randomUUID(),
           content: response.data.answer,
           sender: "bot",
+          type: "chat",
           timestamp: new Date(),
         },
       ]);
@@ -168,12 +193,13 @@ export default function ChatWidget() {
       setMessages((prev) => [
         ...prev,
         {
-          id: new Date().toString(),
+          id: crypto.randomUUID(),
           content:
             axios.isAxiosError(error) && error.response?.data?.error
               ? error.response.data.error
-              : "Couldn't process your request. Please try again or seek support on support@mosaic.com.",
+              : "Couldn't process your request. Please try again or seek support on [support@mosaicethiopia.com](mailto:support@mosaicethiopia.com).",
           sender: "bot-error",
+          type: "chat",
           timestamp: new Date(),
         },
       ]);
@@ -187,9 +213,10 @@ export default function ChatWidget() {
 
     // Add user message
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       content: messageText,
       sender: "user",
+      type: "chat",
       timestamp: new Date(),
     };
 
@@ -201,6 +228,51 @@ export default function ChatWidget() {
 
   const handleFaqClick = async (question: string) => {
     await handleSendMessage(question);
+  };
+
+  const isDifferentDate = () => {
+    const today = new Date();
+    if (
+      lastDate.getFullYear() !== today.getFullYear() ||
+      lastDate.getMonth() !== today.getMonth() ||
+      lastDate.getDate() !== today.getDate()
+    ) {
+      setLastDate(today);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          content: today.toDateString(),
+          sender: "system",
+          type: "info",
+          timestamp: new Date(),
+        },
+      ]);
+    }
+    return true;
+  };
+
+  const handleStartNewThread = () => {
+    setShowNewThreadConfirmation(true);
+  };
+
+  const confirmStartNewThread = () => {
+    setHistory([]);
+
+    // Add a system message indicating a new thread
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        content: "--- New thread started ---",
+        sender: "system",
+        type: "info",
+        timestamp: new Date(),
+      },
+    ]);
+
+    // Close the confirmation dialog
+    setShowNewThreadConfirmation(false);
   };
 
   // Function to generate responses based on user input
@@ -349,9 +421,6 @@ export default function ChatWidget() {
               </button>
             </div>
 
-            {/* //Ethiopian pattern divider
-            <div className="h-2 w-full bg-[url('/patterns/ethiopian-pattern.png')] bg-repeat-x"></div> */}
-
             {/* Main content area - either chat or FAQ */}
             <div className="flex-1 overflow-hidden relative">
               {/* FAQ Panel - Slides in from the right */}
@@ -436,19 +505,26 @@ export default function ChatWidget() {
               <div className="h-full overflow-y-auto p-4 bg-[#FBF7F0] dark:bg-gray-900">
                 {messages.map((message) => (
                   <div
-                    key={message.id}
+                    key={crypto.randomUUID()}
                     className={`mb-4 flex ${
                       message.sender === "user"
                         ? "justify-end"
-                        : "justify-start"
+                        : message.sender === "bot"
+                        ? "justify-start"
+                        : "justify-center text-center italic"
                     }`}>
                     <div
                       className={`max-w-[80%] rounded-xl p-3 ${
                         message.sender === "user"
                           ? "bg-gradient-to-r from-sky-400 to-sky-500 text-white rounded-br-none"
-                          : "bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow border border-gray-100 dark:border-gray-600 rounded-bl-none"
+                          : message.sender === "bot"
+                          ? "bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow border border-gray-100 dark:border-gray-600 rounded-bl-none"
+                          : message.sender === "bot-error"
+                          ? "text-red-400"
+                          : ""
                       }`}>
-                      {message.sender === "bot" ? (
+                      {message.sender === "bot" ||
+                      message.sender === "bot-error" ? (
                         <ReactMarkdown
                           components={{
                             h1: ({ node, ...props }) => (
@@ -511,15 +587,18 @@ export default function ChatWidget() {
                       ) : (
                         <p className="text-sm">{message.content}</p>
                       )}
-                      <div className="flex flex-row space-x-4">
-                        <p className="text-xs mt-1 opacity-70">
-                          {message.timestamp.toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </p>
-                        <CopyButton textToCopy={message.content} />
-                      </div>
+                      {message.sender !== "system" &&
+                        message.sender !== "bot-error" && (
+                          <div className="flex flex-row space-x-4">
+                            <p className="text-xs mt-1 opacity-70">
+                              {message.timestamp.toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </p>
+                            <CopyButton textToCopy={message.content} />
+                          </div>
+                        )}
                     </div>
                   </div>
                 ))}
@@ -557,6 +636,14 @@ export default function ChatWidget() {
             {/* Chat Input */}
             <div className="p-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
               <div className="flex items-center">
+                {/* New thread Button */}
+                <button
+                  onClick={handleStartNewThread}
+                  className="p-1.5 mx-1 rounded-md bg-white/20 hover:bg-white/30 transition-colors"
+                  aria-label="Clear chat history">
+                  {/* <X className="h-4 w-4 text-white" /> */}
+                  <MessageSquarePlus className="h-4 w-4 text-white" />
+                </button>
                 <input
                   type="text"
                   value={inputValue}
@@ -576,6 +663,32 @@ export default function ChatWidget() {
                   )}
                 </button>
               </div>
+              <Dialog
+                open={showNewThreadConfirmation}
+                onOpenChange={setShowNewThreadConfirmation}>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Start a New Thread?</DialogTitle>
+                    <DialogDescription>
+                      This will start a new chat thread. Your current
+                      conversation will remain visible, but a new thread will be
+                      started.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter className="flex flex-col sm:flex-row sm:justify-end gap-2">
+                    <button
+                      onClick={() => setShowNewThreadConfirmation(false)}
+                      className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                      Cancel
+                    </button>
+                    <button
+                      onClick={confirmStartNewThread}
+                      className="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700">
+                      Start New Thread
+                    </button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </motion.div>
         )}
