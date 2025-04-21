@@ -110,6 +110,17 @@ export default function ChatWidget() {
   const [showNewThreadConfirmation, setShowNewThreadConfirmation] =
     useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // The input field remains focused
+  useEffect(() => {
+    const focusInput = () => inputRef.current?.focus();
+
+    focusInput(); // Focus on mount
+    window.addEventListener("click", focusInput);
+
+    return () => window.removeEventListener("click", focusInput);
+  });
 
   // Auto-scroll to bottom of messages
   useEffect(() => {
@@ -646,16 +657,17 @@ export default function ChatWidget() {
                 </button>
                 <input
                   type="text"
+                  ref={inputRef}
                   value={inputValue}
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                   placeholder="Type your message..."
-                  className="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
+                  className="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-primary dark:bg-gray-700 dark:text-white"
                 />
                 <button
                   onClick={() => handleSendMessage()}
                   disabled={inputValue.trim() === "" || isTyping}
-                  className="p-2 bg-primary-600 hover:bg-primary-700 text-white rounded-r-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                  className="p-3 bg-primary-600 hover:bg-primary-700 text-white rounded-r-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                   {isTyping ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
