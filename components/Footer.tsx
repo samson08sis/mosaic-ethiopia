@@ -44,10 +44,12 @@ const footerLinks = {
     {
       icon: Phone,
       text: "+251 (911) 234-5678",
+      href: "tel:+2519112345678",
     },
     {
       icon: Mail,
       text: "info@mosaicethiopia.com",
+      href: "mailto:info@mosaicethiopia.com",
     },
   ],
   socialMedia: [
@@ -148,9 +150,20 @@ export default function Footer() {
             </h3>
             <ul className="space-y-4">
               {footerLinks.contactInfo.map((info, i) => (
-                <li key={i}>
-                  <info.icon className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">{info.text}</span>
+                <li key={i} className="flex flex-row">
+                  {info.href ? (
+                    <a href={info.href} className="flex flex-row">
+                      <info.icon className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300 hover:text-primary transition-colors duration-300">
+                        {info.text}
+                      </span>
+                    </a>
+                  ) : (
+                    <>
+                      <info.icon className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300">{info.text}</span>
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
