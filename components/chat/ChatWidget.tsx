@@ -19,15 +19,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import QuickSuggestions from "./QuickSuggestions";
 import CopyButton from "../ui/CopyButton";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
-
+import InfoCard from "../ui/InfoCard";
 // Types for our chat messages
 type Message = {
   id: string;
@@ -408,9 +400,9 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-20 right-0 w-80 sm:w-96 h-[500px] bg-white dark:bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700">
+            className="absolute bottom-16 right-0 w-80 sm:w-96 h-[600px] bg-white dark:bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700">
             {/* Chat Header */}
-            <div className="bg-primary-600 text-white p-4 flex items-center relative">
+            <div className="bg-primary-600 text-white py-2 px-4 flex items-center relative">
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
                 <button onClick={scrollToEnd}>
                   <MessageSquare className="h-5 w-5" />
@@ -662,12 +654,12 @@ export default function ChatWidget() {
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                   placeholder="Type your message..."
-                  className="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  className="flex-1 p-1 border border-gray-300 dark:border-gray-600 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
                 />
                 <button
                   onClick={() => handleSendMessage()}
                   disabled={inputValue.trim() === "" || isTyping}
-                  className="p-3 bg-primary-600 hover:bg-primary-700 text-white rounded-r-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                  className="p-2 bg-primary-600 hover:bg-primary-700 text-white rounded-r-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                   {isTyping ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
@@ -675,32 +667,23 @@ export default function ChatWidget() {
                   )}
                 </button>
               </div>
-              <Dialog
-                open={showNewThreadConfirmation}
-                onOpenChange={setShowNewThreadConfirmation}>
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle>Start a New Thread?</DialogTitle>
-                    <DialogDescription>
-                      This will start a new chat thread. Your current
-                      conversation will remain visible, but a new thread will be
-                      started.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <DialogFooter className="flex flex-col sm:flex-row sm:justify-end gap-2">
-                    <button
-                      onClick={() => setShowNewThreadConfirmation(false)}
-                      className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      Cancel
-                    </button>
-                    <button
-                      onClick={confirmStartNewThread}
-                      className="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700">
-                      Start New Thread
-                    </button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
+              {showNewThreadConfirmation && (
+                <InfoCard
+                  content="This will start a new chat thread. Your current conversation will remain visible, but a new thread will be started."
+                  title="Start a New Thread?"
+                  links={[
+                    {
+                      text: "Cancel",
+                      action: () => setShowNewThreadConfirmation(false),
+                    },
+                    {
+                      text: "Start New Thread?",
+                      action: confirmStartNewThread,
+                    },
+                  ]}
+                  onClick={() => console.log("this")}
+                />
+              )}
             </div>
           </motion.div>
         )}
