@@ -2,11 +2,16 @@
 
 import { X } from "lucide-react";
 
+interface Link {
+  text: string; // Property for link text
+  action: () => void; // Property for link action
+}
+
 interface InfoCardProps {
   title: string;
   content: string;
   image?: string;
-  links?: object;
+  links?: Link[];
   onClick?: () => void;
 }
 
@@ -17,6 +22,10 @@ export default function InfoCard({
   links,
   onClick,
 }: InfoCardProps) {
+  const handleCloseModal = () => {
+    if (links && links.length > 0) links[0]?.action();
+  };
+
   return (
     <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-4/5 rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex flex-col">
       {image && (
@@ -29,7 +38,7 @@ export default function InfoCard({
         </div>
       )}
       <button
-        onClick={() => links[0]?.action()}
+        onClick={handleCloseModal}
         className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-gray-100 data-[state=open]:text-gray-500 dark:ring-offset-gray-950 dark:focus:ring-gray-800 dark:data-[state=open]:bg-gray-800 dark:data-[state=open]:text-gray-400">
         <X className="h-4 w-4" />
       </button>
@@ -45,6 +54,7 @@ export default function InfoCard({
           <div className="flex flex-col sm:flex-row sm:justify-end gap-2">
             {links.map((link, i) => (
               <button
+                key={i}
                 onClick={link.action}
                 className={`px-4 py-2 rounded-md text-sm font-medium border ${
                   i % 2 === 0

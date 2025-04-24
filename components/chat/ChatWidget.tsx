@@ -15,6 +15,8 @@ import {
   ChevronUp,
   ChevronDown,
   MessageSquarePlus,
+  Trash2,
+  RefreshCw,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import QuickSuggestions from "./QuickSuggestions";
@@ -90,6 +92,7 @@ export default function ChatWidget() {
     },
   ]);
   const [history, setHistory] = useState<History[]>([]);
+  const [lastRequest, setLastRequest] = useState<Message | null>(null);
   const [lastDate, setLastDate] = useState<Date>(
     messages[messages.length - 1].timestamp
   );
@@ -100,7 +103,9 @@ export default function ChatWidget() {
     Record<string, boolean>
   >({});
   const [showNewThreadConfirmation, setShowNewThreadConfirmation] =
-    useState(false);
+    useState<Boolean>(false);
+  const [showClearHistoryConfirmation, setShowClearHistoryConfirmation] =
+    useState<Boolean>(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -223,10 +228,16 @@ export default function ChatWidget() {
       timestamp: new Date(),
     };
 
+    setLastRequest(userMessage);
     setInputValue("");
     setShowFaq(false); // Close FAQ when sending a message
 
-    await generateResponse(messageText);
+    await generateResponse(userMessage.content);
+  };
+
+  const handleRetryRequest = async () => {
+    if (!lastRequest) return;
+    await generateResponse(lastRequest?.content);
   };
 
   const handleFaqClick = async (question: string) => {
@@ -255,6 +266,20 @@ export default function ChatWidget() {
     return true;
   };
 
+  const handleClearHistory = () => {
+    setHistory([]);
+    setMessages([
+      {
+        id: "start-date",
+        content: new Date().toDateString(),
+        sender: "system",
+        type: "info",
+        timestamp: new Date(),
+      },
+    ]);
+    setShowClearHistoryConfirmation(false);
+  };
+
   const handleStartNewThread = () => {
     setShowNewThreadConfirmation(true);
   };
@@ -262,11 +287,10 @@ export default function ChatWidget() {
   const confirmStartNewThread = () => {
     setHistory([]);
 
-    // Add a system message indicating a new thread
     setMessages((prev) => [
       ...prev,
       {
-        id: crypto.randomUUID(),
+        id: "new-th-".concat(crypto.randomUUID()),
         content: "--- New thread started ---",
         sender: "system",
         type: "info",
@@ -274,7 +298,6 @@ export default function ChatWidget() {
       },
     ]);
 
-    // Close the confirmation dialog
     setShowNewThreadConfirmation(false);
   };
 
@@ -415,6 +438,13 @@ export default function ChatWidget() {
                 </p>
               </div>
 
+              {/* Delete Button */}
+              <button
+                onClick={() => setShowClearHistoryConfirmation(true)}
+                className="absolute right-14 top-1/2 -translate-y-1/2 p-1.5 bg-white/20 rounded-md hover:bg-white/30 transition-colors">
+                <Trash2 className="h-4 w-4 text-white" />
+              </button>
+
               {/* FAQ Toggle Button */}
               <button
                 onClick={toggleFaq}
@@ -522,8 +552,6 @@ export default function ChatWidget() {
                           ? "bg-gradient-to-r from-sky-400 to-sky-500 text-white rounded-br-none"
                           : message.sender === "bot"
                           ? "bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow border border-gray-100 dark:border-gray-600 rounded-bl-none"
-                          : message.sender === "bot-error"
-                          ? "text-red-400"
                           : ""
                       }`}>
                       {message.sender === "bot" ||
@@ -532,7 +560,7 @@ export default function ChatWidget() {
                           components={{
                             h1: ({ node, ...props }) => (
                               <h1
-                                className="text-xl font-bold mt-2 mb-1"
+                                className="text-base font-bold mt-2 mb-1 text-gray-700"
                                 {...props}
                               />
                             ),
@@ -590,18 +618,27 @@ export default function ChatWidget() {
                       ) : (
                         <p className="text-sm">{message.content}</p>
                       )}
-                      {message.sender !== "system" &&
-                        message.sender !== "bot-error" && (
-                          <div className="flex flex-row space-x-4">
+                      {message.sender !== "system" && (
+                        <div className="flex flex-row space-x-4">
+                          {message.sender !== "bot-error" && (
                             <p className="text-xs mt-1 opacity-70">
                               {message.timestamp.toLocaleTimeString([], {
                                 hour: "2-digit",
                                 minute: "2-digit",
                               })}
                             </p>
-                            <CopyButton textToCopy={message.content} />
-                          </div>
-                        )}
+                          )}
+                          <CopyButton textToCopy={message.content} />
+                          {message.sender === "bot-error" &&
+                            message.id === messages[messages.length - 1].id && (
+                              <button
+                                onClick={() => handleRetryRequest()}
+                                className="p-1.5 self-start bg-transparent rounded-md hover:bg-white/30 transition-colors">
+                                <RefreshCw className="w-3 h-3" />
+                              </button>
+                            )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -614,13 +651,16 @@ export default function ChatWidget() {
                       <div className="flex items-center space-x-2">
                         <div
                           className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                          style={{ animationDelay: "0ms" }}></div>
+                          style={{ animationDelay: "0ms" }}
+                        />
                         <div
                           className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                          style={{ animationDelay: "300ms" }}></div>
+                          style={{ animationDelay: "300ms" }}
+                        />
                         <div
                           className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                          style={{ animationDelay: "600ms" }}></div>
+                          style={{ animationDelay: "600ms" }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -642,6 +682,11 @@ export default function ChatWidget() {
                 {/* New thread Button */}
                 <button
                   onClick={handleStartNewThread}
+                  disabled={
+                    isTyping ||
+                    messages[messages.length - 1].id.startsWith("new-th-") ||
+                    messages.length <= 1
+                  }
                   className="p-1.5 mx-1 rounded-md bg-white/20 hover:bg-white/30 transition-colors"
                   aria-label="Clear chat history">
                   {/* <X className="h-4 w-4 text-white" /> */}
@@ -667,7 +712,7 @@ export default function ChatWidget() {
                   )}
                 </button>
               </div>
-              {showNewThreadConfirmation && (
+              {showNewThreadConfirmation && !showClearHistoryConfirmation && (
                 <InfoCard
                   content="This will start a new chat thread. Your current conversation will remain visible, but a new thread will be started."
                   title="Start a New Thread?"
@@ -677,11 +722,28 @@ export default function ChatWidget() {
                       action: () => setShowNewThreadConfirmation(false),
                     },
                     {
-                      text: "Start New Thread?",
+                      text: "Start New Thread",
                       action: confirmStartNewThread,
                     },
                   ]}
-                  onClick={() => console.log("this")}
+                  // onClick={() => console.log("")}
+                />
+              )}
+              {showClearHistoryConfirmation && !showNewThreadConfirmation && (
+                <InfoCard
+                  content="Confirm to Clear History."
+                  title="Clear History?"
+                  links={[
+                    {
+                      text: "Cancel",
+                      action: () => setShowClearHistoryConfirmation(false),
+                    },
+                    {
+                      text: "Confirm",
+                      action: handleClearHistory,
+                    },
+                  ]}
+                  // onClick={() => console.log("")}
                 />
               )}
             </div>
