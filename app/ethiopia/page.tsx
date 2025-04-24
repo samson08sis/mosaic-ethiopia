@@ -407,10 +407,12 @@ export default function EthiopiaPage() {
             Land of Origins - Where Ancient History Meets Vibrant Culture
           </motion.p>
         </div>
-      </div>
 
-      {/* Ethiopian Pattern Divider */}
-      <EthiopianPattern />
+        {/* Ethiopian Pattern Divider */}
+        <div>
+          <EthiopianPattern />
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
@@ -633,7 +635,7 @@ export default function EthiopiaPage() {
       </div>
 
       {/* Ethiopian Pattern Footer */}
-      <EthiopianPattern />
+      {/* <EthiopianPattern /> */}
     </div>
   );
 }

@@ -2,15 +2,24 @@ import { MapPin } from "lucide-react";
 import Image from "next/image";
 
 type AttractionProps = {
-  item: {
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-    location: string;
-    tags: string[];
-    wikiUrl: string;
-  };
+  item:
+    | {
+        id: number;
+        name: string;
+        description: string;
+        image: string;
+        location: string;
+        tags: string[];
+        wikiUrl: string;
+      }
+    | {
+        id: number;
+        name: string;
+        description: string;
+        image: string;
+        ingredients: string[];
+        significance: string;
+      };
 };
 
 export default function AttractionCard({ item }: AttractionProps) {
@@ -31,32 +40,54 @@ export default function AttractionCard({ item }: AttractionProps) {
           </h3>
         </div>
 
-        <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm mb-4">
-          <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
-          <span>{item.location}</span>
-        </div>
+        {"location" in item && (
+          <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm mb-4">
+            <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
+            <span>{item.location}</span>
+          </div>
+        )}
 
         <p className="text-gray-700 dark:text-gray-300 text-sm mb-4 flex-1">
           {item.description}
         </p>
 
-        <a
-          href={item.wikiUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline mb-4 inline-flex items-center">
-          Read more &gt;&gt;
-        </a>
+        {"wikiUrl" in item && (
+          <a
+            href={item.wikiUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline mb-4 inline-flex items-center">
+            Read more &gt;&gt;
+          </a>
+        )}
 
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {item.tags.map((tag, index) => (
-            <span
-              key={index}
-              className="px-2 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-xs">
-              {tag}
-            </span>
-          ))}
-        </div>
+        {"tags" in item && (
+          <div className="flex flex-wrap gap-2 mt-auto">
+            {item.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="px-2 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-xs">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {"ingredients" in item && (
+          <div className="mt-4">
+            <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+              Ingredients:
+            </h4>
+            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 text-sm">
+              {item.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+            <p className="text-gray-700 dark:text-gray-300 text-sm mt-2">
+              {item.significance}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
