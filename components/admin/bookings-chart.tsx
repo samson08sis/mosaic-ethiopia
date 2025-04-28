@@ -82,6 +82,8 @@ export function BookingsChart({ timeframe }: BookingsChartProps) {
         <Tooltip
           formatter={(value: number) => [`${value}`, "Bookings"]}
           cursor={{ stroke: "rgba(0, 0, 0, 0.05)", strokeWidth: 2 }}
+          labelClassName="text-blue-500 text-opacity-30"
+          wrapperClassName="text-green-500 text-opacity-30"
         />
         <Line
           type="monotone"

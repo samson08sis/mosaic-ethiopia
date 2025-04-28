@@ -80,7 +80,9 @@ export function RevenueChart({ timeframe }: RevenueChartProps) {
         />
         <Tooltip
           formatter={(value: number) => [`$${value}`, "Revenue"]}
-          cursor={{ fill: "rgba(0, 0, 0, 0.05)" }}
+          cursor={{ fill: "rgba(0, 0, 0, 0.2)" }}
+          labelClassName="text-blue-500 text-opacity-30"
+          wrapperClassName="text-green-500 text-opacity-30"
         />
         <Bar
           dataKey="total"
