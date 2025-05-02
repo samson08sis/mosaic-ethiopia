@@ -155,7 +155,8 @@ export default function Hero() {
   const { translations } = useLanguage();
   const [isFixed, setIsFixed] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(
-    Math.floor(Math.random() * slides.length)
+    // Math.floor(Math.random() * slides.length)
+    0
   );
   const [showVideo, setShowVideo] = useState(false);
   const watchedSlides = useRef<number[]>([currentSlide]);
