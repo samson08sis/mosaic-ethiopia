@@ -45,7 +45,7 @@ import destinations from "@/data/destinations";
 
 export default function DestinationsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedContinent, setSelectedContinent] = useState("all");
+  const [selectedRegion, setSelectedRegion] = useState("all");
   const [selectedDestinations, setSelectedDestinations] = useState<string[]>(
     []
   );
@@ -56,8 +56,7 @@ export default function DestinationsPage() {
       destination.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       destination.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesContinent =
-      selectedContinent === "all" ||
-      destination.continent === selectedContinent;
+      selectedRegion === "all" || destination.continent === selectedRegion;
 
     return matchesSearch && matchesContinent;
   });
@@ -111,22 +110,22 @@ export default function DestinationsPage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <Select
-                value={selectedContinent}
-                onValueChange={setSelectedContinent}>
+              {/* <Select
+                value={selectedRegion}
+                onValueChange={setSelectedRegion}>
                 <SelectTrigger className="w-full sm:w-[180px]">
                   <SelectValue placeholder="Filter by continent" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Continents</SelectItem>
-                  <SelectItem value="Africa">Africa</SelectItem>
-                  <SelectItem value="Asia">Asia</SelectItem>
-                  <SelectItem value="Europe">Europe</SelectItem>
+                  <SelectItem value="all">All Regions</SelectItem>
+                  <SelectItem value="Africa">Amhara</SelectItem>
+                  <SelectItem value="Asia">Oromia</SelectItem>
+                  <SelectItem value="Europe">Tigray</SelectItem>
                   <SelectItem value="North America">North America</SelectItem>
                   <SelectItem value="South America">South America</SelectItem>
                   <SelectItem value="Oceania">Oceania</SelectItem>
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
 
             <div className="rounded-md border">

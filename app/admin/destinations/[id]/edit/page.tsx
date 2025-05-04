@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -44,14 +44,15 @@ import destinations from "@/data/destinations";
 export default function EditDestinationPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const router = useRouter();
-  const isNewDestination = params.id === "new";
+  const { id } = use(params);
+  const isNewDestination = id === "new";
 
   // Find the destination if editing an existing one
   const existingDestination = !isNewDestination
-    ? destinations.find((d) => d.id === params.id)
+    ? destinations.find((d) => d.id === id)
     : null;
 
   // Initialize form state
