@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import {
   MapPin,
@@ -13,12 +12,16 @@ import {
   Award,
   ArrowRight,
 } from "lucide-react";
-import destinations, { type Destination } from "@/data/destinations";
+import destinations from "@/data/destinations";
 import PageHeader from "@/components/PageHeader";
+import { Destination } from "@/types/destinations/types";
 
-export default function DestinationDetailPage() {
-  const params = useParams();
-  const { id } = params;
+export default function DestinationDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = use(params);
   const [destination, setDestination] = useState<Destination | null>(null);
   const [loading, setLoading] = useState(true);
 
