@@ -1,20 +1,4 @@
-export interface Destination {
-  id: string;
-  name: string;
-  image: string;
-  description: string;
-  rating: number;
-  reviews: number;
-  continent: string;
-  activities: string[];
-  location: string;
-  bestTimeToVisit: string;
-  highlights: string[];
-  thingsToDo: string[];
-  culturalSignificance?: string;
-  historicalImportance?: string;
-  naturalFeatures?: string;
-}
+import { Destination } from "@/types/destinations/types";
 
 const destinations: Destination[] = [
   {
