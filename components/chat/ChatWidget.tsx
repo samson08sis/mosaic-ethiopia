@@ -3,7 +3,6 @@
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import ReactMarkdown from "react-markdown";
 import {
   MessageSquare,
   X,
@@ -16,24 +15,11 @@ import {
   ChevronDown,
   MessageSquarePlus,
   Trash2,
-  RefreshCw,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import QuickSuggestions from "./QuickSuggestions";
-import CopyButton from "../ui/CopyButton";
 import InfoCard from "../ui/InfoCard";
-// Types for our chat messages
-type Message = {
-  id: string;
-  content: string;
-  sender: "user" | "bot" | "bot-error" | "system";
-  type: "chat" | "info";
-  timestamp: Date;
-};
-type History = {
-  role: "user" | "assistant";
-  content: string;
-};
+import ChatBubble from "./ChatBubble";
 
 // FAQ categories and questions
 const faqCategories = [
@@ -76,26 +62,35 @@ export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: "start-date",
-      content: new Date().toDateString(),
-      sender: "system",
+      id: "today-".concat(new Date().toDateString()),
+      content: [
+        {
+          id: "today",
+          content: new Date().toDateString(),
+          sender: "system",
+          timestamp: new Date(),
+        },
+      ],
       type: "info",
-      timestamp: new Date(),
     },
     {
       id: "welcome",
-      content:
-        "ሰላም! Hello! I'm your Mosaic travel assistant. How can I help you plan your journey to Ethiopia?",
-      sender: "bot",
+      content: [
+        {
+          id: "welcome",
+          content:
+            "ሰላም! Hello! I'm your Mosaic travel assistant. How can I help you plan your journey to Ethiopia?",
+          sender: "bot",
+          timestamp: new Date(),
+        },
+      ],
       type: "chat",
-      timestamp: new Date(),
     },
   ]);
-  const [history, setHistory] = useState<History[]>([]);
+
+  const [history, setHistory] = useState<ChatHistory[]>([]);
   const [lastRequest, setLastRequest] = useState<Message | null>(null);
-  const [lastDate, setLastDate] = useState<Date>(
-    messages[messages.length - 1].timestamp
-  );
+  const [lastDate, setLastDate] = useState<Date>(new Date());
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showFaq, setShowFaq] = useState(false);
@@ -158,41 +153,34 @@ export default function ChatWidget() {
     }
   };
 
-  const generateResponse = async (input = inputValue) => {
-    if (!input.trim()) return;
+  const generateResponse = async (requestMessage: string) => {
+    if (!requestMessage.trim()) return;
 
-    setIsTyping(true);
-    isDifferentDate();
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        content: input,
-        sender: "user",
-        type: "chat",
-        timestamp: new Date(),
-      },
-    ]);
     try {
       const response = await axios.post("http://localhost:3000/api/ask-groq", {
-        prompt: input,
+        prompt: requestMessage,
         history,
       });
-      console.log(response.data?.answer);
+      // console.log(response.data?.answer);
       setMessages((prev) => [
         ...prev,
         {
           id: crypto.randomUUID(),
-          content: response.data.answer,
-          sender: "bot",
+          content: [
+            {
+              id: "res-".concat(crypto.randomUUID()),
+              content: response.data.answer,
+              sender: "bot",
+              timestamp: new Date(),
+            },
+          ],
           type: "chat",
-          timestamp: new Date(),
         },
       ]);
 
       setHistory((prev) => [
         ...prev,
-        { role: "user", content: input },
+        { role: "user", content: requestMessage },
         { role: "assistant", content: response.data.answer },
       ]);
 
@@ -202,13 +190,18 @@ export default function ChatWidget() {
         ...prev,
         {
           id: crypto.randomUUID(),
-          content:
-            axios.isAxiosError(error) && error.response?.data?.error
-              ? error.response.data.error
-              : "Couldn't process your request. Please try again or seek support on [support@mosaicethiopia.com](mailto:support@mosaicethiopia.com).",
-          sender: "bot-error",
+          content: [
+            {
+              id: crypto.randomUUID(),
+              content:
+                axios.isAxiosError(error) && error.response?.data?.error
+                  ? error.response.data.error
+                  : "Couldn't process your request. Please try again or seek support on [support@mosaicethiopia.com](mailto:support@mosaicethiopia.com).",
+              sender: "bot-error",
+              timestamp: new Date(),
+            },
+          ],
           type: "chat",
-          timestamp: new Date(),
         },
       ]);
     } finally {
@@ -222,26 +215,123 @@ export default function ChatWidget() {
     // Add user message
     const userMessage: Message = {
       id: crypto.randomUUID(),
-      content: messageText,
-      sender: "user",
+      content: [
+        {
+          id: "request-".concat(messages.length.toString()),
+          content: messageText,
+          sender: "user",
+          timestamp: new Date(),
+        },
+      ],
       type: "chat",
-      timestamp: new Date(),
     };
 
     setLastRequest(userMessage);
     setInputValue("");
     setShowFaq(false); // Close FAQ when sending a message
 
-    await generateResponse(userMessage.content);
+    setMessages((prev) => [...prev, userMessage]);
+
+    setIsTyping(true);
+    isDifferentDate();
+
+    await generateResponse(userMessage.content[0].content);
   };
 
-  const handleRetryRequest = async () => {
+  const handleRetryRequest = async (requestId: string) => {
     if (!lastRequest) return;
-    await generateResponse(lastRequest?.content);
+
+    setIsTyping(true);
+    try {
+      const response = await axios.post("http://localhost:3000/api/ask-groq", {
+        prompt: lastRequest.content[0].content,
+        history,
+      });
+
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === requestId
+            ? {
+                ...msg,
+                content: [
+                  ...msg.content,
+                  {
+                    id: "res-".concat(
+                      (lastRequest.content.length + 1).toString()
+                    ),
+                    content: response.data.answer,
+                    sender: "bot",
+                    timestamp: new Date(),
+                  },
+                ],
+                responseIndex: (msg.responseIndex ?? 0) + 1,
+              }
+            : msg
+        )
+      );
+      setHistory((prev) => [
+        ...prev.slice(0, -1),
+        { role: "assistant", content: response.data.answer },
+      ]);
+
+      setInputValue("");
+    } catch (error) {
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === requestId
+            ? {
+                ...msg,
+                content: [
+                  ...msg.content,
+                  {
+                    id: "res-".concat(
+                      (lastRequest.content.length + 1).toString()
+                    ),
+                    content:
+                      axios.isAxiosError(error) && error.response?.data?.error
+                        ? error.response.data.error
+                        : "Couldn't process your request. Please try again or seek support on [support@mosaicethiopia.com](mailto:support@mosaicethiopia.com).",
+                    sender: "bot-error",
+                    timestamp: new Date(),
+                  },
+                ],
+                responseIndex: (msg.responseIndex ?? 0) + 1,
+              }
+            : msg
+        )
+      );
+    } finally {
+      setIsTyping(false);
+    }
   };
 
-  const handleFaqClick = async (question: string) => {
-    await handleSendMessage(question);
+  const handleIterateResponses = (message: Message, moveUp: boolean) => {
+    if (moveUp) {
+      if ((message.responseIndex ?? 0) < message.content.length - 1)
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === message.id
+              ? {
+                  ...msg,
+                  responseIndex: (msg.responseIndex ?? 0) + 1,
+                }
+              : msg
+          )
+        );
+    } else {
+      if ((message.responseIndex ?? 0) > 0) {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === message.id
+              ? {
+                  ...msg,
+                  responseIndex: (msg.responseIndex ?? 0) - 1,
+                }
+              : msg
+          )
+        );
+      }
+    }
   };
 
   const isDifferentDate = () => {
@@ -255,29 +345,65 @@ export default function ChatWidget() {
       setMessages((prev) => [
         ...prev,
         {
-          id: crypto.randomUUID(),
-          content: today.toDateString(),
-          sender: "system",
+          id: "today-".concat(today.toDateString()),
+          content: [
+            {
+              id: "date",
+              content: today.toDateString(),
+              sender: "system",
+              timestamp: new Date(),
+            },
+          ],
           type: "info",
-          timestamp: new Date(),
         },
       ]);
     }
     return true;
   };
 
+  const handleFaqClick = async (question: string) => {
+    await handleSendMessage(question);
+  };
+
   const handleClearHistory = () => {
     setHistory([]);
+
+    const today = new Date();
     setMessages([
       {
-        id: "start-date",
-        content: new Date().toDateString(),
-        sender: "system",
+        id: "today-".concat(today.toDateString()),
+        content: [
+          {
+            id: "date",
+            content: today.toDateString(),
+            sender: "system",
+            timestamp: new Date(),
+          },
+        ],
         type: "info",
-        timestamp: new Date(),
       },
     ]);
     setShowClearHistoryConfirmation(false);
+    setIsTyping(true);
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: "welcome",
+          content: [
+            {
+              id: "welcome",
+              content:
+                "ሰላም! Hello! Welcome back! How can I help you plan your journey to Ethiopia?",
+              sender: "bot",
+              timestamp: new Date(),
+            },
+          ],
+          type: "chat",
+        },
+      ]);
+      setIsTyping(false);
+    }, 2000);
   };
 
   const handleStartNewThread = () => {
@@ -290,112 +416,21 @@ export default function ChatWidget() {
     setMessages((prev) => [
       ...prev,
       {
-        id: "new-th-".concat(crypto.randomUUID()),
-        content: "--- New thread started ---",
-        sender: "system",
+        id: "new-th-".concat(messages.length.toString()),
+        content: [
+          {
+            id: "new-thread",
+            content: "--- New thread started ---",
+            sender: "system",
+            timestamp: new Date(),
+          },
+        ],
         type: "info",
-        timestamp: new Date(),
       },
     ]);
 
     setShowNewThreadConfirmation(false);
   };
-
-  // Function to generate responses based on user input
-  // const generateResponse = (userInput: string): string => {
-  //   const input = userInput.toLowerCase();
-
-  //   // Check for keywords and return appropriate responses
-  //   if (input.includes("lalibela") || input.includes("churches")) {
-  //     return "Lalibela is famous for its 11 rock-hewn churches carved from solid red volcanic rock in the 12th-13th centuries. These UNESCO World Heritage sites are still active places of worship. The best time to visit is during Ethiopian Orthodox celebrations like Timkat (January) or Genna (Ethiopian Christmas). Our Ethiopian Historical Route package includes 2 days in Lalibela.";
-  //   } else if (
-  //     input.includes("danakil") ||
-  //     input.includes("volcano") ||
-  //     input.includes("hottest")
-  //   ) {
-  //     return "The Danakil Depression is one of the hottest places on Earth with otherworldly landscapes including colorful sulfur springs, salt flats, and the active Erta Ale volcano with its lava lake. It's best visited between November and March. Our 6-day Danakil Depression Expedition takes you safely through this extreme but fascinating environment.";
-  //   } else if (
-  //     input.includes("simien") ||
-  //     input.includes("mountains") ||
-  //     input.includes("trekking")
-  //   ) {
-  //     return "The Simien Mountains offer spectacular trekking opportunities with dramatic escarpments and are home to endemic wildlife like the Gelada baboon (bleeding heart monkey) and Walia ibex. The best hiking season is from October to March. Our Ethiopian Nature & Wildlife package includes a comprehensive Simien Mountains experience with options for 2-5 day treks.";
-  //   } else if (
-  //     input.includes("omo") ||
-  //     input.includes("tribes") ||
-  //     input.includes("cultural")
-  //   ) {
-  //     return "The Omo Valley is home to diverse indigenous tribes including the Mursi, Hamer, Karo, and Daasanach, each with unique cultural practices. Our 9-day Omo Valley Cultural Immersion tour provides respectful opportunities to learn about these communities while supporting local initiatives. The experience includes visiting markets, witnessing ceremonies (when available), and learning about traditional lifestyles.";
-  //   } else if (input.includes("addis") || input.includes("addis ababa")) {
-  //     return "Addis Ababa, Ethiopia's capital, is worth at least 1-2 days of exploration. Visit the National Museum to see Lucy (3.2 million-year-old hominid fossil), Holy Trinity Cathedral, Merkato (Africa's largest open-air market), and enjoy the city's excellent restaurants. Addis is also the gateway to Ethiopia at 2,355m elevation, so it's a good place to acclimatize before heading to higher altitudes.";
-  //   } else if (input.includes("coffee") || input.includes("ceremony")) {
-  //     return "Ethiopia is the birthplace of coffee! The traditional coffee ceremony is a central part of Ethiopian social and cultural life. It involves roasting green beans over hot coals, grinding them with a mortar and pestle, and brewing in a special clay pot called a jebena. The coffee is served in small cups with sugar or salt, often alongside popcorn. Our Ethiopian Coffee Trail tour takes you to the origins of coffee in Kaffa, visits farms in Yirgacheffe, and includes multiple traditional coffee ceremonies.";
-  //   } else if (
-  //     input.includes("festival") ||
-  //     input.includes("timkat") ||
-  //     input.includes("meskel")
-  //   ) {
-  //     return "Ethiopian festivals are vibrant cultural experiences. Timkat (January) celebrates Epiphany with colorful processions and ritual baptism. Meskel (September) commemorates the finding of the True Cross with massive bonfires. Genna (Ethiopian Christmas, January 7) and Fasika (Ethiopian Easter) are also significant. Our Ethiopian Festivals package is timed around these major celebrations for an unforgettable experience.";
-  //   } else if (
-  //     input.includes("cost") ||
-  //     input.includes("price") ||
-  //     input.includes("how much")
-  //   ) {
-  //     return "Our Ethiopian tour packages range from $1,299 to $1,899 per person, depending on the itinerary, duration, and inclusions. This typically includes accommodation, most meals, domestic transportation, guides, and entrance fees. International flights, visa fees, and personal expenses are not included. All packages can be customized to fit your preferences and budget.";
-  //   } else if (
-  //     input.includes("best time") ||
-  //     input.includes("when to visit") ||
-  //     input.includes("season")
-  //   ) {
-  //     return "The best time to visit Ethiopia is during the dry season from October to March. The northern historical route is accessible year-round, while some areas like the Danakil Depression are best visited in winter months (November-February). The southern regions including Omo Valley are accessible year-round but some roads may be difficult during the rainy season (June-September).";
-  //   } else if (
-  //     input.includes("food") ||
-  //     input.includes("cuisine") ||
-  //     input.includes("injera")
-  //   ) {
-  //     return "Ethiopian cuisine is delicious and unique! The staple is injera, a sourdough flatbread with a slightly tangy taste, served with various wats (stews) and tibs (sautéed meat). Don't miss doro wat (spicy chicken stew), shiro (chickpea puree), and kitfo (minced raw beef). Ethiopia has many fasting days when only vegetarian dishes are served, making it excellent for vegetarians. Coffee is also an essential part of Ethiopian culture.";
-  //   } else if (
-  //     input.includes("days") ||
-  //     input.includes("how long") ||
-  //     input.includes("spend")
-  //   ) {
-  //     return "For a comprehensive Ethiopian experience, we recommend 10-14 days. This allows you to visit the northern historical route (Lalibela, Gondar, Axum), experience natural wonders like the Simien Mountains, and possibly include the Danakil Depression or southern cultural areas. If you have limited time, a focused 7-day trip covering just the northern highlights can still be rewarding.";
-  //   } else if (
-  //     input.includes("safe") ||
-  //     input.includes("safety") ||
-  //     input.includes("danger")
-  //   ) {
-  //     return "Ethiopia is generally safe for tourists, especially in the main tourist areas. Like any destination, it's important to take standard precautions. Political situations can change, so we always monitor conditions and adjust itineraries if needed. Our guides are experienced in ensuring visitor safety, and we provide pre-trip safety information. We recommend checking your government's travel advisories before booking.";
-  //   } else if (
-  //     input.includes("vaccination") ||
-  //     input.includes("vaccine") ||
-  //     input.includes("health")
-  //   ) {
-  //     return "For Ethiopia, recommended vaccinations typically include Yellow Fever (required for entry), Hepatitis A and B, Typhoid, and routine vaccines. Malaria prophylaxis is recommended for some regions. It's best to consult with a travel health specialist 4-8 weeks before your trip for personalized advice. We also recommend bringing a basic medical kit and purchasing comprehensive travel insurance.";
-  //   } else if (
-  //     input.includes("language") ||
-  //     input.includes("speak") ||
-  //     input.includes("amharic")
-  //   ) {
-  //     return "Amharic is Ethiopia's official language, but over 80 languages are spoken throughout the country. English is commonly used in tourism, and our guides are fluent in English. Learning a few basic Amharic phrases like 'Selam' (hello) and 'Ameseginalehu' (thank you) is appreciated by locals. In the Omo Valley, local guides help translate tribal languages.";
-  //   } else if (
-  //     input.includes("souvenir") ||
-  //     input.includes("buy") ||
-  //     input.includes("shopping")
-  //   ) {
-  //     return "Ethiopia offers wonderful souvenirs including traditional coffee sets, handwoven scarves and textiles, Orthodox icons and crosses, traditional baskets (mesob), leather goods, and of course, Ethiopian coffee beans. Addis Ababa has excellent shopping at Merkato and Shiromeda Market. We can arrange shopping excursions with guides who can help with fair pricing and authentic items.";
-  //   } else if (
-  //     input.includes("hello") ||
-  //     input.includes("hi") ||
-  //     input.includes("hey")
-  //   ) {
-  //     return "ሰላም (Selam)! Hello! I'm your Ethiopian travel assistant. I can help with information about destinations, tour packages, best times to visit, and more. What would you like to know about traveling to Ethiopia?";
-  //   } else if (input.includes("thank")) {
-  //     return "አመሰግናለሁ (Ameseginalehu) - You're welcome! If you have any more questions about traveling to Ethiopia, feel free to ask. We're here to help you plan an unforgettable journey!";
-  //   } else {
-  //     return "That's a great question about Ethiopia! Our team specializes in customized Ethiopian experiences. Would you like me to connect you with a travel specialist who can provide more detailed information about this?";
-  //   }
-  // };
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -536,137 +571,14 @@ export default function ChatWidget() {
 
               {/* Chat Messages */}
               <div className="h-full overflow-y-auto p-4 bg-[#FBF7F0] dark:bg-gray-900">
-                {messages.map((message) => (
-                  <div
-                    key={crypto.randomUUID()}
-                    className={`mb-4 flex ${
-                      message.sender === "user"
-                        ? "justify-end"
-                        : message.sender === "bot"
-                        ? "justify-start"
-                        : "justify-center text-center italic"
-                    }`}>
-                    <div
-                      className={`max-w-[80%] rounded-xl p-3 ${
-                        message.sender === "user"
-                          ? "bg-gradient-to-r from-sky-400 to-sky-500 text-white rounded-br-none"
-                          : message.sender === "bot"
-                          ? "bg-white dark:bg-gray-700 text-gray-800 dark:text-white shadow border border-gray-100 dark:border-gray-600 rounded-bl-none"
-                          : ""
-                      }`}>
-                      {message.sender === "bot" ||
-                      message.sender === "bot-error" ? (
-                        <ReactMarkdown
-                          components={{
-                            h1: ({ node, ...props }) => (
-                              <h1
-                                className="text-base font-bold mt-2 mb-1 text-gray-700"
-                                {...props}
-                              />
-                            ),
-                            h2: ({ node, ...props }) => (
-                              <h2
-                                className="text-base font-normal mt-2 mb-1 text-cyan-300"
-                                {...props}
-                              />
-                            ),
-                            h3: ({ node, ...props }) => (
-                              <h3
-                                className="text-base font-medium mt-1 mb-1 text-rose-400"
-                                {...props}
-                              />
-                            ),
-                            p: ({ node, ...props }) => (
-                              <p className="text-sm mb-2" {...props} />
-                            ),
-                            ul: ({ node, ...props }) => (
-                              <ul
-                                className="list-disc pl-5 my-1 text-sm"
-                                {...props}
-                              />
-                            ),
-                            ol: ({ node, ...props }) => (
-                              <ol
-                                className="list-decimal pl-5 my-1 text-sm"
-                                {...props}
-                              />
-                            ),
-                            li: ({ node, ...props }) => (
-                              <li className="mb-1" {...props} />
-                            ),
-                            strong: ({ node, ...props }) => (
-                              <strong
-                                className="font-semibold text-cyan-400"
-                                {...props}
-                              />
-                            ),
-                            em: ({ node, ...props }) => (
-                              <em className="italic font-thin" {...props} />
-                            ),
-                            a: ({ node, ...props }) => (
-                              <a
-                                className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                {...props}
-                              />
-                            ),
-                          }}
-                          remarkPlugins={[]}>
-                          {message.content}
-                        </ReactMarkdown>
-                      ) : (
-                        <p className="text-sm">{message.content}</p>
-                      )}
-                      {message.sender !== "system" && (
-                        <div className="flex flex-row space-x-4">
-                          {message.sender !== "bot-error" && (
-                            <p className="text-xs mt-1 opacity-70">
-                              {message.timestamp.toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
-                            </p>
-                          )}
-                          <CopyButton textToCopy={message.content} />
-                          {message.sender === "bot-error" &&
-                            message.id === messages[messages.length - 1].id && (
-                              <button
-                                onClick={() => handleRetryRequest()}
-                                className="p-1.5 self-start bg-transparent rounded-md hover:bg-white/30 transition-colors">
-                                <RefreshCw className="w-3 h-3" />
-                              </button>
-                            )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                {isTyping && (
-                  <div className="mb-4 flex justify-start">
-                    <div className="w-8 h-8 rounded-full bg-primary-600 flex-shrink-0 mr-2 flex items-center justify-center text-white text-xs font-bold">
-                      ET
-                    </div>
-                    <div className="bg-white dark:bg-gray-700 rounded-lg p-3 shadow border border-gray-100 dark:border-gray-600">
-                      <div className="flex items-center space-x-2">
-                        <div
-                          className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                          style={{ animationDelay: "0ms" }}
-                        />
-                        <div
-                          className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                          style={{ animationDelay: "300ms" }}
-                        />
-                        <div
-                          className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
-                          style={{ animationDelay: "600ms" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
+                <ChatBubble
+                  typing={isTyping}
+                  messages={messages}
+                  onIterateResponses={handleIterateResponses}
+                  onRetryRequest={handleRetryRequest}
+                />
               </div>
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Quick Suggestions Component */}
