@@ -19,6 +19,9 @@ const arizonia = Arizonia({
 
 export const metadata: Metadata = {
   title: "Mosaic Ethiopia - Your Ultimate Travel Companion",
+  icons: {
+    icon: "/favicon.png",
+  },
   description:
     "Discover amazing places, book customized tour packages, and create unforgettable travel memories with Mosaic Ethiopia.",
 };
