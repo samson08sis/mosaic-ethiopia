@@ -157,7 +157,7 @@ export default function ChatWidget() {
     if (!requestMessage.trim()) return;
 
     try {
-      const response = await axios.post("http://localhost:3000/api/ask-groq", {
+      const response = await axios.post("/api/ask-groq", {
         prompt: requestMessage,
         history,
       });
@@ -243,7 +243,7 @@ export default function ChatWidget() {
 
     setIsTyping(true);
     try {
-      const response = await axios.post("http://localhost:3000/api/ask-groq", {
+      const response = await axios.post("/api/ask-groq", {
         prompt: lastRequest.content[0].content,
         history,
       });

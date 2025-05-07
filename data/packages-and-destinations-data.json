@@ -1,0 +1,407 @@
+{
+  "destinations": [
+    {
+      "id": "lalibela",
+      "name": "Lalibela, Ethiopia",
+      "description": "HomeTo11MedievalMonolithicRockHewnChurches, LalibelaIsEthiopia's Jerusalem AndAPlaceOfPilgrimageForOrthodoxChristians.",
+      "rating": 4.9,
+      "reviews": 245,
+      "activities": ["Cultural", "Historical", "Religious"],
+      "location": "NorthernEthiopia,AmharaRegion",
+      "bestTimeToVisit": "OctoberToMarch",
+      "highlights": [
+        "RockHewnChurches",
+        "BeteGiyorgis(ChurchOfSt.George)",
+        "EthiopianOrthodoxCeremonies",
+        "TraditionalVillageLife"
+      ],
+      "thingsToDo": [
+        "TourThe11MonolithicChurches",
+        "WitnessReligiousCeremonies",
+        "HikeInTheSurroundingMountains",
+        "ExperienceLocalCuisine"
+      ],
+      "historicalImportance": "BuiltInThe12th-13thCenturies,LalibelaWasMeantToBeANewJerusalemAfterMuslimConquestsHaltedChristianPilgrimagesToTheHolyLand.",
+      "culturalSignificance": "OneOfTheHoliestSitesInEthiopianOrthodoxChristianityAndAMajorPilgrimageDestination."
+    },
+    {
+      "id": "simien-mountains",
+      "name": "Simien Mountains, Ethiopia",
+      "description": "A UNESCO WorldHeritageSiteWithDramaticMountainScenery,DeepValleys,AndRareWildlifeIncludingTheGeladaBaboonAndWaliaIbex.",
+      "rating": 4.8,
+      "reviews": 187,
+      "activities": ["Trekking", "Wildlife", "Nature"],
+      "location": "NorthernEthiopia,AmharaRegion",
+      "bestTimeToVisit": "OctoberToMarch",
+      "highlights": [
+        "DramaticEscarpmentsAndPeaks",
+        "EndemicWildlifeSpecies",
+        "SpectacularViewpoints",
+        "TraditionalVillages"
+      ],
+      "thingsToDo": [
+        "MultiDayTrekkingExpeditions",
+        "WildlifeSpotting(GeladaBaboons,EthiopianWolves)",
+        "PhotographyAtJinbarWaterfall",
+        "VisitLocalCommunities"
+      ],
+      "naturalFeatures": "TheParkFeaturesJaggedMountainPeaks,DeepValleys,AndSharpPrecipicesDroppingSome1,500m."
+    },
+    [
+      {
+        "id": "danakil",
+        "name": "Danakil Depression, Ethiopia",
+        "description": "OneOfTheHottestPlacesOnEarthWithOtherworldlyLandscapesFeaturingColorfulSulfurSprings,SaltLakes,AndActiveVolcanoes.",
+        "rating": 4.7,
+        "reviews": 156,
+        "activities": ["Adventure", "Geological", "Photography"],
+        "location": "NortheasternEthiopia,AfarRegion",
+        "bestTimeToVisit": "NovemberToMarch",
+        "highlights": [
+          "DallolSulfurSprings",
+          "ErtaAleActiveVolcano",
+          "SaltFlatsAndCaravans",
+          "LakeAsale"
+        ],
+        "thingsToDo": [
+          "HikeToErtaAleVolcanoCrater",
+          "PhotographTheColorfulMineralFormationsAtDallol",
+          "WitnessTraditionalSaltMining",
+          "CampUnderTheStars"
+        ],
+        "naturalFeatures": "TheDanakilDepressionSitsAt410FeetBelowSeaLevelAndFeaturesSomeOfTheMostExtremeEnvironmentsOnEarth."
+      },
+      {
+        "id": "gondar",
+        "name": "Gondar, Ethiopia",
+        "description": "KnownAsThe'CamelotOfAfrica'ForItsMedievalCastlesAndImperialCompound,GondarWasEthiopia'sRoyalCapitalInThe17thCentury.",
+        "rating": 4.6,
+        "reviews": 132,
+        "activities": ["Historical", "Cultural", "Architecture"],
+        "location": "NorthernEthiopia,AmharaRegion",
+        "bestTimeToVisit": "OctoberToMarch",
+        "highlights": [
+          "FasilGhebbi(RoyalEnclosure)",
+          "DebreBerhanSelassieChurch",
+          "FasilidesBath",
+          "TimkatFestivalCelebrations"
+        ],
+        "thingsToDo": [
+          "ExploreTheMedievalCastles",
+          "VisitDebreBerhanSelassieChurchWithItsAngelCoveredCeiling",
+          "AttendTimkatFestival(January)",
+          "DiscoverLocalMarkets"
+        ],
+        "historicalImportance": "GondarServedAsEthiopia'sCapitalFrom1636To1855,AndItsArchitectureShowsPortuguese,IndianAndMoorishInfluences."
+      },
+      {
+        "id": "axum",
+        "name": "Axum, Ethiopia",
+        "description": "AncientCityWithToweringObelisks,RoyalTombs,AndRuinsOfPalacesThatWasOnceTheCenterOfThePowerfulAksumiteEmpire.",
+        "rating": 4.5,
+        "reviews": 118,
+        "activities": ["Historical", "Archaeological", "Religious"],
+        "location": "NorthernEthiopia,TigrayRegion",
+        "bestTimeToVisit": "OctoberToMarch",
+        "highlights": [
+          "Obelisks(stelae)OfAxum",
+          "ChurchOfSt.MaryOfZion",
+          "QueenOfSheba'sPalaceRuins",
+          "ArkOfTheCovenant(notViewable)"
+        ],
+        "thingsToDo": [
+          "MarvelAtTheAncientStelae",
+          "VisitTheChurchOfSt.MaryOfZion",
+          "ExploreTheArchaeologicalMuseum",
+          "SeeTheQueenOfSheba'sBath"
+        ],
+        "historicalImportance": "AxumWasTheCenterOfTheAksumiteEmpire,OneOfTheWorld'sFourGreatPowersInThe3rdCentury,AlongsideRome,Persia,AndChina.",
+        "culturalSignificance": "EthiopiansBelieveTheOriginalArkOfTheCovenantIsHousedInTheChapelOfTheTabletNextToSt.MaryOfZionChurch."
+      },
+      {
+        "id": "bale-mountains",
+        "name": "Bale Mountains, Ethiopia",
+        "description": "ABiodiversityHotspotWithAlpinePlateaus,CloudForests,AndVolcanicOutcrops,HomeToRareEthiopianWolvesAndOver300BirdSpecies.",
+        "rating": 4.7,
+        "reviews": 142,
+        "activities": ["Trekking", "Wildlife", "Nature"],
+        "location": "SoutheasternEthiopia,OromiaRegion",
+        "bestTimeToVisit": "NovemberToMarch",
+        "highlights": [
+          "SanettiPlateau",
+          "EthiopianWolves",
+          "HarennaForest",
+          "WebValley"
+        ],
+        "thingsToDo": [
+          "SpotTheEndangeredEthiopianWolf",
+          "TrekAcrossTheSanettiPlateau",
+          "BirdwatchingForEndemicSpecies",
+          "VisitTheHarennaForest"
+        ],
+        "naturalFeatures": "TheParkContainsTheLargestContinuousAreaOfAfroalpineHabitatInAfricaAndIsHomeToNumerousEndemicSpecies."
+      },
+      {
+        "id": "omo-valley",
+        "name": "Omo Valley, Ethiopia",
+        "description": "CulturalMeltingPotWhereDiverseIndigenousTribesMaintainTheirTraditionalWaysOfLife,KnownForColorfulCeremoniesAndBodyArt.",
+        "rating": 4.6,
+        "reviews": 165,
+        "activities": ["Cultural", "Tribal", "Photography"],
+        "location": "SouthwesternEthiopia,SouthernNationsRegion",
+        "bestTimeToVisit": "SeptemberToMarch",
+        "highlights": [
+          "TribalVillages(Mursi,Hamer,Karo,Daasanach)",
+          "TraditionalCeremoniesAndDances",
+          "BodyPaintingAndAdornment",
+          "WeeklyMarkets"
+        ],
+        "thingsToDo": [
+          "VisitTribalVillagesWithLocalGuides",
+          "AttendTraditionalCeremonies(bullJumping,etc.)",
+          "ExploreLocalMarkets",
+          "LearnAboutTraditionalCrafts"
+        ],
+        "culturalSignificance": "TheLowerOmoValleyIsAUNESCOWorldHeritageSiteAndHomeToSomeOfAfrica'sMostTraditionalEthnicGroupsWhoHaveMaintainedTheirCulturalPracticesForCenturies."
+      },
+      {
+        "id": "addis-ababa",
+        "name": "Addis Ababa, Ethiopia",
+        "description": "Ethiopia'sVibrantCapitalAndDiplomaticHubWithMuseums,Markets,AndRestaurantsShowcasingTheCountry'sRichHistoryAndDiverseCuisine.",
+        "rating": 4.4,
+        "reviews": 210,
+        "activities": ["Urban", "Cultural", "Culinary"],
+        "location": "CentralEthiopia",
+        "bestTimeToVisit": "OctoberToMay",
+        "highlights": [
+          "NationalMuseumOfEthiopia",
+          "Mercato(largestOpenAirMarketInAfrica)",
+          "HolyTrinityCathedral",
+          "EntotoMountain"
+        ],
+        "thingsToDo": [
+          "SeeLucyAtTheNationalMuseum",
+          "ShopAtMercato",
+          "TasteTraditionalEthiopianCoffee",
+          "EnjoyLiveEthiopianMusicAndDance"
+        ],
+        "historicalImportance": "FoundedIn1886,AddisAbaba('NewFlower')IsHomeToTheAfricanUnionHeadquartersAndManyInternationalOrganizations.",
+        "culturalSignificance": "TheCityRepresentsTheMeetingPointOfEthiopia'sManyCulturesAndIsKnownForItsDistinctiveCuisine,Music,AndCoffeeCeremonies."
+      }
+    ]
+  ],
+  "packages": [
+    {
+      "id": "1",
+      "name": "Ethiopian Historical Route",
+      "description": "ExploreEthiopia'sRichHistoryThroughItsAncientChurches,Castles,AndHistoricalSites.ThisJourneyTakesYouThroughTheNorthernHistoricalCircuit,VisitingUNESCOWorldHeritageSitesAndExperiencingTheCountry'sDeepCulturalHeritage.",
+      "price": 1299,
+      "duration": 8,
+      "destinations": ["Lalibela", "Gondar", "Axum", "Bahir Dar"],
+      "activities": [
+        "ChurchTours",
+        "CastleVisits",
+        "BoatTripOnLakeTana",
+        "BlueNileFalls"
+      ],
+      "accommodation": "3-4StarHotels",
+      "meals": "BreakfastAndDinner",
+      "inclusions": [
+        "AirportTransfers",
+        "DomesticFlights",
+        "EnglishSpeakingGuide",
+        "EntranceFees",
+        "WelcomeDinner"
+      ],
+      "exclusions": [
+        "InternationalFlights",
+        "VisaFees",
+        "LunchMeals",
+        "PersonalExpenses"
+      ],
+      "additionalActivities": [
+        {
+          "name": "Traditional Coffee Ceremony",
+          "price": 35,
+          "description": "ExperienceEthiopia'sFamousCoffeeCeremonyWithLocalFamilies"
+        },
+        {
+          "name": "Tej House Visit",
+          "price": 45,
+          "description": "VisitATraditionalHouseToTasteTej(HoneyWine)AndLocalMusic"
+        },
+        {
+          "name": "Ethiopian Cooking Class",
+          "price": 65,
+          "description": "LearnToPrepareInjeraAndTraditionalEthiopianDishes"
+        },
+        {
+          "name": "Craft Shopping Tour",
+          "price": 40,
+          "description": "GuidedShoppingForTraditionalCraftsWithExpertAdvice"
+        }
+      ],
+      "accommodationOptions": [
+        {
+          "name": "3-4 Star Hotels",
+          "price": 0,
+          "description": "IncludedInPackagePrice"
+        },
+        {
+          "name": "4-5 Star Hotels",
+          "price": 350,
+          "description": "UpgradeToPremiumHotelsWhereAvailable"
+        },
+        {
+          "name": "Local Guesthouses",
+          "price": -200,
+          "description": "AuthenticExperienceWithLocalFamilies"
+        }
+      ],
+      "mealOptions": [
+        {
+          "name": "Breakfast Only",
+          "price": -150,
+          "description": "ReducePackagePrice"
+        },
+        {
+          "name": "Breakfast and Dinner",
+          "price": 0,
+          "description": "IncludedInPackagePrice"
+        },
+        {
+          "name": "Full Board",
+          "price": 200,
+          "description": "AllMealsIncluded"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Ethiopian Nature & Wildlife",
+      "description": "DiscoverEthiopia'sIncredibleBiodiversityAndStunningLandscapes.FromTheEndemicWildlifeOfTheSimienMountainsToTheUniqueFloraOfTheBaleMountains,ThisTourShowcasesTheCountry'sNaturalWondersAndOffersOpportunitiesForHiking,WildlifeViewing,AndConnectingWithNature.",
+      "price": 1599,
+      "duration": 10,
+      "destinations": [
+        "Simien Mountains",
+        "Bale Mountains",
+        "Awash National Park",
+        "Lake Langano"
+      ],
+      "activities": [
+        "Trekking",
+        "WildlifeViewing",
+        "BirdWatching",
+        "HotSprings"
+      ],
+      "accommodation": "MixOfHotelsAndLodges",
+      "meals": "FullBoard",
+      "inclusions": [
+        "AllTransportation",
+        "ParkEntranceFees",
+        "ExperiencedGuides",
+        "CampingEquipment",
+        "AllMeals"
+      ],
+      "exclusions": [
+        "InternationalFlights",
+        "AlcoholicBeverages",
+        "PersonalEquipment",
+        "TravelInsurance"
+      ],
+      "additionalActivities": [
+        {
+          "name": "Gelada Baboon Tracking",
+          "price": 75,
+          "description": "DedicatedTrackingOfTheEndemicGeladaBaboonsWithASpecialist"
+        },
+        {
+          "name": "Fishing on Lake Langano",
+          "price": 60,
+          "description": "HalfDayFishingTripWithEquipmentProvided"
+        },
+        {
+          "name": "Hot Air Balloon Ride",
+          "price": 250,
+          "description": "SunriseBalloonRideOverTheEthiopianHighlands"
+        },
+        {
+          "name": "Night Safari",
+          "price": 85,
+          "description": "EveningWildlifeSpottingWithSpotlightInAwashNationalPark"
+        }
+      ],
+      "accommodationOptions": [
+        {
+          "name": "Mix of Hotels and Lodges",
+          "price": 0,
+          "description": "IncludedInPackagePrice"
+        },
+        {
+          "name": "Full Camping Experience",
+          "price": -300,
+          "description": "CampUnderTheStarsEveryNight"
+        },
+        {
+          "name": "Luxury Lodges",
+          "price": 450,
+          "description": "UpgradeToPremiumLodgesWhereAvailable"
+        }
+      ],
+      "mealOptions": [
+        {
+          "name": "Half Board",
+          "price": -200,
+          "description": "BreakfastAndDinnerOnly"
+        },
+        {
+          "name": "Full Board",
+          "price": 0,
+          "description": "IncludedInPackagePrice"
+        },
+        {
+          "name": "Gourmet Experience",
+          "price": 300,
+          "description": "PremiumMealsWithLocalSpecialties"
+        }
+      ]
+    }
+  ],
+  "bookingInfo": {
+    "process": {
+      "steps": [
+        "BrowseDestinationsAndPackagesOnOurWebsite",
+        "SelectYourPreferredTourOrCreateACustomItinerary",
+        "ChooseYourTravelDatesAndGroupSize",
+        "SelectAccommodationAndMealPreferences",
+        "AddOptionalActivitiesAndSpecialRequests",
+        "CompleteTheBookingFormWithTravelerDetails",
+        "MakeADepositPaymentToSecureYourBooking",
+        "ReceiveConfirmationAndDetailedItinerary"
+      ]
+    },
+    "policies": {
+      "payment": {
+        "deposit": "30%OfTotalTourCostRequiredAtBooking",
+        "finalPayment": "Due60DaysBeforeDeparture",
+        "acceptedMethods": ["Credit/DebitCards", "BankTransfer", "PayPal"]
+      },
+      "cancellation": {
+        "61DaysOrMore": "FullRefundMinus$100AdministrativeFee",
+        "31-60Days": "50%OfDepositRefunded",
+        "15-30Days": "25%OfTotalTourCostRefunded",
+        "0-14Days": "NoRefundAvailable"
+      },
+      "changes": {
+        "byClient": "ChangesToBookingsCanBeMadeUpTo30DaysBeforeDeparture,SubjectToA$50ChangeFeeAndAnyDifferenceInTourCosts.",
+        "byCompany": "WeReserveTheRightToMakeMinorChangesToItinerariesIfNecessary.MajorChangesWillBeCommunicatedPromptlyWithOptionsProvided."
+      },
+      "insurance": "TravelInsuranceIsStronglyRecommendedForAllTravelers.WeOfferInsurancePackagesOrYouCanArrangeYourOwnCoverage."
+    },
+    "specialRequirements": {
+      "dietary": "WeCanAccommodateMostDietaryRequirementsWithAdvanceNotice.PleaseSpecifyAnyNeedsDuringBooking.",
+      "accessibility": "SomeToursInvolveChallengingTerrain.ContactUsToDiscussAccessibilityNeedsAndWe'llRecommendSuitableOptions.",
+      "healthRestrictions": "CertainToursRequireGoodPhysicalFitness.High-AltitudeDestinationsMayNotBeSuitableForThoseWithRespiratoryOrCardiovascularConditions."
+    }
+  }
+}
