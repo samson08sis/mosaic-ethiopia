@@ -446,7 +446,7 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-0 right-6 z-50">
       {/* Chat Button */}
       <button
         onClick={toggleChat}
@@ -471,7 +471,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-16 right-0 w-80 sm:w-96 h-[600px] bg-white dark:bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700">
+            className="fixed sm:absolute bottom-0 sm:bottom-16 right-0 w-full sm:w-80 md:w-96 h-[calc(100vh-64px)] sm:h-[640px] bg-white dark:bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700">
             {/* Chat Header */}
             <div className="bg-primary-600 text-white py-2 px-4 flex items-center relative">
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
@@ -615,25 +615,27 @@ export default function ChatWidget() {
                   {/* <X className="h-4 w-4 text-white" /> */}
                   <MessageSquarePlus className="h-4 w-4 text-white" />
                 </button>
-                <input
-                  type="text"
-                  ref={inputRef}
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Type your message..."
-                  className="flex-1 p-1 border border-gray-300 dark:border-gray-600 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
-                />
-                <button
-                  onClick={() => handleSendMessage()}
-                  disabled={inputValue.trim() === "" || isTyping}
-                  className="p-2 bg-primary-600 hover:bg-primary-700 text-white rounded-r-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                  {isTyping ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  ) : (
-                    <Send className="h-5 w-5" />
-                  )}
-                </button>
+                <div className="flex flex-1 items-stretch rounded-lg overflow-hidden p-0">
+                  <input
+                    type="text"
+                    // ref={inputRef}
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Type your message..."
+                    className="p-0 flex-1 p-1 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
+                  />
+                  <button
+                    onClick={() => handleSendMessage()}
+                    disabled={inputValue.trim() === "" || isTyping}
+                    className="p-2 bg-primary-600 hover:bg-primary-700 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    {isTyping ? (
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                    ) : (
+                      <Send className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
               </div>
               {showNewThreadConfirmation && !showClearHistoryConfirmation && (
                 <InfoCard
