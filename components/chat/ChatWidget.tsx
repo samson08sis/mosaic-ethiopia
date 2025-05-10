@@ -15,11 +15,13 @@ import {
   ChevronDown,
   MessageSquarePlus,
   Trash2,
+  BotMessageSquare,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import QuickSuggestions from "./QuickSuggestions";
 import InfoCard from "../ui/InfoCard";
 import ChatBubble from "./ChatBubble";
+import { ChatHistory, Message } from "@/types/chat/types";
 
 // FAQ categories and questions
 const faqCategories = [
@@ -72,6 +74,7 @@ export default function ChatWidget() {
         },
       ],
       type: "info",
+      responseIndex: 0,
     },
     {
       id: "welcome",
@@ -85,6 +88,7 @@ export default function ChatWidget() {
         },
       ],
       type: "chat",
+      responseIndex: 0,
     },
   ]);
 
@@ -175,6 +179,7 @@ export default function ChatWidget() {
             },
           ],
           type: "chat",
+          responseIndex: 0,
         },
       ]);
 
@@ -202,6 +207,7 @@ export default function ChatWidget() {
             },
           ],
           type: "chat",
+          responseIndex: 0,
         },
       ]);
     } finally {
@@ -212,6 +218,7 @@ export default function ChatWidget() {
   const handleSendMessage = async (messageText = inputValue) => {
     if (messageText.trim() === "") return;
 
+    isDifferentDate();
     // Add user message
     const userMessage: Message = {
       id: crypto.randomUUID(),
@@ -224,6 +231,7 @@ export default function ChatWidget() {
         },
       ],
       type: "chat",
+      responseIndex: 0,
     };
 
     setLastRequest(userMessage);
@@ -355,6 +363,7 @@ export default function ChatWidget() {
             },
           ],
           type: "info",
+          responseIndex: 0,
         },
       ]);
     }
@@ -381,6 +390,7 @@ export default function ChatWidget() {
           },
         ],
         type: "info",
+        responseIndex: 0,
       },
     ]);
     setShowClearHistoryConfirmation(false);
@@ -400,6 +410,7 @@ export default function ChatWidget() {
             },
           ],
           type: "chat",
+          responseIndex: 0,
         },
       ]);
       setIsTyping(false);
@@ -426,6 +437,7 @@ export default function ChatWidget() {
           },
         ],
         type: "info",
+        responseIndex: 0,
       },
     ]);
 
@@ -462,9 +474,7 @@ export default function ChatWidget() {
             {/* Chat Header */}
             <div className="bg-primary-600 text-white py-2 px-4 flex items-center relative">
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                <button onClick={scrollToEnd}>
-                  <MessageSquare className="h-5 w-5" />
-                </button>
+                <BotMessageSquare className="h-5 w-5" />
               </div>
               <div>
                 <h3 className="font-bold">Mosaic Travel Guide</h3>
@@ -597,7 +607,7 @@ export default function ChatWidget() {
                   disabled={
                     isTyping ||
                     messages[messages.length - 1].id.startsWith("new-th-") ||
-                    messages.length <= 1
+                    messages.length <= 2
                   }
                   className="p-1.5 mx-1 rounded-md bg-white/20 hover:bg-white/30 transition-colors"
                   aria-label="Clear chat history">
