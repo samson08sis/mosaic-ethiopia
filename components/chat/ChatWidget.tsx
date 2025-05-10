@@ -3,6 +3,7 @@
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import {
   MessageSquare,
   X,
@@ -169,10 +170,10 @@ export default function ChatWidget() {
       setMessages((prev) => [
         ...prev,
         {
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           content: [
             {
-              id: "res-".concat(crypto.randomUUID()),
+              id: "res-".concat(uuidv4()),
               content: response.data.answer,
               sender: "bot",
               timestamp: new Date(),
@@ -194,10 +195,10 @@ export default function ChatWidget() {
       setMessages((prev) => [
         ...prev,
         {
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           content: [
             {
-              id: crypto.randomUUID(),
+              id: uuidv4(),
               content:
                 axios.isAxiosError(error) && error.response?.data?.error
                   ? error.response.data.error
@@ -221,7 +222,7 @@ export default function ChatWidget() {
     isDifferentDate();
     // Add user message
     const userMessage: Message = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       content: [
         {
           id: "request-".concat(messages.length.toString()),
