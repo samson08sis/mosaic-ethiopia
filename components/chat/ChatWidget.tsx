@@ -623,7 +623,7 @@ export default function ChatWidget() {
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     placeholder="Type your message..."
-                    className="p-0 flex-1 p-1 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
+                    className=" m-0 flex-1 p-1 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"
                   />
                   <button
                     onClick={() => handleSendMessage()}
