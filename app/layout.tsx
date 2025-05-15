@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Arizonia } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
+import { Analytics } from "@vercel/analytics/next";
 
 // Load fonts
 const inter = Inter({
@@ -38,6 +39,7 @@ export default function RootLayout({
       className={`${inter.variable} ${arizonia.variable}`}>
       <body className={`${inter.className} bg-neutral-50 dark:bg-gray-900`}>
         <ClientLayout>{children}</ClientLayout>
+        <Analytics />
       </body>
     </html>
   );
