@@ -242,7 +242,6 @@ export default function ChatWidget() {
     setMessages((prev) => [...prev, userMessage]);
 
     setIsTyping(true);
-    isDifferentDate();
 
     await generateResponse(userMessage.content[0].content);
   };
