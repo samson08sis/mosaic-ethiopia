@@ -72,6 +72,13 @@ export default function AuthForm({
       return;
     }
 
+    // Password match validation
+    if (!isLogin && password !== confirmPassword) {
+      setError("Passwords must match");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       if (isLogin) {
         // For demo purposes, we'll use demo@example.com/password
