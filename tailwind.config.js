@@ -13,6 +13,10 @@ module.exports = {
       fontFamily: {
         arizonia: ["var(--font-arizonia)", "cursive"],
       },
+      screens: {
+        xs: "420px",
+        "2xs": "200px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

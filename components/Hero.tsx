@@ -246,7 +246,7 @@ export default function Hero() {
                 Experience ancient history, diverse cultures, and breathtaking
                 landscapes
               </p>
-              <div className="flex space-x-4">
+              <div className="flex 2xs:flex-col xs:flex-row space-x-4">
                 <Link
                   href="/book"
                   className="px-8 py-3 bg-primary hover:bg-primary-700 rounded-lg font-medium text-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900">
