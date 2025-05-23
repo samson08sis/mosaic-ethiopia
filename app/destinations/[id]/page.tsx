@@ -15,6 +15,7 @@ import {
 import destinations from "@/data/destinations";
 import PageHeader from "@/components/PageHeader";
 import { Destination } from "@/types/destinations/types";
+import Weather from "@/components/Weather";
 
 export default function DestinationDetailPage({
   params,
@@ -79,6 +80,7 @@ export default function DestinationDetailPage({
             <span>Best time: {destination.bestTimeToVisit}</span>
           </div>
         </div>
+        <Weather city={destination?.city || "gondar"} />
       </PageHeader>
 
       <div className="container mx-auto px-4 py-12">
