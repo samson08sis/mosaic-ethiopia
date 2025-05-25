@@ -18,7 +18,7 @@ export default function Weather({
 
         const response = await fetch(
           `https://api.weatherapi.com/v1/forecast.json?key=${
-            process.env.NEXT_PUBLIC_WEATHER_API_KEY
+            process.env.WEATHER_API_KEY
           }&q=${encodeURIComponent(location)}&days=${days}&aqi=no&alerts=no`
         );
 
