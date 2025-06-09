@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Sun, Moon, Menu, X, Globe } from "lucide-react";
+import { Sun, Moon, Menu, X, Globe, Computer } from "lucide-react";
 import LoginModal from "./LoginModal";
 import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "./ProfileDropdown";
@@ -189,6 +189,7 @@ export default function Navbar() {
                 <div className="flex space-x-4">
                   {navItems.langs.map((lang) => (
                     <button
+                      key={lang.code}
                       onClick={() => {
                         changeLanguage(lang.code);
                         toggleMenu();
