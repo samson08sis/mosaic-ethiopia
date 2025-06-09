@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Sun, Moon, Menu, X, Globe, Computer } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import LoginModal from "./LoginModal";
 import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "./ProfileDropdown";
@@ -118,8 +118,7 @@ export default function Navbar() {
               </div>
 
               {/* Theme Toggle */}
-              <ThemeSlider />
-
+              <ThemeSlider isMobile={isMenuOpen} />
               {/* Login Button or Profile Dropdown */}
               {isAuthenticated ? (
                 <ProfileDropdown />
@@ -164,21 +163,7 @@ export default function Navbar() {
 
               {/* Theme Toggle in Mobile Menu */}
               <div className="flex items-center px-3 py-2">
-                <button
-                  onClick={toggleTheme}
-                  className="flex items-center text-gray-900 dark:text-white">
-                  {theme === "dark" ? (
-                    <>
-                      <Sun className="h-5 w-5 text-yellow-400 mr-2" />
-                      {translations.lightMode || "Light Mode"}
-                    </>
-                  ) : (
-                    <>
-                      <Moon className="h-5 w-5 text-gray-700 mr-2" />
-                      {translations.darkMode || "Dark Mode"}
-                    </>
-                  )}
-                </button>
+                <ThemeSlider isMobile={isMenuOpen} />
               </div>
 
               {/* Language Options in Mobile Menu */}
