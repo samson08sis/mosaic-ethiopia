@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Eye,
@@ -29,9 +29,9 @@ function ResetPasswordForm() {
   const [tokenValid, setTokenValid] = useState<boolean | null>(null);
   const [generalError, setGeneralError] = useState("");
 
-  const searchParams = useSearchParams();
+  const params = useParams();
   const router = useRouter();
-  const token = searchParams ? searchParams.get("token") : null;
+  const token = params?.token as string;
 
   // Password validation rules
   const passwordRules = [
