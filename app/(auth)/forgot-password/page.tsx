@@ -36,14 +36,13 @@ export default function ForgotPasswordPage() {
 
     try {
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // In a real app, you would call your password reset API here
-      // const response = await fetch('/api/auth/forgot-password', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email }),
-      // })
+      await fetch("http://localhost:5000/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
       setIsSubmitted(true);
     } catch (err) {
