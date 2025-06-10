@@ -69,7 +69,7 @@ export default function ProfileDropdown() {
         <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden">
           {user?.avatar ? (
             <img
-              src={user.avatar || "/placeholder.svg"}
+              src={user.avatar}
               alt={user.name}
               className="w-full h-full object-cover"
             />
@@ -78,7 +78,7 @@ export default function ProfileDropdown() {
           )}
         </div>
         <span className="hidden lg:block text-sm font-medium text-gray-700 dark:text-gray-200">
-          {user?.name || "User"}
+          {user?.name.split(" ")[0] || "User"}
         </span>
       </button>
 
