@@ -39,7 +39,9 @@ const footerLinks = {
   contactInfo: [
     {
       icon: MapPin,
-      text: "123 Ghana Avenue, Addis Ababa, AC 12345",
+      text: "Addis Ababa International Airport, Addis Ababa, AC 12345",
+      href: "https://maps.app.goo.gl/2TFzeu4bM6koSuyeA",
+      isExternal: true,
     },
     {
       icon: Phone,
@@ -152,7 +154,10 @@ export default function Footer() {
               {footerLinks.contactInfo.map((info, i) => (
                 <li key={i} className="flex flex-row">
                   {info.href ? (
-                    <a href={info.href} className="flex flex-row">
+                    <a
+                      href={info.href}
+                      className="flex flex-row"
+                      target="_blank">
                       <info.icon className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-300 hover:text-primary transition-colors duration-300">
                         {info.text}
