@@ -5,7 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Menu, X, Globe } from "lucide-react";
+import {
+  Menu,
+  X,
+  Globe,
+  Home,
+  MapPin,
+  Package,
+  Book,
+  Phone,
+} from "lucide-react";
 import LoginModal from "./LoginModal";
 import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "./ProfileDropdown";
@@ -13,11 +22,11 @@ import { ThemeSlider } from "./ui/ThemeSlider";
 
 const navItems = {
   links: [
-    { name: "home", href: "/" },
-    { name: "destinations", href: "/destinations" },
-    { name: "packages", href: "/packages" },
-    { name: "about", href: "/about" },
-    { name: "contact", href: "/contact" },
+    { name: "home", icon: Home, href: "/" },
+    { name: "destinations", icon: MapPin, href: "/destinations" },
+    { name: "packages", icon: Package, href: "/packages" },
+    { name: "about", icon: Book, href: "/about" },
+    { name: "contact", icon: Phone, href: "/contact" },
   ],
   langs: [
     { name: "English", code: "en" },
@@ -157,7 +166,14 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-                  {link.name}
+                  <span className="flex flex-row">
+                    <link.icon className="mr-4" />
+                    {(translations as any)[link.name] ||
+                      link.name
+                        .charAt(0)
+                        .toUpperCase()
+                        .concat(link.name.slice(1))}
+                  </span>
                 </Link>
               ))}
 
