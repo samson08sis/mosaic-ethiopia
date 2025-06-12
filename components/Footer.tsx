@@ -67,7 +67,7 @@ const footerLinks = {
     { icon: Youtube, href: "https://www.youtube.com" },
   ],
   bottomSection: [
-    { name: "Privacy Policy", href: "#" },
+    { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "#" },
     { name: "Cookie Policy", href: "#" },
   ],
