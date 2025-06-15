@@ -123,20 +123,37 @@ function ResetPasswordForm() {
     }
 
     try {
-      // Simulate API call to reset password
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await fetch(
+        "https://mosaic-backend-li68.vercel.app/api/auth/reset-password",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, newPassword: formData.password }),
+        }
+      );
 
-      // For demo purposes, simulate success
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle API error responses (e.g., invalid token, weak password)
+        throw new Error(data.message || "Failed to reset password");
+      }
+
+      // Only set success if API responded successfully
       setIsSuccess(true);
 
       // Redirect to login after 3 seconds
       setTimeout(() => {
         router.push(
-          "/login?message=Password reset successful. Please log in with your new password."
+          "/login"
+          // "/login?message=Password reset successful. Please log in with your new password."
         );
       }, 3000);
-    } catch (error) {
-      setGeneralError("Failed to reset password. Please try again.");
+    } catch (error: any) {
+      // Handle network errors and API error responses
+      setGeneralError(
+        error.message || "Failed to reset password. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
