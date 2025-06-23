@@ -246,15 +246,15 @@ export default function Hero() {
                 Experience ancient history, diverse cultures, and breathtaking
                 landscapes
               </p>
-              <div className="flex 2xs:flex-col xs:flex-row space-x-4">
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link
                   href="/book"
-                  className="px-8 py-3 bg-primary hover:bg-primary-700 rounded-lg font-medium text-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                  className="w-full sm:w-auto px-8 py-3 bg-primary hover:bg-primary-700 rounded-lg font-medium text-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900">
                   Book Now
                 </Link>
                 <Link
                   href="/packages"
-                  className="px-8 py-3 bg-white/20 hover:bg-white/30 rounded-lg font-medium text-lg backdrop-blur-sm transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
+                  className="w-full sm:w-auto px-8 py-3 bg-white/20 hover:bg-white/30 rounded-lg font-medium text-lg backdrop-blur-sm transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
                   Explore Packages
                 </Link>
               </div>
