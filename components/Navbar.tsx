@@ -93,10 +93,13 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400 ${
-                    pathname === "/" ? "text-primary dark:text-primary-400" : ""
-                  }`}>
+                  className={`relative group px-3 py-2 text-sm font-medium transition-colors${
+                    pathname === link.href
+                      ? "text-primary dark:text-primary-400"
+                      : "text-gray-900 dark:text-white"
+                  } hover:text-primary dark:hover:text-primary-400`}>
                   {(translations as any)[link.name] || link.name}
+                  <span className="underline-slide" />
                 </Link>
               ))}
 
