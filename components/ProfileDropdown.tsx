@@ -3,12 +3,26 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { User, LogOut, Calendar, Clock, Settings } from "lucide-react";
+import {
+  User,
+  LogOut,
+  Calendar,
+  Clock,
+  Settings,
+  LayoutDashboard,
+} from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { text } from "stream/consumers";
 
 const iconClass = "h-4 w-4 mr-2 text-gray-500 dark:text-gray-400";
 const menuItems = [
+  {
+    href: "/dashboard",
+    icon: <LayoutDashboard className={iconClass} />,
+    text: "Dashboard",
+    translation: "dashboard",
+  },
   {
     href: "/profile",
     icon: <Settings className={iconClass} />,
