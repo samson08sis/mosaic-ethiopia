@@ -16,6 +16,10 @@ import {
   Award,
   CheckCircle,
   AlertCircle,
+  Loader2,
+  Edit3,
+  Mail,
+  MailCheck,
 } from "lucide-react";
 import Link from "next/link";
 import BookingCard from "@/components/dashboard/BookingCard";
@@ -69,7 +73,7 @@ export default function Dashboard() {
   // Redirect if not authenticated
   useEffect(() => {
     if (!isAuthenticated) {
-      router.push("/login");
+      router.push("/");
     }
   }, [isAuthenticated, router]);
 
@@ -134,43 +138,100 @@ export default function Dashboard() {
         </div>
 
         {/* User Profile Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 mb-8 text-white">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
-            <div className="flex items-center space-x-4 mb-4 md:mb-0">
-              <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
-                {user?.avatar ? (
-                  <img
-                    src={user.avatar || "/placeholder.svg"}
-                    alt={user.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <Users className="h-8 w-8 text-white" />
-                )}
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold">{user?.name}</h2>
-                <p className="text-blue-100 flex items-center">
-                  {user?.email}
-                  {user?.verified ? (
-                    <CheckCircle className="h-4 w-4 ml-2 text-green-300" />
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 mb-8 text-white relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-16 translate-x-16"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-12 -translate-x-12"></div>
+          </div>
+
+          <div className="relative z-10">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+              {/* User Info Section */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center overflow-hidden ring-4 ring-white/30">
+                  {user?.avatar ? (
+                    <img
+                      src={user.avatar || "/placeholder.svg"}
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
-                    <AlertCircle className="h-4 w-4 ml-2 text-yellow-300" />
+                    <Users className="h-8 w-8 text-white" />
                   )}
-                </p>
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-2xl font-bold">{user?.name}</h2>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <p className="text-blue-100">{user?.email}</p>
+                    {user?.verified ? (
+                      <div className="flex items-center space-x-1">
+                        <CheckCircle className="h-4 w-4 text-green-300" />
+                        <span className="text-green-300 text-sm font-medium">
+                          {/* Verified */}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-1">
+                        <AlertCircle className="h-4 w-4 text-yellow-300" />
+                        <span className="text-yellow-300 text-sm font-medium">
+                          {/* Unverified */}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-blue-200 text-sm mt-1">
+                    Member since {memberSince}
+                  </p>
+
+                  {/* Verification Message */}
+                  {false && ( // verificationMessage
+                    <div className="mt-2 p-2 bg-white/20 rounded-lg">
+                      <p className="text-sm text-white">{"replace..."}</p>{" "}
+                      {/*verificationMessage*/}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Actions and Status Section */}
+              <div className="flex flex-col items-start lg:items-end space-y-4">
+                {/* Member Status */}
+                <div className="flex items-center space-x-2">
+                  <Award className="h-5 w-5 text-yellow-300" />
+                  <span className="font-semibold">Gold Member</span>
+                </div>
                 <p className="text-blue-200 text-sm">
-                  Member since {memberSince}
+                  {animatedStats.loyaltyPoints.toLocaleString()} loyalty points
                 </p>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                  {/* Verify Email Button - Only show if email is not verified */}
+                  {!user?.verified && (
+                    <button
+                      onClick={() => console.log("this")} // handleVerifyEmail
+                      disabled={false} //isVerifying
+                      className="flex items-center justify-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg">
+                      {false ? ( // isVerifying
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <MailCheck className="h-4 w-4" />
+                      )}
+                      <span>{false ? "Sending..." : "Verify Email"}</span>{" "}
+                      {/*isVerifying*/}
+                    </button>
+                  )}
+
+                  {/* Edit Profile Link */}
+                  <Link
+                    href="/profile"
+                    className="flex items-center justify-center space-x-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-medium transition-all duration-200 transform hover:scale-105 backdrop-blur-sm border border-white/30">
+                    <Edit3 className="h-4 w-4" />
+                    <span>Edit Profile</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="flex items-center space-x-2 mb-2">
-                <Award className="h-5 w-5 text-yellow-300" />
-                <span className="font-semibold">Gold Member</span>
-              </div>
-              <p className="text-blue-200 text-sm">
-                {animatedStats.loyaltyPoints.toLocaleString()} loyalty points
-              </p>
             </div>
           </div>
         </div>
