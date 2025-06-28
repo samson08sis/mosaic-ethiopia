@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { text } from "stream/consumers";
 
 const iconClass = "h-4 w-4 mr-2 text-gray-500 dark:text-gray-400";
 const menuItems = [
