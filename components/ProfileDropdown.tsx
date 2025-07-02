@@ -91,7 +91,7 @@ export default function ProfileDropdown() {
           )}
         </div>
         <span className="hidden lg:block text-sm font-medium text-gray-700 dark:text-gray-200">
-          {user?.name.split(" ")[0] || "User"}
+          {user?.name?.split(" ")[0] || "User"}
         </span>
       </button>
 
