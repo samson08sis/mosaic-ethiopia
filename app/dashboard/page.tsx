@@ -55,7 +55,7 @@ const mockBookings: Booking[] = [
 
 const mockStats = {
   totalBookings: 12,
-  countriesVisited: 3,
+  destinationsVisited: 3,
   totalSpent: 8500,
   loyaltyPoints: 2340,
 };
@@ -94,7 +94,9 @@ export default function Dashboard() {
 
         setAnimatedStats({
           totalBookings: Math.floor(mockStats.totalBookings * progress),
-          countriesVisited: Math.floor(mockStats.countriesVisited * progress),
+          destinationsVisited: Math.floor(
+            mockStats.destinationsVisited * progress
+          ),
           totalSpent: Math.floor(mockStats.totalSpent * progress),
           loyaltyPoints: Math.floor(mockStats.loyaltyPoints * progress),
         });
