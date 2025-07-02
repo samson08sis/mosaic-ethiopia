@@ -61,11 +61,14 @@ const mockStats = {
 };
 
 export default function Dashboard() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, sendVerificationEmail } = useAuth();
   const router = useRouter();
+
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState("");
   const [animatedStats, setAnimatedStats] = useState({
     totalBookings: 0,
-    countriesVisited: 0,
+    destinationsVisited: 0,
     totalSpent: 0,
     loyaltyPoints: 0,
   });
@@ -106,10 +109,36 @@ export default function Dashboard() {
     }
   }, [isAuthenticated]);
 
-  if (false) {
+  const handleVerifyEmail = async () => {
+    setIsVerifying(true);
+    setVerificationMessage("");
+
+    try {
+      const result = await sendVerificationEmail();
+
+      if (result.success) {
+        setVerificationMessage("Verification email sent! Check your inbox.");
+      } else {
+        setVerificationMessage(
+          result.message || "Failed to send verification email."
+        );
+      }
+    } catch (error) {
+      setVerificationMessage("An error occurred. Please try again.");
+    } finally {
+      setIsVerifying(false);
+    }
+
+    // Clear message after 5 seconds
+    setTimeout(() => {
+      setVerificationMessage("");
+    }, 5000);
+  };
+
+  if (isVerifying) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
       </div>
     );
   }
@@ -118,10 +147,15 @@ export default function Dashboard() {
     return null;
   }
 
-  const memberSince = new Date(2023, 5, 15).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-  });
+  const memberSince = user
+    ? new Date(user.joined).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+      })
+    : new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+      });
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -185,10 +219,11 @@ export default function Dashboard() {
                   </p>
 
                   {/* Verification Message */}
-                  {false && ( // verificationMessage
+                  {verificationMessage && (
                     <div className="mt-2 p-2 bg-white/20 rounded-lg">
-                      <p className="text-sm text-white">{"replace..."}</p>{" "}
-                      {/*verificationMessage*/}
+                      <p className="text-sm text-white">
+                        {verificationMessage}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -210,16 +245,15 @@ export default function Dashboard() {
                   {/* Verify Email Button - Only show if email is not verified */}
                   {!user?.verified && (
                     <button
-                      onClick={() => console.log("this")} // handleVerifyEmail
-                      disabled={false} //isVerifying
+                      onClick={handleVerifyEmail}
+                      disabled={isVerifying}
                       className="flex items-center justify-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg">
-                      {false ? ( // isVerifying
+                      {isVerifying ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
                       ) : (
                         <MailCheck className="h-4 w-4" />
                       )}
-                      <span>{false ? "Sending..." : "Verify Email"}</span>{" "}
-                      {/*isVerifying*/}
+                      <span>{isVerifying ? "Sending..." : "Verify Email"}</span>
                     </button>
                   )}
 
@@ -246,11 +280,11 @@ export default function Dashboard() {
             change="+2 this month"
           />
           <StatsCard
-            title="Countries Visited"
-            value={animatedStats.countriesVisited}
+            title="Destinations Visited"
+            value={animatedStats.destinationsVisited}
             icon={<MapPin className="h-6 w-6" />}
             color="green"
-            change="Ethiopia, Kenya, Tanzania"
+            change="Danakil, Gondar, Addis Ababa"
           />
           <StatsCard
             title="Total Spent"
