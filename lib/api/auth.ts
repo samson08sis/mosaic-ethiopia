@@ -1,6 +1,6 @@
 import { AuthResponse } from "@/types/auth";
 
-const LOCAL_BACKEND_URL = "http://localhost:5000";
+const LOCAL_BACKEND_URL = "https://mosaic-backend-li68.vercel.app";
 
 type UserResponse = {
   user: {
