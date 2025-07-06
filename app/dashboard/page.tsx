@@ -118,6 +118,7 @@ export default function Dashboard() {
     try {
       const result = await sendVerificationEmail();
 
+      console.log("VERIFICATION RESULT: ", result);
       if (result.success) {
         setVerificationMessage("Verification email sent! Check your inbox.");
       } else {
@@ -134,16 +135,8 @@ export default function Dashboard() {
     // Clear message after 5 seconds
     setTimeout(() => {
       setVerificationMessage("");
-    }, 5000);
+    }, 8000);
   };
-
-  if (isVerifying) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
-      </div>
-    );
-  }
 
   if (!isAuthenticated) {
     return null;
@@ -211,7 +204,7 @@ export default function Dashboard() {
                       <div className="flex items-center space-x-1">
                         <AlertCircle className="h-4 w-4 text-yellow-300" />
                         <span className="text-yellow-300 text-sm font-medium">
-                          {/* Unverified */}
+                          Unverified
                         </span>
                       </div>
                     )}
@@ -234,37 +227,41 @@ export default function Dashboard() {
               {/* Actions and Status Section */}
               <div className="flex flex-col items-start lg:items-end space-y-4">
                 {/* Member Status */}
-                <div className="flex items-center space-x-2">
+                {/* <div className="flex items-center space-x-2">
                   <Award className="h-5 w-5 text-yellow-300" />
                   <span className="font-semibold">Gold Member</span>
                 </div>
                 <p className="text-blue-200 text-sm">
                   {animatedStats.loyaltyPoints.toLocaleString()} loyalty points
-                </p>
+                </p> */}
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                {/*If no expanding buttons, use "flex-col sm:flex-row" instead*/}
+                <div className="flex flex-row gap-3 w-full lg:w-auto">
                   {/* Verify Email Button - Only show if email is not verified */}
                   {!user?.verified && (
                     <button
                       onClick={handleVerifyEmail}
                       disabled={isVerifying}
-                      className="flex items-center justify-center space-x-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg">
+                      className="flex items-center justify-center py-2 pl-3 pr-2 hover:pr-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group shadow-lg">
                       {isVerifying ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <Loader2 className="h-4 w-4 flex-shrink-0 animate-spin" />
                       ) : (
-                        <MailCheck className="h-4 w-4" />
+                        <MailCheck className="h-4 w-4 flex-shrink-0" />
                       )}
-                      <span>{isVerifying ? "Sending..." : "Verify Email"}</span>
+                      <span className="max-w-0 group-hover:max-w-[7rem] transition-[max-width,opacity] duration-300 overflow-hidden whitespace-nowrap opacity-0 group-hover:opacity-100 ml-1.5">
+                        {isVerifying ? "Sending..." : "Verify Email"}
+                      </span>
                     </button>
                   )}
-
                   {/* Edit Profile Link */}
                   <Link
                     href="/profile"
-                    className="flex items-center justify-center space-x-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-medium transition-all duration-200 transform hover:scale-105 backdrop-blur-sm border border-white/30">
-                    <Edit3 className="h-4 w-4" />
-                    <span>Edit Profile</span>
+                    className="flex items-center justify-center py-2 pl-3 pr-2 hover:pr-3 bg-white/20 hover:bg-white/30 text-white rounded-lg font-medium transition-all duration-350 backdrop-blur-sm border border-white/30 group">
+                    <Edit3 className="h-4 w-4 flex-shrink-0" />
+                    <span className="max-w-0 group-hover:max-w-[7rem] transition-[max-width,opacity] duration-300 overflow-hidden whitespace-nowrap opacity-0 group-hover:opacity-100 ml-1.5">
+                      Edit Profile
+                    </span>
                   </Link>
                 </div>
               </div>

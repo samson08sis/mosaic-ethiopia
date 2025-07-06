@@ -8,6 +8,7 @@ export interface Destination {
   continent: string;
   activities: string[];
   location: string;
+  // nearestCity: string;
   bestTimeToVisit: string;
   highlights: string[];
   thingsToDo: string[];

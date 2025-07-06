@@ -5,12 +5,25 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import { User, Mail, Phone, MapPin, Globe, Camera } from "lucide-react";
+import {
+  User,
+  Mail,
+  Phone,
+  MapPin,
+  Globe,
+  Camera,
+  MailCheck,
+  Verified,
+} from "lucide-react";
 
 export default function ProfileManagement() {
-  const { user, isAuthenticated, updateUserProfile } = useAuth();
+  const { user, isAuthenticated, updateUserProfile, sendVerificationEmail } =
+    useAuth();
   const router = useRouter();
 
+  if (user?.verified) {
+    user.verified = true;
+  }
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,6 +40,9 @@ export default function ProfileManagement() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState("");
+  const [verificationUrl, setVerificationUrl] = useState("");
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -71,6 +87,30 @@ export default function ProfileManagement() {
     }
   };
 
+  const handleSendVerification = async () => {
+    setIsVerifying(true);
+    setVerificationMessage("");
+
+    const result = await sendVerificationEmail();
+
+    if (result.success) {
+      setVerificationMessage("Verification email sent! Check your inbox.");
+      if (result.verificationUrl) {
+        setVerificationUrl(result.verificationUrl);
+      }
+    } else {
+      setVerificationMessage(result.message);
+    }
+
+    setIsVerifying(false);
+
+    // Clear message after 5 seconds
+    setTimeout(() => {
+      setVerificationMessage("");
+      setVerificationUrl("");
+    }, 5000);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -82,7 +122,6 @@ export default function ProfileManagement() {
     updateUserProfile({
       ...user,
       ...formData,
-      id: user?.id || "u-id-explicitly-assigned",
     });
 
     setSuccess(true);
@@ -135,7 +174,6 @@ export default function ProfileManagement() {
               </div>
             )}
 
-            {/* PROFILE FORM */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -180,6 +218,78 @@ export default function ProfileManagement() {
                       required
                     />
                   </div>
+                </div>
+
+                {/* Email Verification Section */}
+                <div className="md:col-span-2">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                    <div className="flex items-center space-x-3">
+                      <div
+                        className={`w-3 h-3 rounded-full ${
+                          user?.verified ? "bg-green-500" : "bg-yellow-500"
+                        }`}></div>
+                      {user?.verified === true && (
+                        <Verified className="h-8 w-8 text-green-500 animate-in" />
+                      )}
+                      <div>
+                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                          {user?.email || "No Email Provided"}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {user?.verified
+                            ? "Your email is verified"
+                            : "Please verify your email address"}
+                        </p>
+                      </div>
+                    </div>
+                    {!user?.verified && (
+                      <button
+                        onClick={handleSendVerification}
+                        disabled={isVerifying}
+                        className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-all duration-200 ${
+                          isVerifying
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 hover:shadow-lg transform hover:scale-105"
+                        }`}>
+                        {isVerifying ? (
+                          <div className="flex items-center space-x-2">
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            <span>Sending...</span>
+                          </div>
+                        ) : (
+                          <>
+                            <MailCheck className="h-4 w-4 text-gray-200 inline-block" />{" "}
+                            Verify Email
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </div>
+
+                  {verificationMessage && (
+                    <div
+                      className={`mt-3 p-3 rounded-lg text-sm ${
+                        verificationMessage.includes("sent")
+                          ? "bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800"
+                          : "bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800"
+                      }`}>
+                      {verificationMessage}
+                      {verificationUrl && (
+                        <div className="mt-2">
+                          <p className="text-xs text-gray-600 dark:text-gray-400">
+                            For testing, you can use this link:
+                          </p>
+                          <a
+                            href={verificationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 dark:text-blue-400 hover:underline text-xs break-all">
+                            {verificationUrl}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <div>

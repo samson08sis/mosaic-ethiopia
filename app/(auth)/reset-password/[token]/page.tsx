@@ -35,7 +35,7 @@ function ResetPasswordForm() {
 
   // Password validation rules
   const passwordRules = [
-    { rule: /.{8,}/, message: "At least 8 characters long" },
+    { rule: /.{6,}/, message: "At least 6 characters long" },
     { rule: /[A-Z]/, message: "At least one uppercase letter" },
     { rule: /[a-z]/, message: "At least one lowercase letter" },
     { rule: /\d/, message: "At least one number" },
@@ -124,7 +124,7 @@ function ResetPasswordForm() {
 
     try {
       const response = await fetch(
-        "https://mosaic-backend-li68.vercel.app/api/auth/reset-password",
+        "http://localhost:5000/api/auth/reset-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -151,6 +151,7 @@ function ResetPasswordForm() {
       }, 3000);
     } catch (error: any) {
       // Handle network errors and API error responses
+      console.log("ERROR recieved: ", error.message);
       setGeneralError(
         error.message || "Failed to reset password. Please try again."
       );

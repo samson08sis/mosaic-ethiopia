@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
@@ -29,8 +29,17 @@ export default function AuthForm({
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const { login } = useAuth();
+  const { login, register } = useAuth();
+
+  useEffect(() => {
+    if (error !== "") {
+      const timeout = setTimeout(() => {
+        setError("");
+      }, 5000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [error]);
 
   const toggleView = () => {
     setIsLogin(!isLogin);
@@ -43,6 +52,21 @@ export default function AuthForm({
 
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleSocialLogin = async () => {
+    const authWindow = window.open(
+      "http://localhost:5000/api/auth/google",
+      "googleAuth",
+      "width=500,height=600"
+    );
+
+    const checkWindow = setInterval(() => {
+      if (authWindow?.closed) {
+        clearInterval(checkWindow);
+        window.location.reload(); // Refresh to check auth status
+      }
+    }, 500);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -81,40 +105,34 @@ export default function AuthForm({
 
     try {
       if (isLogin) {
-        // For demo purposes, we'll use demo@example.com/password
-        const result = await login(email, password);
+        await login(email, password);
 
-        if (result.success) {
-          if (onSuccess) {
-            onSuccess();
-          } else {
-            router.push("/");
-          }
-        } else {
-          setError(
-            result.message ||
-              "Invalid email or password. Try demo@example.com / password"
-          );
-        }
+        // const res = await fetch(
+        //   "https://mosaic-backend-li68.vercel.app/api/auth/login",
+        //   {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ email, password }),
+        //     credentials: "include", // Required for cookies
+        //   }
+        // );
+        // const data = await res.json();
+        // console.log(data);
+        // if (data.success === true) {
+        //   // router.push("/");
+        //   login(data?.user);
+        // }
       } else {
-        // For demo registration, we'll just log in the user
-        // In a real app, this would create a new account
-        const result = await login(email, password);
-
-        if (result.success) {
-          if (onSuccess) {
-            onSuccess();
-          } else {
-            router.push("/");
-          }
-        } else {
-          // For demo purposes, let's just show a success message
-          if (onSuccess) {
-            onSuccess();
-          } else {
-            router.push("/");
-          }
-        }
+        register(name, email, password);
+        // const res = await fetch("http://localhost:5000/api/auth/register", {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify({ name, email, password }),
+        //   credentials: "include", // Required for cookies
+        // });
+        // const data = await res.json();
+        // console.log(data);
+        // router.push("/dashboard");
       }
     } catch (err) {
       setError("Authentication failed. Please try again.");
@@ -262,7 +280,7 @@ export default function AuthForm({
       </form>
 
       <div className="mt-6">
-        <SocialLoginButtons onSocialLogin={() => {}} />
+        <SocialLoginButtons onSocialLogin={handleSocialLogin} />
       </div>
 
       <div className="mt-6 text-center">
