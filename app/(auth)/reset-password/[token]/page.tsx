@@ -124,7 +124,7 @@ function ResetPasswordForm() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/reset-password",
+        "https://mosaic-backend-li68.vercel.app/api/auth/reset-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

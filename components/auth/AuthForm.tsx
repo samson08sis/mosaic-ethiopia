@@ -56,7 +56,7 @@ export default function AuthForm({
 
   const handleSocialLogin = async () => {
     const authWindow = window.open(
-      "http://localhost:5000/api/auth/google",
+      "https://mosaic-backend-li68.vercel.app/api/auth/google",
       "googleAuth",
       "width=500,height=600"
     );
@@ -124,7 +124,7 @@ export default function AuthForm({
         // }
       } else {
         register(name, email, password);
-        // const res = await fetch("http://localhost:5000/api/auth/register", {
+        // const res = await fetch("https://mosaic-backend-li68.vercel.app/api/auth/register", {
         //   method: "POST",
         //   headers: { "Content-Type": "application/json" },
         //   body: JSON.stringify({ name, email, password }),

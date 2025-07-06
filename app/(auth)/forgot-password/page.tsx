@@ -35,11 +35,14 @@ export default function ForgotPasswordPage() {
     }
 
     try {
-      await fetch("http://localhost:5000/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+      await fetch(
+        "https://mosaic-backend-li68.vercel.app/api/auth/forgot-password",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       setIsSubmitted(true);
     } catch (err) {

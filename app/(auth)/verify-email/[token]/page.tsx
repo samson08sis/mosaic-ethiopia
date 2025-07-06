@@ -25,7 +25,7 @@ export default function VerifyEmailPage() {
 
       try {
         const response = await fetch(
-          "http://localhost:5000/api/auth/verify-email",
+          "https://mosaic-backend-li68.vercel.app/api/auth/verify-email",
           {
             method: "POST",
             headers: {
