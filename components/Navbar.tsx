@@ -57,6 +57,12 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isAuthenticated || pathname === "/forgot-password") {
+      setIsLoginModalOpen(false);
+    }
+  }, [isAuthenticated, pathname]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
