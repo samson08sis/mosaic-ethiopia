@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ImageFeatures from "../ImageFeatures";
+import ImageFeatures from "./ImageFeatures";
 
 export default function WelcomeSection() {
   return (
