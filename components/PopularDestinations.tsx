@@ -82,29 +82,17 @@ export default function PopularDestinations() {
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {destination.name}
               </h3>
-              <div className="mt-4 flex flex-col sm:flex-row gap-2">
+              <div className="mt-4 flex flex-col xl:flex-row gap-2">
                 <Link
                   href={`/destinations/${destination.id}`}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
+                  className="w-full px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
                   View Details
                 </Link>
                 <Link
                   href={`/book?destination=${destination.id}`}
-                  className="px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition-colors">
+                  className="w-full px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition-colors">
                   Book Now
                 </Link>
-                {/* <Link
-                  href={`/destinations/${destination.id}`}
-                  className="px-4 py-2 bg-primary hover:bg-primary-600 text-white rounded-md transition-colors text-center">
-                  View Details
-                </Link>
-                <Link
-                  href={`/book?destination=${encodeURIComponent(
-                    destination.name
-                  )}`}
-                  className="px-4 py-2 border border-primary text-primary hover:bg-primary-50 dark:hover:bg-gray-700 rounded-md transition-colors text-center">
-                  Book Now
-                </Link> */}
               </div>
             </div>
           </div>
