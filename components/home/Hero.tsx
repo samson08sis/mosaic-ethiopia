@@ -162,37 +162,37 @@ export default function Hero() {
 
         {/* Hero Content */}
         <div className="container mx-auto px-4 h-full relative z-10">
-          <div className="h-full flex items-center justify-between">
-            {/* Left Content */}
-            <div className="text-white max-w-2xl">
-              <h2 className="font-arizonia text-primary-400 text-3xl mb-2">
+          <div className="h-full flex flex-col items-start md:items-center justify-center md:flex-row md:justify-between gap-8 py-8">
+            {/* Left Content - Now centered on mobile */}
+            <div className="text-white max-w-2xl text-left order-2 md:order-1">
+              <h2 className="font-arizonia text-primary-400 text-2xl md:text-3xl mb-2">
                 Discover Ethiopia
               </h2>
-              <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight">
                 Land of
                 <br />
                 Origins and Wonders
               </h1>
-              <p className="text-xl md:text-2xl mb-8 text-gray-200">
+              <p className="text-lg md:text-xl lg:text-2xl mb-8 text-gray-200">
                 Experience ancient history, diverse cultures, and breathtaking
                 landscapes
               </p>
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <div className="flex flex-col sm:flex-row text-center space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
                 <Link
                   href="/book"
-                  className="w-full sm:w-auto px-8 py-3 bg-primary hover:bg-primary-700 rounded-lg font-medium text-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+                  className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-3 bg-primary hover:bg-primary-700 rounded-lg font-medium text-base md:text-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900">
                   Book Now
                 </Link>
                 <Link
                   href="/packages"
-                  className="w-full sm:w-auto px-8 py-3 bg-white/20 hover:bg-white/30 rounded-lg font-medium text-lg backdrop-blur-sm transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
+                  className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-3 bg-white/20 hover:bg-white/30 rounded-lg font-medium text-base md:text-lg backdrop-blur-sm transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
                   Explore Packages
                 </Link>
               </div>
             </div>
 
-            {/* Right Content - Video Play Button */}
-            <div className="hidden md:block">
+            {/* Video Play Button - Now properly spaced on mobile */}
+            <div className="order-1 md:order-2 flex justify-center md:block">
               <VideoTrigger />
             </div>
           </div>
