@@ -60,10 +60,6 @@ export default function Testimonials() {
         <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
           {translations.testimonials || "What Our Customers Say"}
         </h2>
-        <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
-          Read about the experiences of travelers who have explored the world
-          with us.
-        </p>
       </div>
 
       <div className="max-w-6xl mx-auto px-4">
@@ -108,7 +104,7 @@ export default function Testimonials() {
                 ))}
               </div>
 
-              <p className="text-gray-700 dark:text-gray-300 italic">
+              <p className="text-gray-700 dark:text-gray-300 italic font-sans">
                 "{testimonial.quote}"
               </p>
             </div>

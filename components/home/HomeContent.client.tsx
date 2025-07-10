@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { PackagesSkeleton } from "../PackageSkeleton";
 import { DestinationsSkeleton } from "../DestinationSkeleton";
+import { TestimonialsSkeleton } from "../TestimonialsSkeleton";
 
 // Dynamic imports for client components
 const PopularDestinations = dynamic(
@@ -21,11 +22,7 @@ const TourPackages = dynamic(() => import("@/components/TourPackages"), {
 
 const Testimonials = dynamic(() => import("@/components/Testimonials"), {
   ssr: false,
-  loading: () => (
-    <div className="h-64 flex items-center justify-center">
-      Loading testimonials...
-    </div>
-  ),
+  loading: () => <TestimonialsSkeleton />,
 });
 
 export default function HomeContent() {
@@ -54,12 +51,7 @@ export default function HomeContent() {
           <h2 className="font-arizonia text-primary-400 text-3xl mb-6 mt-16 text-center">
             Customers' Feedback
           </h2>
-          <Suspense
-            fallback={
-              <div className="h-64 flex items-center justify-center">
-                Loading testimonials...
-              </div>
-            }>
+          <Suspense fallback={<TestimonialsSkeleton />}>
             <Testimonials />
           </Suspense>
         </div>

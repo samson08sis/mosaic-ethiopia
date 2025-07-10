@@ -27,26 +27,23 @@ export default function Carousel({
   autoPlayInterval = 5000,
   loop = true,
 }: CarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsCount = React.Children.count(children);
-  const maxIndex = Math.max(0, Math.ceil(itemsCount / itemsPerView) - 1);
+  const [itemsPerViewState, setItemsPerViewState] = useState(itemsPerView);
 
-  // Calculate items per view based on screen size
-  const [currentItemsPerView, setCurrentItemsPerView] = useState(itemsPerView);
+  // Calculate max index based on current items per view
+  const maxIndex = Math.max(0, Math.ceil(itemsCount / itemsPerViewState) - 1);
 
+  // Responsive items per view
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setCurrentItemsPerView(1);
-      } else if (window.innerWidth < 1024) {
-        setCurrentItemsPerView(Math.min(2, itemsPerView));
-      } else {
-        setCurrentItemsPerView(itemsPerView);
-      }
+      if (!containerRef.current) return;
+      const width = containerRef.current.offsetWidth;
+
+      if (width < 640) setItemsPerViewState(1);
+      else if (width < 1024) setItemsPerViewState(Math.min(2, itemsPerView));
+      else setItemsPerViewState(itemsPerView);
     };
 
     handleResize();
@@ -54,176 +51,111 @@ export default function Carousel({
     return () => window.removeEventListener("resize", handleResize);
   }, [itemsPerView]);
 
+  // Auto-play
   useEffect(() => {
-    if (autoPlay) {
-      const interval = setInterval(() => {
-        goToNext();
-      }, autoPlayInterval);
-      return () => clearInterval(interval);
-    }
-  }, [activeIndex, autoPlay, autoPlayInterval, maxIndex]);
+    if (!autoPlay) return;
 
-  const goToNext = () => {
-    if (activeIndex < maxIndex) {
-      setActiveIndex(activeIndex + 1);
-    } else if (loop) {
-      setActiveIndex(0);
-    }
-  };
-
-  const goToPrev = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-    } else if (loop) {
-      setActiveIndex(maxIndex);
-    }
-  };
-
-  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
-    setIsDragging(true);
-    if ("touches" in e) {
-      setStartX(e.touches[0].clientX);
-    } else {
-      setStartX(e.clientX);
-    }
-  };
-
-  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging) return;
-
-    let currentX: number;
-    if ("touches" in e) {
-      currentX = e.touches[0].clientX;
-    } else {
-      currentX = e.clientX;
-    }
-
-    const diff = currentX - startX;
-    const containerWidth = containerRef.current?.offsetWidth || 0;
-    const maxTranslate = containerWidth * 0.2; // 20% of container width
-
-    // Limit translation to a percentage of container width
-    const boundedTranslate = Math.max(
-      Math.min(diff, maxTranslate),
-      -maxTranslate
-    );
-    setTranslateX(boundedTranslate);
-  };
-
-  const handleDragEnd = () => {
-    if (!isDragging) return;
-
-    setIsDragging(false);
-
-    // If dragged more than 20% of the container width, change slide
-    const containerWidth = containerRef.current?.offsetWidth || 0;
-    const threshold = containerWidth * 0.2;
-
-    if (translateX > threshold) {
-      goToPrev();
-    } else if (translateX < -threshold) {
+    const interval = setInterval(() => {
       goToNext();
+    }, autoPlayInterval);
+
+    return () => clearInterval(interval);
+  }, [autoPlay, autoPlayInterval, currentIndex, maxIndex]);
+
+  const goTo = (index: number) => {
+    if (index < 0) {
+      setCurrentIndex(loop ? maxIndex : 0);
+    } else if (index > maxIndex) {
+      setCurrentIndex(loop ? 0 : maxIndex);
+    } else {
+      setCurrentIndex(index);
     }
-
-    setTranslateX(0);
   };
 
-  const getItemStyle = (index: number) => {
-    const itemWidth = `calc(${100 / currentItemsPerView}% - ${
-      (gap * (currentItemsPerView - 1)) / currentItemsPerView
-    }px)`;
-    return {
-      width: itemWidth,
-      marginRight: index < itemsCount - 1 ? `${gap}px` : 0,
-    };
-  };
+  const goToNext = () => goTo(currentIndex + 1);
+  const goToPrev = () => goTo(currentIndex - 1);
 
-  const getTrackStyle = () => {
-    const baseTranslate = -activeIndex * (100 / currentItemsPerView);
-    const dragOffset = isDragging
-      ? (translateX / (containerRef.current?.offsetWidth || 1)) * 100
-      : 0;
+  // Calculate scroll position
+  useEffect(() => {
+    if (!containerRef.current) return;
 
-    return {
-      transform: `translateX(calc(${baseTranslate}% + ${dragOffset}%))`,
-      transition: isDragging ? "none" : "transform 0.5s ease-in-out",
-      display: "flex",
-    };
-  };
+    const container = containerRef.current;
+    const itemWidth = container.scrollWidth / (itemsCount / itemsPerViewState);
+    const scrollPosition = currentIndex * itemWidth;
+
+    container.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
+  }, [currentIndex, itemsPerViewState, itemsCount]);
 
   return (
-    <div
-      className={cn("relative overflow-hidden", className)}
-      ref={containerRef}>
-      {/* Carousel Track */}
+    <div className={cn("relative", className)}>
+      {/* Carousel Container */}
       <div
-        className="w-full"
-        onMouseDown={handleDragStart}
-        onMouseMove={handleDragMove}
-        onMouseUp={handleDragEnd}
-        onMouseLeave={handleDragEnd}
-        onTouchStart={handleDragStart}
-        onTouchMove={handleDragMove}
-        onTouchEnd={handleDragEnd}
-        style={{ cursor: isDragging ? "grabbing" : "grab" }}>
-        <div style={getTrackStyle()}>
-          {React.Children.map(children, (child, index) => (
-            <div style={getItemStyle(index)} className="flex-shrink-0">
-              {child}
-            </div>
-          ))}
-        </div>
+        ref={containerRef}
+        className="w-full overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+        style={{
+          scrollSnapType: "x mandatory",
+          scrollBehavior: "smooth",
+          display: "flex",
+          gap: `${gap}px`,
+          paddingBottom: "10px", // Space for scrollbar if visible
+        }}>
+        {React.Children.map(children, (child, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 snap-start"
+            style={{
+              width: `calc(${100 / itemsPerViewState}% - ${
+                (gap * (itemsPerViewState - 1)) / itemsPerViewState
+              }px)`,
+              scrollSnapAlign: "start",
+            }}>
+            {child}
+          </div>
+        ))}
       </div>
 
       {/* Navigation Arrows */}
-      {showArrows && (
+      {showArrows && itemsCount > itemsPerViewState && (
         <>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              goToPrev();
-            }}
+            onClick={goToPrev}
             className={cn(
-              "absolute top-1/2 left-2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-2 shadow-lg hover:bg-white dark:hover:bg-gray-700 focus:outline-none z-10 transition-opacity",
-              { "opacity-50 cursor-not-allowed": activeIndex === 0 && !loop }
+              "absolute top-1/2 left-2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-lg z-10",
+              currentIndex === 0 && !loop && "opacity-50 cursor-not-allowed"
             )}
-            disabled={activeIndex === 0 && !loop}
-            aria-label="Previous slide">
-            <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            disabled={currentIndex === 0 && !loop}>
+            <ChevronLeft className="w-5 h-5" />
           </button>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              goToNext();
-            }}
+            onClick={goToNext}
             className={cn(
-              "absolute top-1/2 right-2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 rounded-full p-2 shadow-lg hover:bg-white dark:hover:bg-gray-700 focus:outline-none z-10 transition-opacity",
-              {
-                "opacity-50 cursor-not-allowed":
-                  activeIndex === maxIndex && !loop,
-              }
+              "absolute top-1/2 right-2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow-lg z-10",
+              currentIndex === maxIndex &&
+                !loop &&
+                "opacity-50 cursor-not-allowed"
             )}
-            disabled={activeIndex === maxIndex && !loop}
-            aria-label="Next slide">
-            <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            disabled={currentIndex === maxIndex && !loop}>
+            <ChevronRight className="w-5 h-5" />
           </button>
         </>
       )}
 
       {/* Dots Indicator */}
-      {showDots && maxIndex > 0 && (
-        <div className="flex justify-center items-center mt-4 space-x-2">
+      {showDots && itemsCount > itemsPerViewState && (
+        <div className="flex justify-center mt-4 gap-2">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => goTo(index)}
               className={cn(
-                "w-2 h-2 rounded-full transition-colors",
-                activeIndex === index
-                  ? "bg-primary-600 w-3 h-3"
-                  : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
+                "w-2 h-2 rounded-full transition-all",
+                currentIndex === index
+                  ? "bg-primary-600 w-4"
+                  : "bg-gray-300 hover:bg-gray-400"
               )}
-              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
