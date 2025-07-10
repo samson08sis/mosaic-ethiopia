@@ -1,5 +1,6 @@
+"use client";
 import Hero from "@/components/home/Hero";
-import HomeContent from "@/components/home/Homecontent.client";
+import HomeContent from "@/components/home/HomeContent.client";
 import WelcomeSection from "@/components/home/WelcomeSection";
 
 export default function Home() {
