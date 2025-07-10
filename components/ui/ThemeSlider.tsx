@@ -60,7 +60,7 @@ export function ThemeSlider({ isMobile }: { isMobile: boolean }) {
                 ? "left-1"
                 : theme === "light"
                 ? "right-1"
-                : theme === "system" && "right-1"
+                : theme === "system" && "left-1"
             }`}>
             {getThemeIcon(getNextTheme())}
           </div>
