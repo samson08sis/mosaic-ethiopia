@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -43,7 +43,8 @@ export default function Navbar() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+  const { isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,6 +67,12 @@ export default function Navbar() {
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsMenuOpen(false);
+    router.push("/");
   };
 
   // Determine navbar background based on scroll position
@@ -212,11 +219,18 @@ export default function Navbar() {
               {/* Login Button or Profile in Mobile Menu */}
               <div className="px-3 py-2">
                 {isAuthenticated ? (
-                  <Link
-                    href="/profile"
-                    className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
-                    {translations.myProfile || "My Profile"}
-                  </Link>
+                  <>
+                    <Link
+                      href="/profile"
+                      className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
+                      {translations.myProfile || "My Profile"}
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="mt-2 block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
+                      {translations.signOut || "Sign Out"}
+                    </button>
+                  </>
                 ) : (
                   <button
                     onClick={openLoginModal}
