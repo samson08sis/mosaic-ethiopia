@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import { PackagesSkeleton } from "../PackageSkeleton";
 
 // Dynamic imports for client components
 const PopularDestinations = dynamic(
@@ -18,11 +19,7 @@ const PopularDestinations = dynamic(
 
 const TourPackages = dynamic(() => import("@/components/TourPackages"), {
   ssr: false,
-  loading: () => (
-    <div className="h-64 flex items-center justify-center">
-      Loading packages...
-    </div>
-  ),
+  loading: () => <PackagesSkeleton />,
 });
 
 const Testimonials = dynamic(() => import("@/components/Testimonials"), {
@@ -57,12 +54,7 @@ export default function HomeContent() {
           <h2 className="font-arizonia text-primary-400 text-3xl mb-6 mt-16 text-center">
             Mosaic Provides Customizable Packages
           </h2>
-          <Suspense
-            fallback={
-              <div className="h-64 flex items-center justify-center">
-                Loading packages...
-              </div>
-            }>
+          <Suspense fallback={<PackagesSkeleton />}>
             <TourPackages />
           </Suspense>
 
