@@ -3,17 +3,14 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { PackagesSkeleton } from "../PackageSkeleton";
+import { DestinationsSkeleton } from "../DestinationSkeleton";
 
 // Dynamic imports for client components
 const PopularDestinations = dynamic(
   () => import("@/components/PopularDestinations"),
   {
     ssr: false,
-    loading: () => (
-      <div className="h-64 flex items-center justify-center">
-        Loading destinations...
-      </div>
-    ),
+    loading: () => <DestinationsSkeleton />,
   }
 );
 
@@ -41,12 +38,7 @@ export default function HomeContent() {
           <h2 className="font-arizonia text-primary-400 text-3xl mb-6 mt-16 text-center">
             Mosaic Provides Places
           </h2>
-          <Suspense
-            fallback={
-              <div className="h-64 flex items-center justify-center">
-                Loading destinations...
-              </div>
-            }>
+          <Suspense fallback={<DestinationsSkeleton />}>
             <PopularDestinations />
           </Suspense>
 
