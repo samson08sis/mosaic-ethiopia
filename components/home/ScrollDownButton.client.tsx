@@ -17,7 +17,7 @@ export default function ScrollDownButton() {
 
   const scrollToContent = () => {
     window.scrollTo({
-      top: window.innerHeight,
+      top: window.innerHeight * 1.1,
       behavior: "smooth",
     });
   };
