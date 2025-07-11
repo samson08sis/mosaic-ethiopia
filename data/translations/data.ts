@@ -1,6 +1,3 @@
-import CurrentBookings from "@/app/bookings/current/page";
-import { sign } from "crypto";
-
 const translationsData = {
   en: {
     home: "Home",
@@ -26,7 +23,8 @@ const translationsData = {
     customizablePackages: "Customizable Packages",
     bookYourTrip: "Book Your Trip",
     testimonials: "What Our Customers Say",
-    //
+    dashboard: "Dashboard",
+    // Add-more...
   },
   es: {
     home: "Inicio",
@@ -52,7 +50,8 @@ const translationsData = {
     customizablePackages: "Paquetes Personalizables",
     bookYourTrip: "Reserva Tu Viaje",
     testimonials: "Lo Que Dicen Nuestros Clientes",
-    //
+    dashboard: "Panel de control",
+    // Add-more...
   },
   fr: {
     home: "Accueil",
@@ -78,7 +77,8 @@ const translationsData = {
     customizablePackages: "Forfaits Personnalisables",
     bookYourTrip: "Réservez Votre Voyage",
     testimonials: "Ce Que Disent Nos Clients",
-    //
+    dashboard: "Tableau de bord",
+    // Add-more...
   },
 };
 

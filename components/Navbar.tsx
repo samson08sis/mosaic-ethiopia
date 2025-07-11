@@ -5,20 +5,12 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import {
-  Menu,
-  X,
-  Globe,
-  Home,
-  MapPin,
-  Package,
-  Book,
-  Phone,
-} from "lucide-react";
+import { Menu, X, Home, MapPin, Package, Book, Phone } from "lucide-react";
 import LoginModal from "./LoginModal";
 import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "./ProfileDropdown";
 import { ThemeSlider } from "./ui/ThemeSlider";
+import LanguageMenu from "./LanguageMenu";
 
 const navItems = {
   links: [
@@ -28,18 +20,12 @@ const navItems = {
     { name: "about", icon: Book, href: "/about" },
     { name: "contact", icon: Phone, href: "/contact" },
   ],
-  langs: [
-    { name: "English", code: "en" },
-    { name: "Español", code: "es" },
-    { name: "Français", code: "fr" },
-  ],
 };
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const { language, changeLanguage, translations } = useLanguage();
+  const { translations } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const pathname = usePathname();
@@ -60,15 +46,12 @@ export default function Navbar() {
   useEffect(() => {
     if (isAuthenticated || pathname === "/forgot-password") {
       setIsLoginModalOpen(false);
+      setIsMenuOpen(false);
     }
   }, [isAuthenticated, pathname]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const toggleLanguageMenu = () => {
-    setIsLanguageMenuOpen(!isLanguageMenuOpen);
   };
 
   const openLoginModal = () => {
@@ -117,30 +100,7 @@ export default function Navbar() {
               ))}
 
               {/* Language Selector */}
-              <div className="relative">
-                <button
-                  onClick={toggleLanguageMenu}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-400">
-                  <Globe className="h-4 w-4 mr-1" />
-                  <span className="uppercase">{language}</span>
-                </button>
-
-                {isLanguageMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-10">
-                    {navItems.langs.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => {
-                          changeLanguage(lang.code);
-                          toggleLanguageMenu();
-                        }}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                        {lang.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <LanguageMenu isMobile={false} />
 
               {/* Theme Toggle */}
               <ThemeSlider isMobile={isMenuOpen} />
@@ -199,41 +159,25 @@ export default function Navbar() {
               </div>
 
               {/* Language Options in Mobile Menu */}
-              <div className="px-3 py-2">
-                <div className="text-gray-900 dark:text-white mb-2">
-                  {translations.language || "Language"}
-                </div>
-                <div className="flex space-x-4">
-                  {navItems.langs.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        changeLanguage(lang.code);
-                        toggleMenu();
-                      }}
-                      className={`text-sm ${
-                        language === lang.code
-                          ? "font-bold text-primary dark:text-primary-400"
-                          : "text-gray-700 dark:text-gray-300"
-                      }`}>
-                      {lang.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <LanguageMenu isMobile={true} onLanguageChange={toggleMenu} />
 
               {/* Login Button or Profile in Mobile Menu */}
               <div className="px-3 py-2">
                 {isAuthenticated ? (
                   <>
                     <Link
-                      href="/profile"
+                      href="/dashboard"
                       className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
+                      {translations.dashboard || "Dashboard"}
+                    </Link>
+                    <Link
+                      href="/profile"
+                      className="block mt-2 w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
                       {translations.myProfile || "My Profile"}
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="mt-2 block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
+                      className="block mt-2 w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
                       {translations.signOut || "Sign Out"}
                     </button>
                   </>
