@@ -2,7 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Inter, Arizonia } from "next/font/google";
 import "./globals.css";
-import ClientLayout from "./ClientLayout";
+import ClientLayout from "../components/layout/ClientLayout";
 import { Analytics } from "@vercel/analytics/next";
 
 // Load fonts
@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
+      // suppressHydrationWarning //Uncomment later
       className={`${inter.variable} ${arizonia.variable}`}>
       <body className={`${inter.className} bg-neutral-50 dark:bg-gray-900`}>
         <ClientLayout>{children}</ClientLayout>
