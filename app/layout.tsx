@@ -2,7 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Inter, Arizonia } from "next/font/google";
 import "./globals.css";
-import ClientLayout from "../components/layout/ClientLayout";
+import ClientLayout from "@/components/layout/ClientLayout";
 import { Analytics } from "@vercel/analytics/next";
 
 // Load fonts
