@@ -17,10 +17,22 @@ export type User = {
   };
 };
 
+export type AuthError = {
+  message: string;
+  errors?: Array<{
+    param: string;
+    msg: string;
+    location?: string;
+    value?: string;
+  }>;
+  msg?: string;
+};
+
 export type AuthState = {
   user: User | null;
   isAuthenticated: boolean;
   loading: boolean;
+  error: AuthError | null;
 };
 
 export type AuthResponse = {
@@ -37,4 +49,8 @@ export type AuthContextType = AuthState & {
   loadUser: () => Promise<void>;
   sendVerificationEmail: () => Promise<AuthResponse>;
   updateUserProfile: (updatedUser: User) => void;
+  verifyEmail: (token: string) => Promise<{
+    success: boolean;
+    message: string;
+  }>;
 };

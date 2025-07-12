@@ -8,7 +8,13 @@ import {
   type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
-import { AuthContextType, AuthResponse, AuthState, User } from "@/types/auth";
+import {
+  AuthContextType,
+  AuthError,
+  AuthResponse,
+  AuthState,
+  User,
+} from "@/types/auth";
 import {
   login as apiLogin,
   logout as apiLogout,
@@ -17,23 +23,15 @@ import {
   getCurrentUser,
 } from "@/lib/api/auth";
 
-// const nullUser = {
-//   id: "fhj3iej3-9r98j9f384hf898j3ijf",
-//   name: "Samson",
-//   email: "my.mail@amail.ao",
-//   verified: true,
-//   avatar: "https://picsum.photos/300/300",
-//   phone: "+2557349136",
-// };
-
-const USER_DATA_KEY = "auth_user_data";
+const USER_DATA_KEY = process.env.NEXT_PUBLIC_USER_DATA_KEY;
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const getCachedUser = (): User | null => {
   if (typeof window === "undefined") return null;
+
   try {
-    const userData = localStorage.getItem(USER_DATA_KEY);
+    const userData = localStorage.getItem(USER_DATA_KEY!);
     return userData ? JSON.parse(userData) : null;
   } catch (error) {
     return null;
@@ -45,8 +43,8 @@ const cacheUser = (user: User | null) => {
 
   try {
     user
-      ? localStorage.setItem(USER_DATA_KEY, JSON.stringify(user))
-      : localStorage.removeItem(USER_DATA_KEY);
+      ? localStorage.setItem(USER_DATA_KEY!, JSON.stringify(user))
+      : localStorage.removeItem(USER_DATA_KEY!);
   } catch (error) {
     console.error("Failed to cache user data", error);
   }
@@ -60,6 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user: null,
     loading: true,
     isAuthenticated: false,
+    error: null,
   });
 
   // Check for existing session on mount
@@ -72,6 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           user: cachedUser,
           isAuthenticated: true,
           loading: true,
+          error: null,
         });
       }
       await loadUser();
@@ -89,6 +89,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         loading: false,
         isAuthenticated: true,
+        error: null,
       });
     } catch {
       cacheUser(null);
@@ -96,74 +97,104 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user: null,
         loading: false,
         isAuthenticated: false,
+        error: null,
       });
     }
   };
 
   const register = async (name: string, email: string, password: string) => {
     try {
-      setAuthState((prev) => ({ ...prev, loading: true }));
+      setAuthState((prev) => ({ ...prev, loading: true, error: null }));
+
       const { user } = await apiRegister(name, email, password);
-      cacheUser(user || null);
-      if (user)
+      if (user) {
+        cacheUser(user);
         setAuthState({
           user,
           loading: false,
           isAuthenticated: true,
+          error: null,
         });
-      router.push("/dashboard");
-    } catch (error) {
+        router.push("/dashboard");
+      } else cacheUser(null);
+    } catch (err: any) {
+      const authError: AuthError = {
+        message: "Registration failed",
+        msg: Array.isArray(err) ? undefined : err.message,
+        errors: Array.isArray(err) ? err : undefined,
+      };
+
       setAuthState((prev) => ({
         ...prev,
         loading: false,
         isAuthenticated: false,
+        error: authError,
       }));
-      throw error;
+
+      throw err;
     }
   };
 
   const login = async (email: string, password: string) => {
     try {
-      setAuthState((prev) => ({ ...prev, loading: true }));
+      setAuthState((prev) => ({ ...prev, loading: true, error: null }));
 
       const { user } = await apiLogin(email, password);
-
-      cacheUser(user || null);
-      if (user)
+      if (user) {
+        cacheUser(user);
         setAuthState({
           user,
           loading: false,
           isAuthenticated: true,
+          error: null,
         });
+        router.push("/dashboard");
+      } else {
+        cacheUser(null);
+      }
+    } catch (err: any) {
+      cacheUser(null);
+      const authError: AuthError = {
+        message: "Login failed",
+        msg: Array.isArray(err) ? undefined : err.message,
+        errors: Array.isArray(err) ? err : undefined,
+      };
 
-      router.push("/dashboard");
-    } catch (err) {
-      console.log("Auth ERR: ");
-      console.log(err);
-      // console.log(
-      //   "Auth ERR: ",
-      //   err instanceof Error ? err.message : "An unknown error occured"
-      // );
       setAuthState((prev) => ({
         ...prev,
         loading: false,
         isAuthenticated: false,
+        error: authError,
       }));
+
       throw err;
     }
   };
 
   const logout = async () => {
     try {
+      setAuthState((prev) => ({ ...prev, loading: true }));
       await apiLogout();
-    } finally {
       cacheUser(null);
+
       setAuthState({
         user: null,
         loading: false,
         isAuthenticated: false,
+        error: null,
       });
+
       router.push("/");
+    } catch (err) {
+      setAuthState((prev) => ({
+        ...prev,
+        loading: false,
+        error: {
+          message: "Logout failed",
+        },
+      }));
+
+      throw err;
     }
   };
 
@@ -187,6 +218,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         success: false,
         message: "Failed to send verification email",
       };
+    }
+  };
+
+  const verifyEmail = async (token: string) => {
+    try {
+      const result = await verifyEmail(token);
+      setAuthState(
+        (prev) =>
+          ({ ...prev, user: { ...prev.user, verified: true } } as AuthState)
+      );
+      return { success: true, message: "Email verified successfully" };
+    } catch (error) {
+      let message = "Verification failed";
+      if (error instanceof Error) message = error.message;
+      if (Array.isArray(error)) message = error.join(", ");
+      return { success: false, message };
     }
   };
 
@@ -220,6 +267,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         logout,
         sendVerificationEmail,
         updateUserProfile,
+        verifyEmail,
       }}>
       {children}
     </AuthContext.Provider>

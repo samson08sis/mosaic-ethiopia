@@ -9,79 +9,31 @@ export default function VerifyEmailPage() {
   const params = useParams() as { token?: string | string[] };
   const token = params?.token;
   const router = useRouter();
-  const { loadUser } = useAuth();
+  const { loadUser, verifyEmail } = useAuth();
   const [status, setStatus] = useState<
     "loading" | "success" | "error" | "expired" | "invalid"
   >("loading");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const verifyEmail = async () => {
-      if (!token) {
-        setStatus("invalid");
-        setMessage("No verification token provided.");
-        return;
-      }
+    const verify = async () => {
+      if (!token || Array.isArray(token)) return;
 
-      try {
-        const response = await fetch(
-          "https://mosaic-backend-li68.vercel.app/api/auth/verify-email",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ token }),
-          }
-        );
+      setStatus("loading");
+      const result = await verifyEmail(token);
 
-        const data = await response.json();
-
-        console.log("DATA: ", data);
-
-        if (response.ok) {
-          setStatus("success");
-          setMessage(
-            data.message || "Your email has been successfully verified!"
-          );
-          // Refresh user data to update verification status
-          await loadUser();
-          // Redirect to profile after 3 seconds
-          setTimeout(() => {
-            router.push("/profile");
-          }, 3000);
-        } else {
-          if (response.status === 400 && data.error?.includes("expired")) {
-            setStatus("expired");
-            setMessage(
-              "This verification link has expired. Please request a new verification email."
-            );
-          } else if (
-            response.status === 400 &&
-            data.error?.includes("invalid")
-          ) {
-            setStatus("invalid");
-            setMessage(
-              "This verification link is invalid or has already been used."
-            );
-          } else {
-            setStatus("error");
-            setMessage(
-              data.error || "Failed to verify email. Please try again."
-            );
-          }
-        }
-      } catch (error) {
-        console.error("Verification error:", error);
+      if (result.success) {
+        setStatus("success");
+        setMessage(result.message);
+        setTimeout(() => router.push("/profile"), 3000);
+      } else {
         setStatus("error");
-        setMessage(
-          "Network error. Please check your connection and try again."
-        );
+        setMessage(result.message);
       }
     };
 
-    verifyEmail();
-  }, [token, router]);
+    verify();
+  }, [token, verifyEmail, router]);
 
   const getStatusIcon = () => {
     switch (status) {

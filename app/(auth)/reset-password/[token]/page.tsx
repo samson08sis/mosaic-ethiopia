@@ -124,7 +124,7 @@ function ResetPasswordForm() {
 
     try {
       const response = await fetch(
-        "https://mosaic-backend-li68.vercel.app/api/auth/reset-password",
+        "http://localhost:5000/api/auth/reset-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -273,6 +273,7 @@ function ResetPasswordForm() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <FormInput
+                name="password"
                 id="password"
                 label="New Password"
                 type={showPassword ? "text" : "password"}
@@ -281,21 +282,22 @@ function ResetPasswordForm() {
                 placeholder="Enter your new password"
                 required
                 icon={<Lock className="h-5 w-5" />}
-                rightIcon={
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="hover:text-gray-600 dark:hover:text-gray-300">
-                    {showPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
-                  </button>
-                }
+                // rightIcon={
+                //   <button
+                //     type="button"
+                //     onClick={() => setShowPassword(!showPassword)}
+                //     className="hover:text-gray-600 dark:hover:text-gray-300">
+                //     {showPassword ? (
+                //       <EyeOff className="h-5 w-5" />
+                //     ) : (
+                //       <Eye className="h-5 w-5" />
+                //     )}
+                //   </button>
+                // }
               />
 
               <FormInput
+                name="confirmPassword"
                 id="confirmPassword"
                 label="Confirm New Password"
                 type={showConfirmPassword ? "text" : "password"}
@@ -304,18 +306,18 @@ function ResetPasswordForm() {
                 placeholder="Confirm your new password"
                 required
                 icon={<Lock className="h-5 w-5" />}
-                rightIcon={
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="hover:text-gray-600 dark:hover:text-gray-300">
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
-                  </button>
-                }
+                // rightIcon={
+                //   <button
+                //     type="button"
+                //     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                //     className="hover:text-gray-600 dark:hover:text-gray-300">
+                //     {showConfirmPassword ? (
+                //       <EyeOff className="h-5 w-5" />
+                //     ) : (
+                //       <Eye className="h-5 w-5" />
+                //     )}
+                //   </button>
+                // }
               />
 
               {/* Password Requirements */}

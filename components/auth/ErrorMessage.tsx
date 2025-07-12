@@ -12,6 +12,16 @@ export default function ErrorMessage({ message }: ErrorMessageProps) {
     setShouldRender(message?.length > 0);
   }, [message]);
 
+  useEffect(() => {
+    if (message !== "") {
+      const timeout = setTimeout(() => {
+        setShouldRender(false);
+      }, 8000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [message]);
+
   return (
     <div
       className={`mb-4 p-3 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg flex items-start transition-all duration-300 ${

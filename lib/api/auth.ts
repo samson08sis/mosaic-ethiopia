@@ -1,6 +1,6 @@
 import { AuthResponse } from "@/types/auth";
 
-const LOCAL_BACKEND_URL = "https://mosaic-backend-li68.vercel.app";
+const BACKEND_URL = "http://localhost:5000";
 
 type UserResponse = {
   user: {
@@ -18,7 +18,7 @@ export const register = async (
   email: string,
   password: string
 ): Promise<AuthResponse> => {
-  const response = await fetch(`${LOCAL_BACKEND_URL}/api/auth/register`, {
+  const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,18 +27,23 @@ export const register = async (
     credentials: "include",
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
-    throw new Error("Registry failed");
+    if (data.errors && Array.isArray(data.errors)) {
+      throw data.errors;
+    }
+    throw new Error(data.msg || "Registration failed");
   }
 
-  return response.json();
+  return data;
 };
 
 export const login = async (
   email: string,
   password: string
 ): Promise<AuthResponse> => {
-  const response = await fetch(`${LOCAL_BACKEND_URL}/api/auth/login`, {
+  const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,27 +58,26 @@ export const login = async (
     if (data.errors && Array.isArray(data.errors)) {
       throw data.errors;
     }
-    throw new Error(data.message || "Login failed");
-    // const errorMessage = data.errors || data.message || "Login failed";
-    // throw new Error(errorMessage);
+    throw new Error(data.msg || "Login failed");
   }
 
   return data;
 };
 
 export const logout = async (): Promise<void> => {
-  const response = await fetch(`${LOCAL_BACKEND_URL}/api/auth/logout`, {
+  const response = await fetch(`${BACKEND_URL}/api/auth/logout`, {
     method: "GET",
     credentials: "include",
   });
 
   if (!response.ok) {
-    throw new Error("Logout failed");
+    const data = await response.json();
+    throw new Error(data.msg || "Logout failed");
   }
 };
 
 export const getCurrentUser = async (): Promise<UserResponse> => {
-  const response = await fetch(`${LOCAL_BACKEND_URL}/api/auth/me`, {
+  const response = await fetch(`${BACKEND_URL}/api/auth/me`, {
     credentials: "include",
   });
 
@@ -87,7 +91,7 @@ export const getCurrentUser = async (): Promise<UserResponse> => {
 export const sendVerificationEmail = async (): Promise<AuthResponse> => {
   try {
     const response = await fetch(
-      `${LOCAL_BACKEND_URL}/api/auth/send-email-verification`,
+      `${BACKEND_URL}/api/auth/send-email-verification`,
       {
         method: "POST",
         credentials: "include",
@@ -96,10 +100,10 @@ export const sendVerificationEmail = async (): Promise<AuthResponse> => {
 
     const data = await response.json();
     return response.ok
-      ? { success: true, message: data.message || "Verification email sent" }
+      ? { success: true, message: data.msg || "Verification email sent" }
       : {
           success: false,
-          message: data.message || "Failed to send verification email",
+          message: data.msg || "Failed to send verification email",
         };
   } catch (error) {
     return {
@@ -107,4 +111,26 @@ export const sendVerificationEmail = async (): Promise<AuthResponse> => {
       message: "Network error while sending verification email",
     };
   }
+};
+
+export const verifyEmail = async (token: string): Promise<AuthResponse> => {
+  const response = await fetch(`${BACKEND_URL}/api/auth/verify-email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token }),
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (data.errors && Array.isArray(data.errors)) {
+      throw data.errors;
+    }
+    throw new Error(data.msg || "Email verification failed");
+  }
+
+  return data;
 };
