@@ -32,17 +32,17 @@ export default function Carousel({
   const itemsCount = React.Children.count(children);
   const [itemsPerViewState, setItemsPerViewState] = useState(itemsPerView);
 
-  // Calculate max index based on current items per view
   const maxIndex = Math.max(0, Math.ceil(itemsCount / itemsPerViewState) - 1);
 
   // Responsive items per view
   useEffect(() => {
     const handleResize = () => {
       if (!containerRef.current) return;
-      const width = containerRef.current.offsetWidth;
+      const containerWidth = containerRef.current.offsetWidth;
 
-      if (width < 640) setItemsPerViewState(1);
-      else if (width < 1024) setItemsPerViewState(Math.min(2, itemsPerView));
+      if (containerWidth < 640) setItemsPerViewState(1);
+      else if (containerWidth < 1024)
+        setItemsPerViewState(Math.min(2, itemsPerView));
       else setItemsPerViewState(itemsPerView);
     };
 
@@ -63,13 +63,9 @@ export default function Carousel({
   }, [autoPlay, autoPlayInterval, currentIndex, maxIndex]);
 
   const goTo = (index: number) => {
-    if (index < 0) {
-      setCurrentIndex(loop ? maxIndex : 0);
-    } else if (index > maxIndex) {
-      setCurrentIndex(loop ? 0 : maxIndex);
-    } else {
-      setCurrentIndex(index);
-    }
+    if (index < 0) setCurrentIndex(loop ? maxIndex : 0);
+    else if (index > maxIndex) setCurrentIndex(loop ? 0 : maxIndex);
+    else setCurrentIndex(index);
   };
 
   const goToNext = () => goTo(currentIndex + 1);
@@ -80,38 +76,33 @@ export default function Carousel({
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const itemWidth = container.scrollWidth / (itemsCount / itemsPerViewState);
-    const scrollPosition = currentIndex * itemWidth;
+    const itemWidth = (container.clientWidth + gap) / itemsPerViewState;
+    const scrollPosition = currentIndex * itemWidth * itemsPerViewState;
 
     container.scrollTo({
       left: scrollPosition,
       behavior: "smooth",
     });
-  }, [currentIndex, itemsPerViewState, itemsCount]);
+  }, [currentIndex, itemsPerViewState, gap]);
 
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("relative w-full overflow-hidden", className)}>
       {/* Carousel Container */}
       <div
         ref={containerRef}
-        className="w-full overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+        className="w-full overflow-x-auto scrollbar-hide snap-x snap-mandatory"
         style={{
           scrollSnapType: "x mandatory",
           scrollBehavior: "smooth",
-          display: "flex",
+          display: "grid",
+          gridAutoFlow: "column",
+          gridAutoColumns: `calc(${100 / itemsPerViewState}% - ${
+            (gap * (itemsPerViewState - 1)) / itemsPerViewState
+          }px)`,
           gap: `${gap}px`,
-          paddingBottom: "10px", // Space for scrollbar if visible
         }}>
         {React.Children.map(children, (child, index) => (
-          <div
-            key={index}
-            className="flex-shrink-0 snap-start"
-            style={{
-              width: `calc(${100 / itemsPerViewState}% - ${
-                (gap * (itemsPerViewState - 1)) / itemsPerViewState
-              }px)`,
-              scrollSnapAlign: "start",
-            }}>
+          <div className="snap-start" key={index}>
             {child}
           </div>
         ))}
@@ -145,7 +136,7 @@ export default function Carousel({
 
       {/* Dots Indicator */}
       {showDots && itemsCount > itemsPerViewState && (
-        <div className="flex justify-center mt-4 gap-2">
+        <div className="flex justify-center mt-4 mb-1 gap-2">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
@@ -153,7 +144,7 @@ export default function Carousel({
               className={cn(
                 "w-2 h-2 rounded-full transition-all",
                 currentIndex === index
-                  ? "bg-primary-600 w-4"
+                  ? "bg-blue-600 w-4"
                   : "bg-gray-300 hover:bg-gray-400"
               )}
             />
