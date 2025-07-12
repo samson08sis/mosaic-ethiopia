@@ -42,6 +42,17 @@ export type AuthResponse = {
   errors?: any;
 };
 
+export type UserResponse = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    verified: boolean;
+    joined: Date;
+  };
+};
+
 export type AuthContextType = AuthState & {
   register: (name: string, email: string, password: string) => Promise<void>; // Promise<AuthResponse>;
   login: (email: string, password: string) => Promise<void>; // Promise<AuthResponse>;

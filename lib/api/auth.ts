@@ -1,17 +1,6 @@
-import { AuthResponse } from "@/types/auth";
+import { AuthResponse, UserResponse } from "@/types/auth";
 
-const BACKEND_URL = "http://localhost:5000";
-
-type UserResponse = {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-    verified: boolean;
-    joined: Date;
-  };
-};
+const BACKEND_URL = "https://mosaic-backend-li68.vercel.app";
 
 export const register = async (
   name: string,
