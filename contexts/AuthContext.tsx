@@ -20,6 +20,7 @@ import {
   logout as apiLogout,
   register as apiRegister,
   sendVerificationEmail as apiSendVerificationEmail,
+  verifyEmail as apiVerifyEmail,
   getCurrentUser,
 } from "@/lib/api/auth";
 
@@ -223,7 +224,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const verifyEmail = async (token: string) => {
     try {
-      const result = await verifyEmail(token);
+      const result = await apiVerifyEmail(token);
+      console.log("RESULT: ", result);
       setAuthState(
         (prev) =>
           ({ ...prev, user: { ...prev.user, verified: true } } as AuthState)
