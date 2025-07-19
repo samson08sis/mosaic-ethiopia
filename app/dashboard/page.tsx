@@ -61,7 +61,7 @@ const mockStats = {
 };
 
 export default function Dashboard() {
-  const { user, isAuthenticated, sendVerificationEmail } = useAuth();
+  const { user, loading, isAuthenticated, sendVerificationEmail } = useAuth();
   const router = useRouter();
 
   const [isVerifying, setIsVerifying] = useState(false);
@@ -75,7 +75,7 @@ export default function Dashboard() {
 
   // Redirect if not authenticated
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!loading && !isAuthenticated) {
       router.push("/");
     }
   }, [isAuthenticated, router]);
@@ -118,7 +118,6 @@ export default function Dashboard() {
     try {
       const result = await sendVerificationEmail();
 
-      console.log("VERIFICATION RESULT: ", result);
       if (result.success) {
         setVerificationMessage("Verification email sent! Check your inbox.");
       } else {
