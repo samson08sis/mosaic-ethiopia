@@ -20,8 +20,8 @@ export default function NotFoundClient() {
           <h1 className="text-9xl font-bold text-primary-500 mb-4">404</h1>
           <div className="relative h-64 md:h-80 mb-8 mx-auto max-w-lg">
             <Image
-              src="/images/404-illustration.svg"
-              alt="Lost traveler illustration"
+              src="/images/404-cover.png"
+              alt="Lost traveler"
               fill
               className="object-contain"
               priority
