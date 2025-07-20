@@ -9,7 +9,7 @@ export default function VerifyEmailPage() {
   const params = useParams() as { token?: string | string[] };
   const token = params?.token;
   const router = useRouter();
-  const { loadUser, verifyEmail } = useAuth();
+  const { loadUser, isAuthenticated, verifyEmail } = useAuth();
   const [status, setStatus] = useState<
     "loading" | "success" | "error" | "expired" | "invalid"
   >("loading");
@@ -22,10 +22,14 @@ export default function VerifyEmailPage() {
       setStatus("loading");
       const result = await verifyEmail(token);
 
-      if (result.success) {
+      if (result.success === true) {
         setStatus("success");
         setMessage(result.message);
-        setTimeout(() => router.push("/profile"), 3000);
+        setTimeout(
+          () =>
+            isAuthenticated ? router.push("/dashboard") : router.push("/login"),
+          3000
+        );
       } else {
         setStatus("error");
         setMessage(result.message);
@@ -33,12 +37,40 @@ export default function VerifyEmailPage() {
     };
 
     verify();
-  }, [token, verifyEmail, router]);
+  }, []);
+
+  const handleVerifyEmail = async () => {
+    if (!token || Array.isArray(token)) return;
+
+    setStatus("loading");
+    const result = await verifyEmail(token);
+
+    if (result.success === true) {
+      setStatus("success");
+      setMessage(result.message);
+      setTimeout(
+        () =>
+          // isAuthenticated ? router.push("/dashboard") : router.push("/login"),
+          3000
+      );
+    } else {
+      setStatus("error");
+      setMessage(result.message);
+    }
+  };
 
   const getStatusIcon = () => {
     switch (status) {
       case "loading":
-        return <Clock className="w-16 h-16 text-blue-500 animate-spin" />;
+        return (
+          <>
+            <Clock className="w-16 h-16 text-blue-500" />
+            {/* <div className="w-16 h-16 border-4 border-blue-500 rounded-full relative">
+              <div className="w-6 border-2 border-blue-500 absolute top-1/2 left-1/2 p-0" />
+              <div className="w-6 border-2 border-blue-500 absolute top-1/2 left-1/2 rotate-45 p-0" />
+            </div> */}
+          </>
+        );
       case "success":
         return <CheckCircle className="w-16 h-16 text-green-500" />;
       case "expired":
@@ -139,9 +171,13 @@ export default function VerifyEmailPage() {
             {status === "success" && (
               <div className="space-y-3">
                 <button
-                  onClick={() => router.push("/profile")}
+                  onClick={() => {
+                    isAuthenticated
+                      ? router.push("/dashboard")
+                      : router.push("/login");
+                  }}
                   className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105">
-                  Go to Profile
+                  {`${isAuthenticated ? "Go to Dashboard" : "Login"}`}
                 </button>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   You'll be redirected automatically in a few seconds...
@@ -160,7 +196,8 @@ export default function VerifyEmailPage() {
             {status === "error" && (
               <div className="space-y-3">
                 <button
-                  onClick={() => window.location.reload()}
+                  onClick={handleVerifyEmail}
+                  // onClick={() => window.location.reload()}
                   className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105">
                   Try Again
                 </button>
