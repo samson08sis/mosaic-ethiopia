@@ -1,11 +1,6 @@
-"use client";
-
-import { useTheme } from "@/contexts/ThemeContext";
 import PageHeader from "@/components/PageHeader";
 
 export default function PrivacyPolicyPage() {
-  const { theme } = useTheme();
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <PageHeader
