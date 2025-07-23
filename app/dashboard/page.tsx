@@ -28,6 +28,7 @@ import QuickActions from "@/components/dashboard/QuickActions";
 import TrendingDestinations from "@/components/dashboard/TrendingDestinations";
 import FeaturedPackages from "@/components/dashboard/FeaturedPackages";
 import { Booking } from "@/types/bookings/types";
+import { StatsCardProps } from "@/types/dashboard/stats/type.d";
 
 // Mock data for demonstration
 const mockBookings: Booking[] = [
@@ -59,6 +60,31 @@ const mockStats = {
   totalSpent: 8500,
   loyaltyPoints: 2340,
 };
+
+type RecentActivity = {
+  action: string;
+  status: "1" | "2" | "3" | "";
+  timeStamp: Date;
+};
+
+const recentActivities: RecentActivity[] = [
+  { action: "Action performed", status: "", timeStamp: new Date() },
+  {
+    action: "Booking confirmed for Historic Route Adventure",
+    status: "1",
+    timeStamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+  },
+  {
+    action: "Profile updated successfully",
+    status: "2",
+    timeStamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+  },
+  {
+    action: "Earned 500 loyalty points",
+    status: "3",
+    timeStamp: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+  },
+];
 
 export default function Dashboard() {
   const { user, loading, isAuthenticated, sendVerificationEmail } = useAuth();
@@ -135,6 +161,84 @@ export default function Dashboard() {
     setTimeout(() => {
       setVerificationMessage("");
     }, 8000);
+  };
+
+  const statsData: StatsCardProps[] = [
+    {
+      title: "Total Bookings",
+      value: animatedStats.totalBookings,
+      icon: <Calendar className="h-6 w-6" />,
+      color: "blue",
+      change: "+2 this month",
+    },
+    {
+      title: "Destinations Visited",
+      value: animatedStats.destinationsVisited,
+      icon: <MapPin className="h-6 w-6" />,
+      color: "green",
+      change: "Danakil, Gondar, Addis Ababa",
+    },
+    {
+      title: "Total Spent",
+      value: `$${animatedStats.totalSpent.toFixed(2).toLocaleString()}`,
+      icon: <DollarSign className="h-6 w-6" />,
+      color: "purple",
+      change: "Great value!",
+    },
+    {
+      title: "Loyalty Points",
+      value: animatedStats.loyaltyPoints.toLocaleString(),
+      icon: <Star className="h-6 w-6" />,
+      color: "orange",
+      change: "Redeem for discounts",
+    },
+  ];
+
+  const getColoredStatus = (statusCode: string) => {
+    let icon;
+    switch (statusCode) {
+      case "1":
+        icon = "bg-green-500";
+        break;
+      case "2":
+        icon = "bg-blue-500";
+        break;
+      case "3":
+        icon = "bg-purple-500";
+        break;
+      default:
+        icon = "bg-gray-500";
+        break;
+    }
+
+    return <div className={`w-2 h-2 ${icon} rounded-full`} />;
+  };
+
+  const getDuration = (timestamp: Date) => {
+    const now: any = new Date();
+    const time: any = new Date(timestamp);
+    const diff = now - time;
+
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(days / 365);
+
+    if (seconds < 60) return "Just now";
+    if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+    if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+    if (days === 0) return "Today";
+    if (days === 1) return "Yesterday";
+    if (days < 7) return `${days} day${days === 1 ? "" : "s"} ago`;
+    if (weeks === 1) return "A week ago";
+    if (weeks < 5) return `${weeks} week${weeks === 1 ? "" : "s"} ago`;
+    if (months === 1) return "A month ago";
+    if (months < 12) return `${months} month${months === 1 ? "" : "s"} ago`;
+    if (years === 1) return "A year ago";
+    return `${years} year${years === 1 ? "" : "s"} ago`;
   };
 
   if (!isAuthenticated) {
@@ -270,34 +374,16 @@ export default function Dashboard() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatsCard
-            title="Total Bookings"
-            value={animatedStats.totalBookings}
-            icon={<Calendar className="h-6 w-6" />}
-            color="blue"
-            change="+2 this month"
-          />
-          <StatsCard
-            title="Destinations Visited"
-            value={animatedStats.destinationsVisited}
-            icon={<MapPin className="h-6 w-6" />}
-            color="green"
-            change="Danakil, Gondar, Addis Ababa"
-          />
-          <StatsCard
-            title="Total Spent"
-            value={`$${animatedStats.totalSpent.toLocaleString()}`}
-            icon={<DollarSign className="h-6 w-6" />}
-            color="purple"
-            change="Great value!"
-          />
-          <StatsCard
-            title="Loyalty Points"
-            value={animatedStats.loyaltyPoints.toLocaleString()}
-            icon={<Star className="h-6 w-6" />}
-            color="orange"
-            change="Redeem for discounts"
-          />
+          {statsData.map((stat, i) => (
+            <StatsCard
+              key={crypto.randomUUID()}
+              title={stat.title}
+              value={stat.value}
+              icon={stat.icon}
+              color={stat.color}
+              change={stat.change}
+            />
+          ))}
         </div>
 
         {/* Quick Actions */}
@@ -356,33 +442,25 @@ export default function Dashboard() {
             Recent Activity
           </h2>
           <div className="space-y-4">
-            <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-gray-700 dark:text-gray-300">
-                Booking confirmed for Historic Route Adventure
-              </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 ml-auto">
-                2 days ago
-              </span>
-            </div>
-            <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <span className="text-gray-700 dark:text-gray-300">
-                Profile updated successfully
-              </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 ml-auto">
-                1 week ago
-              </span>
-            </div>
-            <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-              <span className="text-gray-700 dark:text-gray-300">
-                Earned 500 loyalty points
-              </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 ml-auto">
-                2 weeks ago
-              </span>
-            </div>
+            {recentActivities.map((activity, i) => (
+              <div
+                key={crypto.randomUUID()}
+                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <span className="flex items-center space-x-3">
+                  {/* Returns the status color component */}
+                  {getColoredStatus(activity.status)}
+                  <span className="text-gray-700 dark:text-gray-300">
+                    {activity.action}
+                  </span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400 ml-auto">
+                    {getDuration(activity.timeStamp)}
+                  </span>
+                </span>
+                <span className="text-sm text-gray-500 dark:text-gray-400 ml-auto">
+                  {`${activity.timeStamp.toDateString()} at ${activity.timeStamp.toLocaleTimeString()}`}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

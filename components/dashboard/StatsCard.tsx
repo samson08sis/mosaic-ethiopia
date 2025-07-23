@@ -1,14 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
-
-interface StatsCardProps {
-  title: string;
-  value: string | number;
-  icon: ReactNode;
-  color: "blue" | "green" | "purple" | "orange";
-  change?: string;
-}
+import { StatsCardProps } from "@/types/dashboard/stats/type.t";
 
 export default function StatsCard({
   title,
