@@ -1,6 +1,6 @@
 "use client";
 
-import { StatsCardProps } from "@/types/dashboard/stats/type.t";
+import { StatsCardProps } from "@/types/dashboard/stats/type.d";
 
 export default function StatsCard({
   title,
