@@ -11,6 +11,7 @@ import {
   Camera,
   Award,
   ArrowRight,
+  Check,
 } from "lucide-react";
 import destinations from "@/data/destinations";
 import PageHeader from "@/components/PageHeader";
@@ -96,7 +97,7 @@ export default function DestinationDetailPage({
                 {destination.highlights.map((highlight, index) => (
                   <div key={index} className="flex items-start">
                     <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
-                      <CheckIcon className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                      <Check className="h-4 w-4 text-primary-600 dark:text-primary-400" />
                     </div>
                     <span className="text-gray-700 dark:text-gray-300">
                       {highlight}
@@ -222,23 +223,5 @@ export default function DestinationDetailPage({
         </div>
       </div>
     </div>
-  );
-}
-
-function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
   );
 }

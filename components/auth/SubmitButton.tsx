@@ -1,4 +1,4 @@
-import Spinner from "./Spinner";
+import Spinner from "../ui/svgs/SpinnerSVG";
 
 export default function SubmitButton({
   isLoading,

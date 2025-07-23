@@ -1,5 +1,6 @@
 import { useCopy } from "@/utils/copy-util";
-import { Copy, CopyCheck } from "lucide-react";
+import { Copy } from "lucide-react";
+import TickIcon from "./svgs/TickMarkSVG";
 
 interface CopyButtonProps {
   textToCopy: string;
@@ -24,18 +25,7 @@ export default function CopyButton({ textToCopy }: CopyButtonProps) {
       className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
       aria-label="Copy to clipboard">
       {copied ? (
-        <svg
-          className="w-4 h-4 text-green-500"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 13l4 4L19 7"
-          />
-        </svg>
+        <TickIcon />
       ) : (
         <Copy
           className={`h-4 w-4 opacity-70 hover:opacity-100 transition-opacity duration-300`}

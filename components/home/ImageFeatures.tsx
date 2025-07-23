@@ -7,6 +7,7 @@ import {
   Coffee,
   Utensils,
   Mountain,
+  ChevronRight,
 } from "lucide-react";
 import clsx from "clsx";
 import Link from "next/link";
@@ -70,64 +71,6 @@ export default function ImageFeatures() {
   ];
 
   return (
-    // <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 h-full">
-    //   {features.map((feature, index) => (
-    //     <div
-    //       key={index}
-    //       className="relative h-80 md:h-96 rounded-xl overflow-hidden group shadow-lg">
-    //       <Image
-    //         src={feature.image || "/placeholder.svg"}
-    //         alt={"Feature " + feature.id}
-    //         fill
-    //         className="object-cover transition-transform duration-500 group-hover:scale-110"
-    //       />
-    //       {/* Gradient overlay - more gradual to ensure text readability */}
-    //       <div
-    //         className={clsx(
-    //           "absolute inset-0",
-    //           feature.id === 2
-    //             ? "bg-[#1089ff80]"
-    //             : feature.id === 1
-    //             ? "bg-[#ff595980]"
-    //             : feature.id === 3
-    //             ? "bg-[#ffffff20]"
-    //             : "bg-[#00a8b580]"
-    //         )}></div>
-
-    //       {/* Content overlay with transparent primary color background */}
-    //       <div className="absolute inset-x-0 bottom-0 text-white h-full">
-    //         <div className="bg-primary-600/30 p-4 rounded-lg h-full">
-    //           <div className="flex items-center gap-3 mb-3">
-    //             <div className="p-2 bg-primary-600/80 rounded-full">
-    //               {feature.icon}
-    //             </div>
-    //             <h3 className="text-xl font-bold">{feature.title}</h3>
-    //           </div>
-    //           <p className="text-base text-gray-100 leading-relaxed">
-    //             {feature.description}
-    //           </p>
-    //           <Link
-    //             href="/ethiopia"
-    //             className="mt-4 text-white hover:text-primary-200 font-medium text-sm flex items-center">
-    //             Learn more
-    //             <svg
-    //               className="ml-1 w-4 h-4"
-    //               fill="none"
-    //               stroke="currentColor"
-    //               viewBox="0 0 24 24"
-    //               xmlns="http://www.w3.org/2000/svg">
-    //               <path
-    //                 strokeLinecap="round"
-    //                 strokeLinejoin="round"
-    //                 strokeWidth="2"
-    //                 d="M9 5l7 7-7 7"></path>
-    //             </svg>
-    //           </Link>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   ))}
-    // </div>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
       {features.map((feature, index) => (
         <div
@@ -158,7 +101,7 @@ export default function ImageFeatures() {
           <div className="absolute inset-x-0 bottom-0 p-4 text-white">
             <div className="bg-primary-600/30 p-3 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                <div className="p-1.5 bg-primary-600/80 rounded-full">
+                <div className="p-1.5 bg-primary-600/80 rounded-full border self-start">
                   {feature.icon}
                 </div>
                 <h3 className="text-lg font-bold">{feature.title}</h3>
@@ -170,18 +113,7 @@ export default function ImageFeatures() {
                 href="/ethiopia"
                 className="text-white hover:text-primary-200 font-medium text-xs flex items-center">
                 Learn more
-                <svg
-                  className="ml-1 w-3 h-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"></path>
-                </svg>
+                <ChevronRight className="ml-1 w-4 h-4" />
               </Link>
             </div>
           </div>
