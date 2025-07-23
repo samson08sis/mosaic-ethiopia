@@ -77,7 +77,7 @@ export default function Navbar() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link
-              href="/"
+              href={isAuthenticated ? "/dashboard" : "/"}
               className="flex-shrink-0 font-arizonia text-3xl text-primary dark:text-primary-400">
               MosaicEthiopia
             </Link>
@@ -92,7 +92,8 @@ export default function Navbar() {
                     pathname === link.href
                       ? "text-primary dark:text-primary-400"
                       : "text-gray-900 dark:text-white"
-                  } hover:text-primary dark:hover:text-primary-400`}>
+                  } hover:text-primary dark:hover:text-primary-400`}
+                  data-active={pathname === link.href}>
                   {(translations as any)[link.name] || link.name}
                   <span className="underline-slide" />
                 </Link>
