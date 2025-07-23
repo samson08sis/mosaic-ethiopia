@@ -23,7 +23,10 @@ export function TestimonialsSkeleton() {
 
               <div className="flex mb-4">
                 {[...Array(5)].map((_, j) => (
-                  <StarIcon customStyle="text-gray-200 dark:text-gray-700 mr-1" />
+                  <StarIcon
+                    key={j}
+                    customStyle="text-gray-200 dark:text-gray-700 mr-1"
+                  />
                 ))}
               </div>
 
