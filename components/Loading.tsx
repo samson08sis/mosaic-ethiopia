@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Loader() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#FBF7F0] dark:bg-gray-900">
