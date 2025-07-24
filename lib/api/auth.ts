@@ -1,13 +1,11 @@
 import { AuthResponse, UserResponse } from "@/types/auth";
 
-const BACKEND_URL = "https://mosaic-backend-li68.vercel.app";
-
 export const register = async (
   name: string,
   email: string,
   password: string
 ): Promise<AuthResponse> => {
-  const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
+  const response = await fetch("/api/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +30,7 @@ export const login = async (
   email: string,
   password: string
 ): Promise<AuthResponse> => {
-  const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
+  const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +52,7 @@ export const login = async (
 };
 
 export const logout = async (): Promise<void> => {
-  const response = await fetch(`${BACKEND_URL}/api/auth/logout`, {
+  const response = await fetch("/api/auth/logout", {
     method: "GET",
     credentials: "include",
   });
@@ -66,7 +64,7 @@ export const logout = async (): Promise<void> => {
 };
 
 export const getCurrentUser = async (): Promise<UserResponse> => {
-  const response = await fetch(`${BACKEND_URL}/api/auth/me`, {
+  const response = await fetch("/api/auth/me", {
     credentials: "include",
   });
 
@@ -79,13 +77,10 @@ export const getCurrentUser = async (): Promise<UserResponse> => {
 
 export const sendVerificationEmail = async (): Promise<AuthResponse> => {
   try {
-    const response = await fetch(
-      `${BACKEND_URL}/api/auth/send-email-verification`,
-      {
-        method: "POST",
-        credentials: "include",
-      }
-    );
+    const response = await fetch("/api/auth/send-verification-email", {
+      method: "POST",
+      credentials: "include",
+    });
 
     const data = await response.json();
     return response.ok
@@ -103,7 +98,7 @@ export const sendVerificationEmail = async (): Promise<AuthResponse> => {
 };
 
 export const verifyEmail = async (token: string): Promise<AuthResponse> => {
-  const response = await fetch(`${BACKEND_URL}/api/auth/verify-email`, {
+  const response = await fetch("/api/auth/verify-email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
