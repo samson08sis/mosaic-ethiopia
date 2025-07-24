@@ -33,7 +33,7 @@ const actions = [
     title: "My Bookings",
     description: "View all trips",
     icon: <Calendar className="h-6 w-6" />,
-    href: "/bookings/current",
+    href: "/bookings",
     color: "from-purple-500 to-purple-600",
     hoverColor: "hover:from-purple-600 hover:to-purple-700",
   },

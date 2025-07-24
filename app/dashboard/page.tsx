@@ -397,7 +397,7 @@ export default function Dashboard() {
               Your Upcoming Adventures
             </h2>
             <Link
-              href="/bookings/current"
+              href="/bookings"
               className="text-primary-600 hover:text-primary-700 font-medium flex items-center">
               View All
               <TrendingUp className="h-4 w-4 ml-1" />

@@ -29,7 +29,7 @@ const menuItems = [
     translation: "profileSettings",
   },
   {
-    href: "/bookings/current",
+    href: "/bookings",
     icon: <Calendar className={iconClass} />,
     text: "Current Bookings",
     translation: "currentBookings",
