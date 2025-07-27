@@ -9,17 +9,30 @@ export default function VerifyEmailPage() {
   const params = useParams() as { token?: string | string[] };
   const token = params?.token;
   const router = useRouter();
-  const { loadUser, isAuthenticated, verifyEmail } = useAuth();
+  const { loadUser, loading, user, isAuthenticated, verifyEmail } = useAuth();
   const [status, setStatus] = useState<
     "loading" | "success" | "error" | "expired" | "invalid"
   >("loading");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
+    if (loading) return;
+
     const verify = async () => {
       if (!token || Array.isArray(token)) return;
 
       setStatus("loading");
+
+      if (user?.verified === true) {
+        setStatus("success");
+        setMessage("User already verified");
+        setTimeout(() => {
+          isAuthenticated ? router.push("/dashboard") : router.push("/login");
+        }, 3000);
+        return;
+      }
+
+      console.log("...... Just here");
       const result = await verifyEmail(token);
 
       if (result.success === true) {
@@ -37,7 +50,7 @@ export default function VerifyEmailPage() {
     };
 
     verify();
-  }, []);
+  }, [loading, isAuthenticated]);
 
   const handleVerifyEmail = async () => {
     if (!token || Array.isArray(token)) return;
@@ -45,13 +58,13 @@ export default function VerifyEmailPage() {
     setStatus("loading");
     const result = await verifyEmail(token);
 
-    if (result.success === true) {
+    if (result.success) {
       setStatus("success");
       setMessage(result.message);
       setTimeout(
         () =>
-          // isAuthenticated ? router.push("/dashboard") : router.push("/login"),
-          3000
+          isAuthenticated ? router.push("/dashboard") : router.push("/login"),
+        3000
       );
     } else {
       setStatus("error");
