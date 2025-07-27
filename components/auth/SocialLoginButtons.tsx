@@ -17,13 +17,13 @@ export default function SocialLoginButtons({
       svgIcon: <GoogleIcon />,
       text: "Google",
     },
-    {
-      onClickParam: "facebook",
-      className:
-        "bg-[#1877F2] hover:bg-[#166FE5] text-white focus:ring-facebook-500",
-      svgIcon: <FacebookIcon />,
-      text: "Facebook",
-    },
+    // {
+    //   onClickParam: "facebook",
+    //   className:
+    //     "bg-[#1877F2] hover:bg-[#166FE5] text-white focus:ring-facebook-500",
+    //   svgIcon: <FacebookIcon />,
+    //   text: "Facebook",
+    // },
     {
       onClickParam: "apple",
       className: "bg-black hover:bg-gray-900 text-white focus:ring-apple-500",
@@ -44,7 +44,7 @@ export default function SocialLoginButtons({
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <div className={`mt-6 grid grid-cols-2 gap-3`}>
         {socialLoginButtons.map((btn) => (
           <button
             key={btn.text}
