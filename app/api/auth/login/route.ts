@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const { email, password } = await request.json();
-  const BACKEND_URL = process.env.LOCAL_BACKEND_URL;
+  const BACKEND_URL = process.env.BACKEND_URL;
 
   try {
     const backendResponse = await fetch(`${BACKEND_URL}/api/auth/login`, {

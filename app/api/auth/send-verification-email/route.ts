@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const BACKEND_URL = process.env.LOCAL_BACKEND_URL;
+  const BACKEND_URL = process.env.BACKEND_URL;
   const cookies = request.headers.get("cookie");
 
   try {
