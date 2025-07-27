@@ -118,3 +118,32 @@ export const verifyEmail = async (token: string): Promise<AuthResponse> => {
 
   return data;
 };
+
+export const forgotPassword = async (email: string): Promise<AuthResponse> => {
+  try {
+    const response = await fetch("/api/auth/forgot-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await response.json();
+
+    return {
+      success: response.ok,
+      message:
+        data.msg ||
+        (response.ok
+          ? "Password reset email sent"
+          : "Failed to send password reset email"),
+      ...data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Network error while processing password reset",
+    };
+  }
+};

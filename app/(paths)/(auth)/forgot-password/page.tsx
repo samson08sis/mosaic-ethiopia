@@ -8,6 +8,7 @@ import Link from "next/link";
 import FormInput from "@/components/auth/FormInput";
 import ErrorMessage from "@/components/auth/ErrorMessage";
 import Spinner from "@/components/ui/svgs/SpinnerSVG";
+import { forgotPassword } from "@/lib/api/auth";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -36,15 +37,19 @@ export default function ForgotPasswordPage() {
     }
 
     try {
-      await fetch("http://localhost:5000/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+      const result = await forgotPassword(email);
 
+      if (!result.success) {
+        setError(result.message || "Failed to send reset email");
+        return;
+      }
       setIsSubmitted(true);
     } catch (err) {
-      setError("Failed to send reset email. Please try again.");
+      setError(
+        typeof err === "string"
+          ? err
+          : "Failed to send reset email. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
