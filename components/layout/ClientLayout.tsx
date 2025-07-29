@@ -20,7 +20,7 @@ export default function ClientLayout({
     <RootProviders>
       <div className="min-h-screen flex flex-col">
         {!isAdminRoute && <Navbar />}
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow min-h-screen">{children}</main>
         {!isAdminRoute && <Footer />}
         <ScrollToTop />
         {!isAdminRoute && <ChatWidget />}
