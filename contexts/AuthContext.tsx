@@ -81,6 +81,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     initializeAuth();
   }, []);
 
+  useEffect(() => {
+    authState.isAuthenticated &&
+      console.log(
+        '%c⛔STOP!\n%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a feature or "hack" someone\'s account, it is a scam and will give them access to your account.',
+        "color: red; font-size: 64px; font-family: serif; font-weight: bold;",
+        "color: black; background: white;  font-family: serif; font-size: 18px; font-weight: light;"
+      );
+  }, [authState.isAuthenticated]);
+
   const loadUser = async () => {
     try {
       setAuthState((prev) => ({ ...prev, loading: true }));
