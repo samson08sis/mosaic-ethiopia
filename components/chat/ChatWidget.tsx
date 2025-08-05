@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -62,7 +62,7 @@ const faqCategories = [
   },
 ];
 
-export default function ChatWidget() {
+function ModalTrigger() {
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -689,5 +689,13 @@ export default function ChatWidget() {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+export default function ChatModal() {
+  return (
+    <Suspense>
+      <ModalTrigger />
+    </Suspense>
   );
 }
