@@ -46,12 +46,20 @@ export default function AuthForm({
   };
 
   const handleSocialLogin = () => {
+    const width = 800;
+    const height = 600;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2 - 80;
+
+    // window.open(`${"http://localhost:5000"}/api/auth/google`, "_self");
+
     const authWindow = window.open(
-      "http://localhost:5000/api/auth/google",
-      "googleAuth",
-      "width=500,height=600"
+      `https://mosaic-backend-li68.vercel.app/api/auth/google`, //http://localhost:5000/api/auth/google
+      "googleAuthPopup",
+      `width=${width},height=${height},left=${left},top=${top}`
     );
 
+    // FIX HERE LATER to call the loadUser method from useAuth
     const checkWindow = setInterval(() => {
       if (authWindow?.closed) {
         clearInterval(checkWindow);
