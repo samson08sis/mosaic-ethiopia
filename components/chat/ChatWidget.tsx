@@ -23,6 +23,7 @@ import QuickSuggestions from "./QuickSuggestions";
 import InfoCard from "../ui/InfoCard";
 import ChatBubble from "./ChatBubble";
 import { ChatHistory, Message } from "@/types/chat/types";
+import { useSearchParams } from "next/navigation";
 
 // FAQ categories and questions
 const faqCategories = [
@@ -62,6 +63,7 @@ const faqCategories = [
 ];
 
 export default function ChatWidget() {
+  const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -128,6 +130,13 @@ export default function ChatWidget() {
     if (messagesEndRef.current)
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    const query = searchParams?.get("chatbot");
+    if (query == "open") {
+      setIsOpen(true);
+    }
+  }, []);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -473,6 +482,11 @@ export default function ChatWidget() {
             className="fixed sm:absolute bottom-0 sm:bottom-16 right-0 w-full sm:w-80 md:w-96 h-[calc(100vh-64px)] sm:h-[640px] bg-white dark:bg-gray-800 rounded-lg shadow-xl flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700">
             {/* Chat Header */}
             <div className="bg-primary-600 text-white py-2 px-4 flex items-center relative">
+              <button
+                onClick={toggleChat}
+                className="absolute top-0 right-0 rounded-tr-lg rounded-bl-lg text-white bg-white/20 dark:bg-gray-800shadow-xl">
+                <X className="h-5 w-5" />
+              </button>
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
                 <BotMessageSquare className="h-5 w-5" />
               </div>
@@ -486,14 +500,14 @@ export default function ChatWidget() {
               {/* Delete Button */}
               <button
                 onClick={() => setShowClearHistoryConfirmation(true)}
-                className="absolute right-14 top-1/2 -translate-y-1/2 p-1.5 bg-white/20 rounded-md hover:bg-white/30 transition-colors">
+                className="absolute right-16 top-1/2 -translate-y-1/2 p-1.5 bg-white/20 rounded-md hover:bg-white/30 transition-colors">
                 <Trash2 className="h-4 w-4 text-white" />
               </button>
 
               {/* FAQ Toggle Button */}
               <button
                 onClick={toggleFaq}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
+                className="absolute right-5 top-1/2 -translate-y-1/2 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
                 aria-label="Toggle FAQ">
                 <HelpCircle className="h-5 w-5 text-white" />
               </button>
