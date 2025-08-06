@@ -61,13 +61,14 @@ export default function AuthForm({
       if (
         process.env.NODE_ENV !== "development" &&
         event.origin !== allowedOrigin
-      )
+      ) {
+        console.log("********** Invalid origin ************");
         return;
+      }
 
-      const { success, user, refreshToken, accessToken, token } = event.data;
+      const { success, refreshToken, accessToken } = event.data;
 
       if (success) {
-        if (token) localStorage.setItem("token", token);
         if (accessToken) localStorage.setItem("accessToken", accessToken);
         if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
 
@@ -77,7 +78,6 @@ export default function AuthForm({
 
     window.addEventListener("message", receiveMessage);
 
-    // ✅ Cleanup
     return () => {
       window.removeEventListener("message", receiveMessage);
     };
@@ -92,12 +92,11 @@ export default function AuthForm({
     // window.open(`${"http://localhost:5000"}/api/auth/google`, "_self");
 
     const authWindow = window.open(
-      "http://localhost:5000/api/auth/google", // `https://mosaic-backend-li68.vercel.app/api/auth/google`,
+      `https://mosaic-backend-li68.vercel.app/api/auth/google`,
       "googleAuthPopup",
       `width=${width},height=${height},left=${left},top=${top}`
     );
 
-    // FIX HERE LATER to call the loadUser method from useAuth
     const checkWindow = setInterval(async () => {
       if (authWindow?.closed) {
         clearInterval(checkWindow);
