@@ -33,7 +33,7 @@ export default function AuthForm({
     useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login, register, error } = useAuth();
+  const { login, register, loadUser, error } = useAuth();
   const router = useRouter();
 
   const toggleView = () => {
@@ -66,9 +66,11 @@ export default function AuthForm({
         if (accessToken) localStorage.setItem("accessToken", accessToken);
         if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
 
-        if (user) localStorage.setItem("user", JSON.stringify(user));
+        loadUser();
 
-        router.push("/dashboard");
+        // if (user) localStorage.setItem("user", JSON.stringify(user));
+
+        // router.push("/dashboard");
       }
     };
 
@@ -98,7 +100,8 @@ export default function AuthForm({
     const checkWindow = setInterval(() => {
       if (authWindow?.closed) {
         clearInterval(checkWindow);
-        window.location.reload();
+        loadUser();
+        // window.location.reload();
       }
     }, 500);
   };
