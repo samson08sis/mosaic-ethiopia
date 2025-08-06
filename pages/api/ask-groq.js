@@ -1,7 +1,8 @@
 import axios from "axios";
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
-import knowledgeBase from "@/data/packages-and-destinations-data.json";
+// import knowledgeBase from "@/data/packages-and-destinations-data.json";
+import knowledgeBase from "@/data/ds-reduced-training-data.json";
 
 // Configure DOMPurify
 const window = new JSDOM("").window;

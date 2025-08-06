@@ -37,23 +37,6 @@
         "description": "We strive for excellence in every aspect of your journey, from meticulous planning to 24/7 support during your travels."
       }
     ],
-    "team": [
-      {
-        "name": "Abebe Bekele",
-        "role": "Founder & CEO",
-        "bio": "With over 15 years of experience in the travel industry, Abebe founded Mosaic Ethiopia to share his passion for Ethiopian culture and landscapes with the world."
-      },
-      {
-        "name": "Tigist Haile",
-        "role": "Head of Operations",
-        "bio": "Tigist ensures that every tour runs smoothly, from transportation logistics to accommodations. Her attention to detail makes every journey seamless."
-      },
-      {
-        "name": "Dawit Tadesse",
-        "role": "Senior Tour Guide",
-        "bio": "An expert in Ethiopian history and culture, Dawit brings destinations to life with his storytelling and deep knowledge of local traditions."
-      }
-    ],
     "contactInformation": {
       "address": "123 Travel Street, Adventure City, AC 12345",
       "phone": "+1 (555) 123-4567",
