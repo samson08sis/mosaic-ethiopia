@@ -80,22 +80,22 @@ export default function AuthForm({
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2 - height / 8;
 
-    // window.open(`/api/auth/google`, "_self");
+    // const authWindow = window.open(
+    //   "/api/auth/google",
+    //   "googleAuthPopup",
+    //   `width=${width},height=${height},left=${left},top=${top}`
+    // );
 
-    const authWindow = window.open(
-      "/api/auth/google",
-      "googleAuthPopup",
-      `width=${width},height=${height},left=${left},top=${top}`
-    );
+    // const checkWindow = setInterval(async () => {
+    //   if (authWindow?.closed) {
+    //     clearInterval(checkWindow);
+    //     await loadUser();
+    //     !loading && isAuthenticated && router.push("/dashboard");
+    //     // window.location.reload();
+    //   }
+    // }, 500);
 
-    const checkWindow = setInterval(async () => {
-      if (authWindow?.closed) {
-        clearInterval(checkWindow);
-        await loadUser();
-        !loading && isAuthenticated && router.push("/dashboard");
-        // window.location.reload();
-      }
-    }, 500);
+    window.location.href = "/api/auth/google-login";
   };
 
   const validateForm = () => {
