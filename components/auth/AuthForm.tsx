@@ -53,24 +53,15 @@ export default function AuthForm({
 
   useEffect(() => {
     const receiveMessage = async (event: any) => {
-      const allowedOrigin =
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:5000"
-          : "https://mosaic-backend-li68.vercel.app";
-
-      if (
-        process.env.NODE_ENV !== "development" &&
-        event.origin !== allowedOrigin
-      ) {
-        console.log("********** Invalid origin ************");
-        return;
-      }
-
       const { success, refreshToken, accessToken } = event.data;
 
       if (success) {
         if (accessToken) localStorage.setItem("accessToken", accessToken);
         if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+        else {
+          console.log("******* No Refresh Token **********");
+          console.table(event.data);
+        }
 
         await loadUser();
       }
