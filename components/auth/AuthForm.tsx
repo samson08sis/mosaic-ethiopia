@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { Mail, Lock, User } from "lucide-react";
 import FormInput from "./FormInput";
 import SocialLoginButtons from "./SocialLoginButtons";
@@ -33,7 +33,8 @@ export default function AuthForm({
     useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login, register, loadUser, error } = useAuth();
+  const { login, register, loadUser, isAuthenticated, loading, error } =
+    useAuth();
   const router = useRouter();
 
   const toggleView = () => {
@@ -47,7 +48,11 @@ export default function AuthForm({
   };
 
   useEffect(() => {
-    const receiveMessage = (event: any) => {
+    !isLoading && isAuthenticated && router.push("/dashboard");
+  }, [isAuthenticated, isLoading]);
+
+  useEffect(() => {
+    const receiveMessage = async (event: any) => {
       const allowedOrigin =
         process.env.NODE_ENV === "development"
           ? "http://localhost:5000"
@@ -66,11 +71,7 @@ export default function AuthForm({
         if (accessToken) localStorage.setItem("accessToken", accessToken);
         if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
 
-        loadUser();
-
-        // if (user) localStorage.setItem("user", JSON.stringify(user));
-
-        // router.push("/dashboard");
+        await loadUser();
       }
     };
 
@@ -91,16 +92,17 @@ export default function AuthForm({
     // window.open(`${"http://localhost:5000"}/api/auth/google`, "_self");
 
     const authWindow = window.open(
-      `https://mosaic-backend-li68.vercel.app/api/auth/google`,
+      "http://localhost:5000/api/auth/google", // `https://mosaic-backend-li68.vercel.app/api/auth/google`,
       "googleAuthPopup",
       `width=${width},height=${height},left=${left},top=${top}`
     );
 
     // FIX HERE LATER to call the loadUser method from useAuth
-    const checkWindow = setInterval(() => {
+    const checkWindow = setInterval(async () => {
       if (authWindow?.closed) {
         clearInterval(checkWindow);
-        loadUser();
+        await loadUser();
+        !loading && isAuthenticated && router.push("/dashboard");
         // window.location.reload();
       }
     }, 500);
