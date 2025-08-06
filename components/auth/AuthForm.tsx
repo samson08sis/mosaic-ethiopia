@@ -91,7 +91,7 @@ export default function AuthForm({
     // window.open(`${"http://localhost:5000"}/api/auth/google`, "_self");
 
     const authWindow = window.open(
-      "http://localhost:5000/api/auth/google", // `https://mosaic-backend-li68.vercel.app/api/auth/google`,
+      `https://mosaic-backend-li68.vercel.app/api/auth/google`,
       "googleAuthPopup",
       `width=${width},height=${height},left=${left},top=${top}`
     );
