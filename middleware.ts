@@ -3,12 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const refreshToken = request.cookies.get("refreshToken")?.value;
   const protectedPaths = ["/dashboard", "/profile", "/bookings", "/admin"];
+  const openPaths = ["/login", "/forgot-password", "/reset-password"];
 
   const path = request.nextUrl.pathname;
   const isProtected = protectedPaths.some((route) => path.startsWith(route));
+  const isOpen = openPaths.some((route) => path.startsWith(route));
 
   if (isProtected && !refreshToken) {
-    console.log("Redirected...");
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  if (isOpen && refreshToken) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
