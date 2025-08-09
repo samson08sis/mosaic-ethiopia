@@ -124,11 +124,11 @@ function ResetPasswordForm() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/reset-password",
+        `http://localhost:5000/api/auth/reset-password?prt=${token}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token, newPassword: formData.password }),
+          body: JSON.stringify({ newPassword: formData.password }),
         }
       );
 
@@ -273,51 +273,39 @@ function ResetPasswordForm() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <FormInput
-                name="password"
                 id="password"
+                name="password"
+                type="password"
                 label="New Password"
-                type={showPassword ? "text" : "password"}
                 value={formData.password}
                 onChange={handleInputChange}
+                showPassword={showPassword}
+                onToggleVisibility={() => setShowPassword(!showPassword)}
+                showForgotPassword={false}
                 placeholder="Enter your new password"
                 required
-                icon={<Lock className="h-5 w-5" />}
-                // rightIcon={
-                //   <button
-                //     type="button"
-                //     onClick={() => setShowPassword(!showPassword)}
-                //     className="hover:text-gray-600 dark:hover:text-gray-300">
-                //     {showPassword ? (
-                //       <EyeOff className="h-5 w-5" />
-                //     ) : (
-                //       <Eye className="h-5 w-5" />
-                //     )}
-                //   </button>
-                // }
+                icon={
+                  <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                }
               />
 
               <FormInput
-                name="confirmPassword"
                 id="confirmPassword"
-                label="Confirm New Password"
-                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                type="password"
+                label="New Password"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
+                showPassword={showConfirmPassword}
+                onToggleVisibility={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
+                showForgotPassword={false}
                 placeholder="Confirm your new password"
                 required
-                icon={<Lock className="h-5 w-5" />}
-                // rightIcon={
-                //   <button
-                //     type="button"
-                //     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                //     className="hover:text-gray-600 dark:hover:text-gray-300">
-                //     {showConfirmPassword ? (
-                //       <EyeOff className="h-5 w-5" />
-                //     ) : (
-                //       <Eye className="h-5 w-5" />
-                //     )}
-                //   </button>
-                // }
+                icon={
+                  <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                }
               />
 
               {/* Password Requirements */}
