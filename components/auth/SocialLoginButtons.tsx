@@ -24,12 +24,12 @@ export default function SocialLoginButtons({
     //   svgIcon: <FacebookIcon />,
     //   text: "Facebook",
     // },
-    {
-      onClickParam: "apple",
-      className: "bg-black hover:bg-gray-900 text-white focus:ring-apple-500",
-      svgIcon: <AppleIcon />,
-      text: "Apple",
-    },
+    // {
+    //   onClickParam: "apple",
+    //   className: "bg-black hover:bg-gray-900 text-white focus:ring-apple-500",
+    //   svgIcon: <AppleIcon />,
+    //   text: "Apple",
+    // },
   ];
   return (
     <div>
@@ -44,13 +44,13 @@ export default function SocialLoginButtons({
         </div>
       </div>
 
-      <div className={`mt-6 grid grid-cols-2 gap-3`}>
+      <div className={`mt-6 grid grid-cols-1 gap-3`}>
         {socialLoginButtons.map((btn) => (
           <button
             key={btn.text}
             type="button"
             onClick={() => onSocialLogin("google")}
-            className={`w-full inline-flex justify-center py-2.5 px-4 rounded-lg shadow-sm ${btn.className} transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2`}>
+            className={`w-full inline-flex justify-center py-2.5 px-4 bg-white rounded-lg shadow-sm ${btn.className} transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2`}>
             {btn.svgIcon}
             <span className="sr-only">Sign in with {btn.text}</span>
           </button>
