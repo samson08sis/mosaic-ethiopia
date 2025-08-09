@@ -454,11 +454,14 @@ function ModalTrigger() {
   };
 
   return (
-    <div className="fixed bottom-0 right-6 z-50">
+    <div
+      className={`fixed right-6 z-50 transition-all duration-300 ${
+        isOpen ? "bottom-0" : "bottom-8"
+      }`}>
       {/* Chat Button */}
       <button
         onClick={toggleChat}
-        className={`flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-300 ${
+        className={`border-green-400 flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-300 ${
           isOpen
             ? "bg-red-600 rotate-90"
             : "bg-primary-600 hover:bg-primary-700"
