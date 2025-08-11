@@ -5,10 +5,9 @@ export interface Destination {
   description: string;
   rating: number;
   reviews: number;
-  continent: string;
   activities: string[];
   location: string;
-  // nearestCity: string;
+  nearestCity: string;
   bestTimeToVisit: string;
   highlights: string[];
   thingsToDo: string[];

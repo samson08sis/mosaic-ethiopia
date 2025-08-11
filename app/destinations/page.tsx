@@ -5,6 +5,7 @@ import { Search, MapPin, Star, Tag } from "lucide-react";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import destinations from "@/data/destinations";
+import NoMatchesFound from "@/components/tours/NoMatchesFound";
 
 export default function DestinationsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,11 +16,17 @@ export default function DestinationsPage() {
       destination.description
         .toLowerCase()
         .includes(searchTerm.toLowerCase()) ||
-      destination.continent.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      destination.nearestCity
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
       destination.activities.some((activity) =>
         activity.toLowerCase().includes(searchTerm.toLowerCase())
       )
   );
+
+  const handleClearSearchTerm = () => {
+    setSearchTerm("");
+  };
 
   return (
     <div className="pt-20 pb-16 bg-theme">
@@ -71,9 +78,9 @@ export default function DestinationsPage() {
                   <h2 className="text-xl font-bold text-card-foreground">
                     {destination.name}
                   </h2>
-                  <div className="flex items-center text-muted-foreground text-sm">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    {destination.continent}
+                  <div className="flex items-center text-sm">
+                    <MapPin className="h-4 w-4 mr-1 dark:text-cyan-300" />
+                    {destination.nearestCity}
                   </div>
                 </div>
 
@@ -84,7 +91,7 @@ export default function DestinationsPage() {
                     <span
                       key={activity}
                       className="bg-muted px-3 py-1 rounded-full text-sm flex flex-row">
-                      <Tag size={16} className="mr-2 text-cyan-300" />
+                      <Tag size={16} className="mr-2 dark:text-cyan-300" />
                       {activity}
                     </span>
                   ))}
@@ -113,16 +120,11 @@ export default function DestinationsPage() {
         </div>
 
         {filteredDestinations.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-xl">
-              No destinations found matching your search.
-            </p>
-            <button
-              onClick={() => setSearchTerm("")}
-              className="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
-              Clear Search
-            </button>
-          </div>
+          <NoMatchesFound
+            btnText="Clear Search"
+            msg="No destinations found matching your search."
+            onClear={handleClearSearchTerm}
+          />
         )}
       </div>
     </div>
