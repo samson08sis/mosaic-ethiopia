@@ -83,15 +83,14 @@ export default function LanguageMenu({
           {isOpen && (
             <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-10">
               {langs.map((lang) => (
-                <>
+                <div key={lang.code}>
                   <button
-                    key={lang.code}
                     onClick={() => handleLanguageChange(lang.code)}
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                     {lang.name}
                   </button>
                   <div className=" ml-0 mr-2 p-0 border-0 border-t " />
-                </>
+                </div>
               ))}
             </div>
           )}
