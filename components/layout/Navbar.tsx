@@ -10,6 +10,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "../ProfileDropdown";
 import { ThemeSlider } from "../ui/ThemeSlider";
 import LanguageMenu from "../LanguageMenu";
+import { useNavigationTransition } from "@/hooks/navigationTransition";
 
 const navItems = {
   links: [
@@ -29,6 +30,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, logout } = useAuth();
+  const { isTransitioning, handleNavigate } = useNavigationTransition();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +49,16 @@ export default function Navbar() {
       setIsMenuOpen(false);
     }
   }, [isAuthenticated, pathname]);
+
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    path: string
+  ) => {
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) {
+      return;
+    }
+    path !== pathname && handleNavigate();
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -73,6 +85,11 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed w-full z-50 transition-all duration-300 print-section ${navbarBackground}`}>
+        {isTransitioning && (
+          <div className="absolute top-0 left-0 h-px w-full overflow-hidden">
+            <div className="loading-bar"></div>
+          </div>
+        )}
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -88,6 +105,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  onClick={(e) => handleClick(e, link.href)}
                   className={`relative group px-3 py-2 text-sm font-medium transition-colors${
                     pathname === link.href
                       ? "text-primary dark:text-primary-400"

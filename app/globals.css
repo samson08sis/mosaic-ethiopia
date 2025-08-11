@@ -203,3 +203,22 @@ body {
 .group[aria-current="page"] .underline-slide {
   transform: scaleX(1);
 }
+
+@keyframes slideLoading {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.loading-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, transparent, #4ade80, #7873f5, #ff6ec4);
+  animation: slideLoading 1.2s ease-in infinite;
+}
