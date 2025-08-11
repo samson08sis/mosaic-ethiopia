@@ -24,6 +24,12 @@ const translationsData = {
     bookYourTrip: "Book Your Trip",
     testimonials: "What Our Customers Say",
     dashboard: "Dashboard",
+    tourPackages: "Tour Packages",
+    packagesPageSubtitle:
+      "Discover our carefully curated tour packages designed to provide unforgettable travel experiences. All packages are fully customizable to match your preferences.",
+    exploreEthiopia: "Explore Ethiopia",
+    destinationsPageSubtitle:
+      "Discover the ancient wonders, breathtaking landscapes, and rich cultural heritage of Ethiopia, the land of origins.",
     // Add-more...
   },
   es: {
@@ -51,6 +57,11 @@ const translationsData = {
     bookYourTrip: "Reserva Tu Viaje",
     testimonials: "Lo Que Dicen Nuestros Clientes",
     dashboard: "Panel de control",
+    tourPackages: "Paquetes Turísticos",
+    packagesPageSubtitle:
+      "Descubre nuestros paquetes turísticos cuidadosamente seleccionados para ofrecerte experiencias de viaje inolvidables. Todos los paquetes son completamente personalizables según tus preferencias.",
+    exploreEthiopia: "Explora Etiopía",
+    destinationsPageSubtitle: "",
     // Add-more...
   },
   fr: {
@@ -78,6 +89,12 @@ const translationsData = {
     bookYourTrip: "Réservez Votre Voyage",
     testimonials: "Ce Que Disent Nos Clients",
     dashboard: "Tableau de bord",
+    tourPackages: "Forfaits Touristiques",
+    packagesPageSubtitle:
+      "Découvrez nos forfaits touristiques soigneusement sélectionnés pour des expériences de voyage inoubliables. Tous nos packages sont entièrement personnalisables selon vos préférences.",
+    exploreEthiopia: "Explorez l'Éthiopie",
+    destinationsPageSubtitle:
+      "Découvrez les merveilles anciennes, les paysages à couper le souffle et le riche patrimoine culturel de l'Éthiopie, berceau de l'humanité.",
     // Add-more...
   },
 };
