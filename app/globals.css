@@ -200,7 +200,8 @@ body {
 
 .group:hover .underline-slide,
 .group:focus .underline-slide,
-.group[aria-current="page"] .underline-slide {
+.group[aria-current="page"],
+.group[data-active="true"] .underline-slide {
   transform: scaleX(1);
 }
 
@@ -219,6 +220,13 @@ body {
 .loading-bar {
   height: 100%;
   width: 100%;
-  background: linear-gradient(to right, transparent, #4ade80, #7873f5, #ff6ec4);
+  background: linear-gradient(
+    to right,
+    transparent,
+    #4ade80,
+    #7873f5,
+    #ff6ec4,
+    transparent
+  );
   animation: slideLoading 1.2s ease-in infinite;
 }
