@@ -30,6 +30,10 @@ const translationsData = {
     exploreEthiopia: "Explore Ethiopia",
     destinationsPageSubtitle:
       "Discover the ancient wonders, breathtaking landscapes, and rich cultural heritage of Ethiopia, the land of origins.",
+    destinationSearchPlaceholder:
+      "Search destinations, activities, or regions...",
+    noResultsFound: "No destinations found matching your search.",
+    clearSearch: "Clear Search",
     // Add-more...
   },
   es: {
@@ -61,7 +65,11 @@ const translationsData = {
     packagesPageSubtitle:
       "Descubre nuestros paquetes turísticos cuidadosamente seleccionados para ofrecerte experiencias de viaje inolvidables. Todos los paquetes son completamente personalizables según tus preferencias.",
     exploreEthiopia: "Explora Etiopía",
-    destinationsPageSubtitle: "",
+    destinationsPageSubtitle:
+      "Descubre las maravillas ancestrales, los paisajes impresionantes y la rica herencia cultural de Etiopía, cuna de la humanidad.",
+    destinationSearchPlaceholder: "Busca destinos, actividades o regiones...",
+    noResultsFound: "No hay resultados.",
+    clearSearch: "Limpiar búsqueda",
     // Add-more...
   },
   fr: {
@@ -95,6 +103,10 @@ const translationsData = {
     exploreEthiopia: "Explorez l'Éthiopie",
     destinationsPageSubtitle:
       "Découvrez les merveilles anciennes, les paysages à couper le souffle et le riche patrimoine culturel de l'Éthiopie, berceau de l'humanité.",
+    destinationSearchPlaceholder:
+      "Recherchez des destinations, activités ou régions...",
+    noResultsFound: "Aucun résultat trouvé.",
+    clearSearch: "Réinitialiser la recherche",
     // Add-more...
   },
 };
