@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ImageFeatures from "./ImageFeatures";
-import WelcomeText from "./WelcomeText.client";
+import WelcomeText from "./WelcomeText";
 
 export default function WelcomeSection() {
   return (
