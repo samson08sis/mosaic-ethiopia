@@ -1,12 +1,13 @@
 "use client";
 
+import { HeroSlideType } from "@/types/types";
 import { useState, useEffect, useRef } from "react";
 
 export default function HeroSlider({
   slides,
   initialSlide,
 }: {
-  slides: any[];
+  slides: HeroSlideType[];
   initialSlide: number;
 }) {
   const [isFixed, setIsFixed] = useState(true);
@@ -52,23 +53,24 @@ export default function HeroSlider({
 
   return (
     <>
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`h-screen w-full bg-cover bg-center transition-opacity duration-1000 ${
-            isFixed ? "fixed top-0 left-0" : "absolute"
-          } ${
-            index === currentSlide
-              ? "opacity-100"
-              : "opacity-0 pointer-events-none transition-opacity"
-          } top-0 left-0`}
-          style={{
-            backgroundImage: `url(${slide.image})`,
-          }}>
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black opacity-40"></div>
-        </div>
-      ))}
+      {Array.isArray(slides) &&
+        slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`h-screen w-full bg-cover bg-center transition-opacity duration-1000 ${
+              isFixed ? "fixed top-0 left-0" : "absolute"
+            } ${
+              index === currentSlide
+                ? "opacity-100"
+                : "opacity-0 pointer-events-none transition-opacity"
+            } top-0 left-0`}
+            style={{
+              backgroundImage: `url(${slide.image})`,
+            }}>
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black opacity-40"></div>
+          </div>
+        ))}
     </>
   );
 }

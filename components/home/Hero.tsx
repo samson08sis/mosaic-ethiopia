@@ -1,159 +1,11 @@
-"use client";
-
 import Link from "next/link";
 import HeroSlider from "./HeroSlider.client";
 import VideoTrigger from "./VideoTrigger.client";
 import ScrollDownButton from "./ScrollDownButton.client";
+import { HeroSlideType } from "@/types/types";
 
-const slides = [
-  {
-    id: 1,
-    image: "/lalibela-bete-giorgis.jpg",
-    alt: "",
-    description:
-      "Discover Ethiopia's rock-hewn churches, a UNESCO World Heritage site.",
-  },
-  {
-    id: 2,
-    image: "/simien-mountains.jpg",
-    alt: "",
-    title: "Experience the Simien Mountains",
-    description:
-      "Trek through breathtaking landscapes and encounter unique wildlife.",
-  },
-  {
-    id: 3,
-    image: "/addis-ababa.jpg",
-    alt: "",
-    title: "Discover Addis Ababa",
-    description:
-      "Immerse yourself in the vibrant culture of Ethiopia's capital city.",
-  },
-  {
-    id: 4,
-    image: "/the-danakil-rift.jpg",
-    alt: "",
-    title: "Visit the Danakil Depression",
-    description:
-      "Explore one of the hottest and most alien landscapes on Earth.",
-  },
-  {
-    id: 5,
-    image: "/sof-omar-cave.jpg",
-    alt: "",
-    title: "Sof Umar Cave",
-    Description: "Wander through the most uniquely natural cave.",
-  },
-  {
-    id: "6",
-    image: "/afar-1.jpg",
-    alt: "",
-  },
-  {
-    id: "7",
-    image: "/afar-2.jpg",
-    alt: "",
-  },
-  {
-    id: "8",
-    image: "/coffee-1.jpg",
-    alt: "",
-  },
-  {
-    id: "9",
-    image: "/coffee-2.jpg",
-    alt: "",
-  },
-  {
-    id: "10",
-    image: "/culture-1.jpg",
-    alt: "",
-  },
-  {
-    id: "11",
-    image: "/gondar-fasil.png",
-    alt: "",
-  },
-  {
-    id: "12",
-    image: "nile-1.jpg",
-    alt: "",
-  },
-  {
-    id: "13",
-    image: "/nile-2.jpg",
-    alt: "",
-  },
-  {
-    id: "14",
-    image: "/bg-1.jpg",
-    alt: "",
-  },
-  {
-    id: "15",
-    image: "/omo-2.jpg",
-    alt: "",
-  },
-  {
-    id: "16",
-    image: "/omo-3.jpg",
-    alt: "",
-  },
-  {
-    id: "17",
-    image: "/omo-4.jpg",
-    alt: "",
-  },
-  {
-    id: "18",
-    image: "/omo-5.jpg",
-    alt: "",
-  },
-  {
-    id: "19",
-    image: "/bg-11.jpg",
-    alt: "",
-  },
-  {
-    id: "20",
-    image: "/afar-danakil.jpg",
-    alt: "",
-  },
-  {
-    id: "21",
-    image: "/nile-3.jpg",
-    alt: "",
-  },
-  {
-    id: "22",
-    image: "/aksum.jpg",
-    alt: "",
-  },
-  {
-    id: "23",
-    image: "/bale-1.jpg",
-    alt: "",
-  },
-  {
-    id: "24",
-    image: "/bale-2.jpg",
-    alt: "",
-  },
-  {
-    id: "25",
-    image: "/bale-3.jpg",
-    alt: "",
-  },
-  {
-    id: "26",
-    image: "/culture-2.jpg",
-    alt: "",
-  },
-];
-
-export default function Hero() {
+export default function Hero({ slides }: { slides: HeroSlideType[] }) {
   const initialSlide = 0; // Math.floor(Math.random() * slides.length)
-
   return (
     <>
       <div className="relative h-screen">
@@ -163,7 +15,7 @@ export default function Hero() {
         {/* Hero Content */}
         <div className="container mx-auto px-4 h-full relative z-10">
           <div className="h-full flex flex-col items-start md:items-center justify-center md:flex-row md:justify-between gap-8 py-8">
-            {/* Left Content - Now centered on mobile */}
+            {/* Left Content - Centered on mobile */}
             <div className="text-white max-w-2xl text-left order-2 md:order-1">
               <h2 className="font-arizonia text-primary-400 text-2xl md:text-3xl mb-2">
                 Discover Ethiopia
@@ -191,7 +43,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Video Play Button - Now properly spaced on mobile */}
+            {/* Video Play Button - Mobile responsive */}
             <div className="order-1 md:order-2 flex justify-center md:block">
               <VideoTrigger />
             </div>
