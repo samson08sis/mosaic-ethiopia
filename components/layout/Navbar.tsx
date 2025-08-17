@@ -79,7 +79,7 @@ export default function Navbar() {
   const navbarBackground =
     scrollPosition > 50
       ? "bg-white/70 dark:bg-gray-900/70 backdrop-blur-md shadow-md"
-      : "backdrop-blur-sm dark:backdrop-blur-0 bg-white/30 dark:bg-transparent";
+      : "backdrop-blur-sm bg-white/30 dark:bg-gray-900/30";
 
   return (
     <>
