@@ -18,7 +18,7 @@ export default function WelcomeSection() {
               </h2>
               <WelcomeText />
               <Link
-                href="/about"
+                href="/ethiopia"
                 className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
                 Learn More About Ethiopia
               </Link>
