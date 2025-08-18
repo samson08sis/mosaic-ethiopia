@@ -27,6 +27,7 @@ export interface TourPackage {
   duration: number;
   destinations: string[];
   activities: string[];
+  maxTravellers: number;
   accommodation: string;
   meals: string;
   inclusions: string[];
@@ -44,6 +45,7 @@ const packages: TourPackage[] = [
     image: "/bg-6.jpg",
     price: 1299,
     duration: 8,
+    maxTravellers: 12,
     destinations: ["Lalibela", "Gondar", "Axum", "Bahir Dar"],
     activities: [
       "Church Tours",
@@ -144,6 +146,7 @@ const packages: TourPackage[] = [
     image: "/bg-12.jpg",
     price: 1599,
     duration: 10,
+    maxTravellers: 7,
     destinations: [
       "Simien Mountains",
       "Bale Mountains",
@@ -248,6 +251,7 @@ const packages: TourPackage[] = [
     image: "/bg-50.jpg",
     price: 1899,
     duration: 6,
+    maxTravellers: 11,
     destinations: [
       "Danakil Depression",
       "Erta Ale Volcano",
@@ -350,6 +354,7 @@ const packages: TourPackage[] = [
     image: "/omo-4.jpg",
     price: 1799,
     duration: 9,
+    maxTravellers: 20,
     destinations: ["Omo Valley", "Konso", "Jinka", "Turmi"],
     activities: [
       "Tribal Village Visits",
@@ -448,6 +453,7 @@ const packages: TourPackage[] = [
     image: "/bg-68.jpg",
     price: 1299,
     duration: 7,
+    maxTravellers: 10,
     destinations: ["Addis Ababa", "Jimma", "Kaffa", "Yirgacheffe"],
     activities: [
       "Coffee Farm Visits",
@@ -544,6 +550,7 @@ const packages: TourPackage[] = [
     image: "/bg-70.jpg",
     price: 1499,
     duration: 10,
+    maxTravellers: 16,
     destinations: ["Gondar", "Lalibela", "Addis Ababa", "Axum"],
     activities: [
       "Timkat Festival",

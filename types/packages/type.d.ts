@@ -6,6 +6,7 @@ export interface Package {
   destinations: string[];
   activities: string[];
   image?: string;
+  maxSpace?: number;
   accommodationOptions: {
     id: string;
     name: string;
