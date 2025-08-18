@@ -15,3 +15,12 @@ export interface Destination {
   historicalImportance?: string;
   naturalFeatures?: string;
 }
+
+export interface MinimalDestination {
+  id: string;
+  name: string;
+  image: string;
+  rating: number;
+  reviews: number;
+  activities: string[];
+}
