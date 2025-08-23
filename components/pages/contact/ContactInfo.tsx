@@ -1,28 +1,64 @@
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import Link from "next/link";
 
 const iconClass = "h-6 w-6 text-primary";
 const addresses = [
   {
     name: "Email",
     icon: <Mail className={iconClass} />,
-    addressList: ["info@mosaicethiopia.com", "support@mosaicethiopia.com"],
+    addressList: [
+      {
+        url: "mailto:info@mosaicethiopia.com",
+        label: "info@mosaicethiopia.com",
+        external: false,
+      },
+      {
+        url: "mailto:support@mosaicethiopia.com",
+        label: "support@mosaicethiopia.com",
+        external: false,
+      },
+    ],
   },
   {
     name: "Phone",
     icon: <Phone className={iconClass} />,
-    addressList: ["+251 (11) 123-4567", "+251 (11) 987-6543"],
+    addressList: [
+      {
+        url: "tel:+251 (11) 123-4567",
+        label: "+251 (11) 123-4567",
+        external: false,
+      },
+      {
+        url: "tel:+251 (11) 987-6543",
+        label: "+251 (11) 987-6543",
+        external: false,
+      },
+    ],
   },
   {
     name: "Address",
     icon: <MapPin className={iconClass} />,
-    addressList: ["123 Adwa Street", "Addis Ababa, AC 12345", "Ethiopia"],
+    addressList: [
+      // { label: "123 Adwa Street" },
+      // { label: "Addis Ababa, AC 12345" },
+      // { label: "Ethiopia" },
+      { label: "Addis Ababa, Ethiopia", url: "", external: false },
+    ],
   },
   {
     name: "Telegram",
     icon: <Send className={iconClass} />,
     addressList: [
-      "https://t.me/mosaicethiopia",
-      "https://t.me/mosaicethiopia_bot",
+      {
+        label: "Latest News",
+        url: "https://t.me/mosaicethiopia",
+        external: true,
+      },
+      {
+        label: "Support Bot",
+        url: "https://t.me/mosaicethiopia_bot",
+        external: true,
+      },
     ],
   },
 ];
@@ -46,13 +82,23 @@ export default function ContactInfo() {
             </div>
             <div className="ml-4">
               <h3 className="text-lg font-medium">{address.name}</h3>
-              {address.addressList.map((addressItem) => (
-                <p
-                  className="text-gray-700 dark:text-gray-300"
-                  key={addressItem}>
-                  {addressItem}
-                </p>
-              ))}
+              {address.addressList.map((item) =>
+                item.url ? (
+                  <Link
+                    target={item?.external ? "_blank" : "_self"}
+                    key={crypto.randomUUID()}
+                    href={item.url}
+                    className="text-gray-700 dark:text-gray-300 block">
+                    {item.label}
+                  </Link>
+                ) : (
+                  <p
+                    className="text-gray-700 dark:text-gray-300"
+                    key={crypto.randomUUID()}>
+                    {item.label}
+                  </p>
+                )
+              )}
             </div>
           </div>
         ))}
