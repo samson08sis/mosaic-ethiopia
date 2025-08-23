@@ -1,7 +1,7 @@
 import PageHeader from "@/components/PageHeader";
-import ContactInfo from "../../components/pages/contact/ContactInfo";
-import ContactForm from "../../components/pages/contact/ContactForm.client";
-import MapSection from "../../components/pages/contact/MapSection.client";
+import ContactInfo from "@/components/pages/contact/ContactInfo";
+import ContactForm from "@/components/pages/contact/ContactForm.client";
+import MapSection from "@/components/pages/contact/MapSection.client";
 
 export const dynamic = "force-static";
 
