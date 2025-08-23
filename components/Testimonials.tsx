@@ -3,57 +3,18 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import Carousel from "./ui/carousel";
 import StarIcon from "./ui/svgs/StarSVG";
+import useSWR from "swr";
 
-export default function Testimonials() {
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export default function Testimonials({ initialData }: { initialData: any[] }) {
   const { translations } = useLanguage();
 
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      location: "United States",
-      image: "https://randomuser.me/api/portraits/women/32.jpg",
-      rating: 5,
-      quote:
-        "Our Ethiopian adventure was absolutely incredible! The historical sites in Lalibela left me speechless, and our guide was so knowledgeable. I'll never forget watching the sunrise over the Simien Mountains. Truly a life-changing experience!",
-    },
-    {
-      id: 2,
-      name: "David Chen",
-      location: "Canada",
-      image: "https://randomuser.me/api/portraits/men/44.jpg",
-      rating: 5,
-      quote:
-        "The cultural immersion on this tour was beyond my expectations. From coffee ceremonies to traditional music performances, every day brought new insights into Ethiopia's rich heritage. The accommodations were comfortable and the food was delicious!",
-    },
-    {
-      id: 3,
-      name: "Emma Wilson",
-      location: "United Kingdom",
-      image: "https://randomuser.me/api/portraits/women/63.jpg",
-      rating: 5,
-      quote:
-        "As a solo female traveler, I felt completely safe and welcomed throughout my Ethiopian journey. The Danakil Depression was otherworldly, and the local interactions in the Omo Valley were respectful and authentic. I'm already planning my return!",
-    },
-    {
-      id: 4,
-      name: "Michael Thompson",
-      location: "Australia",
-      image: "https://randomuser.me/api/portraits/men/67.jpg",
-      rating: 4,
-      quote:
-        "Ethiopia surprised me in the best possible way. The coffee was incredible, the people were warm and welcoming, and the landscapes were unlike anything I've seen before. The tour was well-organized and our guide made the history come alive.",
-    },
-    {
-      id: 5,
-      name: "Sophia Rodriguez",
-      location: "Spain",
-      image: "https://randomuser.me/api/portraits/women/28.jpg",
-      rating: 5,
-      quote:
-        "From the rock-hewn churches of Lalibela to the vibrant markets of Addis Ababa, every moment of our Ethiopian journey was filled with wonder. The local guides shared insights that you can't find in any guidebook. Highly recommend!",
-    },
-  ];
+  const { data: testimonials = [] } = useSWR(
+    "/api/reviews/recent",
+    fetcher,
+    { fallbackData: initialData, refreshInterval: 1800000 } // 30 mins
+  );
 
   return (
     <section className="pb-16">
@@ -69,7 +30,7 @@ export default function Testimonials() {
           autoPlay={true}
           itemsPerView={3}
           autoPlayInterval={6000}>
-          {testimonials.map((testimonial) => (
+          {testimonials.map((testimonial: any) => (
             <div
               key={testimonial.id}
               className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
