@@ -11,16 +11,9 @@ import ProfileDropdown from "../ProfileDropdown";
 import { ThemeSlider } from "../ui/ThemeSlider";
 import LanguageMenu from "../LanguageMenu";
 import { useNavigationTransition } from "@/hooks/navigationTransition";
+import { paths } from "@/data/paths/data";
 
-const navItems = {
-  links: [
-    { name: "home", icon: Home, href: "/" },
-    { name: "destinations", icon: MapPin, href: "/destinations" },
-    { name: "packages", icon: Package, href: "/packages" },
-    { name: "about", icon: Book, href: "/about" },
-    { name: "contact", icon: Phone, href: "/contact-us" },
-  ],
-};
+const navItems = paths;
 
 export default function Navbar() {
   const { translations } = useLanguage();
@@ -101,7 +94,7 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex md:items-center md:space-x-4">
-              {navItems.links.map((link) => (
+              {navItems.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -154,7 +147,7 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden bg-white dark:bg-gray-900 p-4">
             <div className="space-y-1">
-              {navItems.links.map((link) => (
+              {navItems.map((link) => (
                 <Link
                   onClick={toggleMenu}
                   key={link.href}
