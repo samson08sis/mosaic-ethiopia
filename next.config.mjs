@@ -1,12 +1,18 @@
 let userConfig = undefined;
-try {
-  userConfig = await import("./v0-user-next.config");
-} catch (e) {
-  // ignore error
-}
+// try {
+//   userConfig = await import("./v0ser-next.config");
+// } catch (e) {
+//   console.log("WHY)??😭 =>", e.message);
+//   // ignore error
+// }
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      { source: "/contact", destination: "/contact-us", permanent: true },
+    ];
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },

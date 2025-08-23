@@ -16,8 +16,8 @@ export function middleware(request: NextRequest) {
   const matchedRoute = updatedPaths.find((route) => pathname === route.oldPath);
 
   // REDIRECT IF THE PATH IS UPDATED
-  if (matchedRoute)
-    return NextResponse.redirect(new URL(matchedRoute.newPath, request.url));
+  // if (matchedRoute)
+  //   return NextResponse.redirect(new URL(matchedRoute.newPath, request.url));
 
   // Get the refresh-token
   const refreshToken = request.cookies.get("refreshToken")?.value;
