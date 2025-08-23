@@ -241,7 +241,7 @@ export default function VerifyEmailPage() {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Having trouble?{" "}
             <a
-              href="/contact"
+              href="/contact-us"
               className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
               Contact our support team
             </a>

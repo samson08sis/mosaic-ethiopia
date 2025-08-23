@@ -626,7 +626,7 @@ export default function EthiopiaPage() {
               View Tour Packages
             </Link>
             <Link
-              href="/contact"
+              href="/contact-us"
               className="px-8 py-3 border border-primary-600 text-primary-600 hover:bg-primary-50 dark:border-primary-400 dark:text-primary-400 dark:hover:bg-gray-800 rounded-lg transition-colors">
               Contact Us
             </Link>

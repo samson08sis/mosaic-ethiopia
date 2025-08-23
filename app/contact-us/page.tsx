@@ -21,12 +21,12 @@ export default function ContactPage() {
           {/* Contact Information - Could be server-rendered but kept here for layout consistency */}
           <ContactInfo />
 
-          {/* Contact Form - Must be client-side */}
+          {/* Contact Form - CSG */}
           <ContactForm />
         </div>
       </div>
 
-      {/* Map Section */}
+      {/* Map Section - CSG */}
       <MapSection />
     </div>
   );

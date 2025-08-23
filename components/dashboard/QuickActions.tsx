@@ -73,7 +73,7 @@ const actions = [
     title: "Support",
     description: "Get help",
     icon: <MessageCircle className="h-6 w-6" />,
-    href: "/contact",
+    href: "/contact-us",
     color: "from-teal-500 to-teal-600",
     hoverColor: "hover:from-teal-600 hover:to-teal-700",
   },

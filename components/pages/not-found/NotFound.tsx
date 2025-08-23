@@ -83,7 +83,7 @@ export default function NotFoundPage() {
             <h3 className="font-bold text-lg mb-2">Need Help?</h3>
             <p className="mb-3 text-sm">Can't find what you're looking for?</p>
             <Link
-              href="/contact"
+              href="/contact-us"
               className="inline-flex items-center gap-1 text-primary-500 hover:underline font-medium">
               <Phone className="h-4 w-4" />
               Contact Our Support Team

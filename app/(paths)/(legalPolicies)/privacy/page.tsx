@@ -664,7 +664,7 @@ export default function PrivacyPolicyPage() {
                   <strong>Alternative Contact Methods:</strong> You may also
                   reach us through our
                   <a
-                    href="/contact"
+                    href="/contact-us"
                     className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 underline ml-1">
                     general contact form
                   </a>{" "}

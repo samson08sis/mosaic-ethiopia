@@ -11,7 +11,7 @@ export default function CTAButtons() {
         Book Now
       </Link>
       <Link
-        href="/contact"
+        href="/contact-us"
         className="px-8 py-3 border-2 border-white font-medium rounded-lg hover:bg-white/10 transition-colors">
         Contact Us
       </Link>

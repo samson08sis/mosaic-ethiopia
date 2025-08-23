@@ -16,7 +16,7 @@ const footerLinks = {
     { name: "Tour Packages", href: "/packages" },
     { name: "Book a Trip", href: "/book" },
     { name: "About Us", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: "Contact", href: "/contact-us" },
   ],
   destinations: [
     { name: "Lalibela, Ethiopia", href: "/destinations/lalibela" },
