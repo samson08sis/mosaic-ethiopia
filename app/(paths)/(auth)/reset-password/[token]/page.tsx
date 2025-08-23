@@ -55,18 +55,27 @@ function ResetPasswordForm() {
       return;
     }
 
-    // Simulate token verification (in real app, this would be an API call)
     const verifyToken = async () => {
       try {
-        // Simulate API call delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const res = await fetch("/api/auth/verify-reset-token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
 
-        // For demo purposes, accept any token that's not "invalid"
-        if (token === "invalid") {
+        // const data = await res.json();
+        const raw = await res.text();
+        let data;
+        try {
+          data = JSON.parse(raw);
+        } catch (err) {
+          console.log("Failed to parse JSON:", raw);
+          throw new Error("Invalid response format");
+        }
+
+        if (!res.ok) {
           setTokenValid(false);
-          setGeneralError(
-            "This password reset link has expired or is invalid. Please request a new one."
-          );
+          setGeneralError(data.msg || "Invalid or expired token.");
         } else {
           setTokenValid(true);
         }
@@ -163,18 +172,12 @@ function ResetPasswordForm() {
   // Loading state while verifying token
   if (tokenValid === null) {
     return (
-      <div className="pt-20 pb-16 bg-theme min-h-screen">
-        <div className="container mx-auto px-4 py-12">
-          <div className="max-w-md mx-auto">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Verifying reset token...
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="pt-32 pb-16 bg-theme min-h-screen">
+        <div className="container mx-auto px-4 py-12 max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-400">
+            Verifying reset token...
+          </p>
         </div>
       </div>
     );
