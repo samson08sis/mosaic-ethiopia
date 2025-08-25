@@ -2,6 +2,24 @@ import PageHeader from "@/components/PageHeader";
 import ContactInfo from "@/components/pages/contact/ContactInfo";
 import ContactForm from "@/components/pages/contact/ContactForm.client";
 import MapSection from "@/components/pages/contact/MapSection.client";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description:
+    "Contact Us. Phone. 314.749.5606. Fax. 314.601.3550. Email. info@mosaic-ethiopia.com. Copyright © Mosaic Ethiopia 2012-2014.",
+  keywords: [
+    "contact",
+    "support",
+    "help",
+    "Mosaic Ethiopia",
+    "Mosaic Tour",
+    "Mosaic Ethiopia Tour",
+    "Ethiopian Tour",
+    "Ethiopia",
+    "Visit Ethiopia",
+  ],
+};
 
 export const dynamic = "force-static";
 
