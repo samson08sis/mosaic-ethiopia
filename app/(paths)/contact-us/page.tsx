@@ -6,8 +6,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description:
-    "Contact Us. Phone. 314.749.5606. Fax. 314.601.3550. Email. info@mosaic-ethiopia.com. Copyright © Mosaic Ethiopia 2012-2014.",
+  description: `Contact Us. Phone. +251.111.2222. Email. info@mosaic-ethiopia.com. Copyright © ${new Date().getFullYear()}.`,
   keywords: [
     "contact",
     "support",
