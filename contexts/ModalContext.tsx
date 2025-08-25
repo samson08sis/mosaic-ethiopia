@@ -12,28 +12,33 @@ type ModalType =
   | "packageDetails"
   | "customizePackages"
   | null;
+type ModalProps = Record<string, any>;
 
 type ModalContextType = {
   isOpen: boolean;
-  openModal: (type: ModalType) => void;
-  modalType: ModalType;
+  openModal: (type: ModalType, props?: ModalProps) => void;
   closeModal: () => void;
+  modalType: ModalType;
+  modalProps: ModalProps;
 };
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalType, setModalType] = useState<ModalType>(null);
+  const [modalProps, setModalProps] = useState<ModalProps>({});
   const isOpen = modalType != null;
 
-  const openModal = (type: ModalType) => {
+  const openModal = (type: ModalType, props: ModalProps = {}) => {
     setModalType(type);
+    setModalProps(props);
   };
 
   const closeModal = () => setModalType(null);
 
   return (
-    <ModalContext.Provider value={{ isOpen, modalType, openModal, closeModal }}>
+    <ModalContext.Provider
+      value={{ isOpen, modalType, modalProps, openModal, closeModal }}>
       {children}
     </ModalContext.Provider>
   );
