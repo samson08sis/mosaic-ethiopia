@@ -7,6 +7,7 @@ import ChatWidget from "@/components/chat/ChatWidget";
 import { usePathname } from "next/navigation";
 import ScrollToTop from "@/components/ui/scroll-to-top";
 import RootProviders from "./Providers";
+import ModalContainer from "./ModalContainer";
 
 export default function ClientLayout({
   children,
@@ -24,6 +25,7 @@ export default function ClientLayout({
         {!isAdminRoute && <Footer />}
         <ScrollToTop />
         {!isAdminRoute && <ChatWidget />}
+        <ModalContainer />
       </div>
     </RootProviders>
   );

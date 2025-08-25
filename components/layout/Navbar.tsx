@@ -12,6 +12,7 @@ import { ThemeSlider } from "../ui/ThemeSlider";
 import LanguageMenu from "../LanguageMenu";
 import { useNavigationTransition } from "@/hooks/navigationTransition";
 import { paths } from "@/data/paths/data";
+import { useModal } from "@/contexts/ModalContext";
 
 const navItems = paths;
 
@@ -19,11 +20,11 @@ export default function Navbar() {
   const { translations } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, logout } = useAuth();
   const { isTransitioning, handleNavigate } = useNavigationTransition();
+  const { openModal, closeModal } = useModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +39,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (isAuthenticated || pathname === "/forgot-password") {
-      setIsLoginModalOpen(false);
+      closeModal();
       setIsMenuOpen(false);
     }
   }, [isAuthenticated, pathname]);
@@ -59,7 +60,7 @@ export default function Navbar() {
 
   const openLoginModal = () => {
     setIsMenuOpen(false);
-    setIsLoginModalOpen(true);
+    openModal("login");
   };
 
   const handleLogout = () => {
@@ -206,12 +207,6 @@ export default function Navbar() {
           </div>
         )}
       </nav>
-
-      {/* Login Modal */}
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-      />
     </>
   );
 }
