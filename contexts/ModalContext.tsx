@@ -1,21 +1,46 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-const ModalContext = createContext({
-  isOpen: false,
-  openModal: () => {},
-  closeModal: () => {},
-});
+type ModalType =
+  | "login"
+  | "signInToContinue"
+  | "packageDetails"
+  | "customizePackages"
+  | null;
+
+type ModalContextType = {
+  isOpen: boolean;
+  openModal: (type: ModalType) => void;
+  modalType: ModalType;
+  closeModal: () => void;
+};
+
+const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const [modalType, setModalType] = useState<ModalType>(null);
+  const isOpen = modalType != null;
+
+  const openModal = (type: ModalType) => {
+    setModalType(type);
+  };
+
+  const closeModal = () => setModalType(null);
 
   return (
-    <ModalContext.Provider value={{ isOpen, openModal, closeModal }}>
+    <ModalContext.Provider value={{ isOpen, modalType, openModal, closeModal }}>
       {children}
     </ModalContext.Provider>
   );
 };
 
-export const useModal = () => useContext(ModalContext);
+export const useModal = () => {
+  const context = useContext(ModalContext);
+  if (!context) throw new Error("useModal must be used within a ModalProvider");
+  return context;
+};
