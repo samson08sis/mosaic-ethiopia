@@ -1,7 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import { Inter, Arizonia } from "next/font/google";
-import "./globals.css";
+import "./styles/globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -21,7 +21,7 @@ const arizonia = Arizonia({
 export const metadata: Metadata = {
   title: {
     default: "Mosaic Ethiopia Tour - Your Ultimate Travel Companion",
-    template: "%s - Mosaic Ethiopia Tour",
+    template: "%s | Mosaic Ethiopia Tour",
   },
   description:
     "Unleash your wanderlust and design the perfect adventure! Mosaic Ethiopia lets you book tailor-made tour packages, handpick breathtaking destinations, and connect instantly with our AI-powered travel assistant for live chat support. Whether you're chasing ancient history, vibrant culture, or scenic landscapes, we make it easy to plan, personalize, and experience unforgettable journeys across Ethiopia.",
