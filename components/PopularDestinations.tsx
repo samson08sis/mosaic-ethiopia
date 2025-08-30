@@ -32,7 +32,10 @@ export default async function PopularDestinations() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {destinations.map((destination) => (
-          <PopularDestinationCard destination={destination} />
+          <PopularDestinationCard
+            key={destination.id}
+            destination={destination}
+          />
         ))}
       </div>
     </section>
