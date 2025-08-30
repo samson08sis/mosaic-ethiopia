@@ -6,7 +6,8 @@ const BACKEND_URL = process.env.BACKEND_URL;
 
 const getSlides = async () => {
   const res = await fetch(`${BACKEND_URL}/api/data/hero-images`, {
-    next: { revalidate: 21600 },
+    // next: { revalidate: 21600 },
+    next: { tags: ["hero-section"] },
   });
   if (!res.ok) throw new Error("Failed to fetch slides");
   const data = await res.json();
