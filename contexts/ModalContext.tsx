@@ -4,7 +4,7 @@ type ModalType =
   | "login"
   | "signInToContinue"
   | "packageDetails"
-  | "customizePackages"
+  | "customizePackage"
   | null;
 type ModalProps = Record<string, any>;
 

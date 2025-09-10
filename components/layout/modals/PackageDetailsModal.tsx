@@ -1,18 +1,16 @@
+import { useModal } from "@/contexts/ModalContext";
 import { Package } from "@/types/packages/type";
 import { CalendarDays, Check, Clock, MapPin, X } from "lucide-react";
 import Link from "next/link";
 
-type PackageDetailsModalProps = {
-  selectedPackage: Package;
-  onClose: () => void;
-  onCustumizeClicked: (pkg: Package) => void;
-};
+export default function PackageDetailsModal() {
+  const { isOpen, modalType, openModal, closeModal, modalProps } = useModal();
 
-export default function PackageDetailsModal({
-  selectedPackage,
-  onClose,
-  onCustumizeClicked,
-}: PackageDetailsModalProps) {
+  const selectedPackage: Package | undefined = modalProps.selectedPackage;
+
+  if (!selectedPackage || !isOpen || modalType !== "packageDetails")
+    return null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-auto">
@@ -25,7 +23,7 @@ export default function PackageDetailsModal({
             className="w-full h-64 object-cover"
           />
           <button
-            onClick={onClose}
+            onClick={closeModal}
             className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
             aria-label="Close">
             <X className="h-6 w-6" />
@@ -164,8 +162,8 @@ export default function PackageDetailsModal({
             </Link>
             <button
               onClick={() => {
-                onClose();
-                onCustumizeClicked(selectedPackage);
+                closeModal();
+                openModal("customizePackage", selectedPackage);
               }}
               className="flex-1 px-6 py-3 border border-primary text-primary hover:bg-primary-50 dark:text-primary-400 dark:border-primary-400 dark:hover:bg-gray-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
               Customize Package

@@ -1,17 +1,18 @@
+import { useModal } from "@/contexts/ModalContext";
 import { Customization, Package } from "@/types/packages/type";
 import { Check, Minus, Plus, X } from "lucide-react";
 import Link from "next/link";
 import { HTMLInputTypeAttribute, useEffect, useState } from "react";
 
-type CustomizePackageModalProps = {
-  customizingPackage: Package;
-  onClose: () => void;
-};
+// type CustomizePackageModalProps = {
+//   customizingPackage: Package;
+//   onClose: () => void;
+// };
 
-export default function CustomizePackageModal({
-  onClose,
-  customizingPackage,
-}: CustomizePackageModalProps) {
+export default function CustomizePackageModal() {
+  const { isOpen, openModal, closeModal, modalProps, modalType } = useModal();
+  const customizingPackage: Package | undefined = modalProps.customizingPackage;
+
   const [customizations, setCustomizations] = useState<Customization>({
     duration: 0,
     activities: [],
@@ -21,15 +22,16 @@ export default function CustomizePackageModal({
   });
 
   useEffect(() => {
-    setCustomizations({
-      duration: customizingPackage.duration,
-      activities: [...customizingPackage.activities],
-      selectedActivities: [],
-      accommodation: customizingPackage.accommodationOptions[0].id,
-      meals: customizingPackage.mealOptions[1]
-        ? customizingPackage.mealOptions[1].id
-        : customizingPackage.mealOptions[0].id,
-    });
+    if (customizingPackage)
+      setCustomizations({
+        duration: customizingPackage.duration,
+        activities: [...customizingPackage.activities],
+        selectedActivities: [],
+        accommodation: customizingPackage.accommodationOptions[0].id,
+        meals: customizingPackage.mealOptions[1]
+          ? customizingPackage.mealOptions[1].id
+          : customizingPackage.mealOptions[0].id,
+      });
   }, []);
 
   // handlers
@@ -150,6 +152,9 @@ export default function CustomizePackageModal({
     return `/book?${params.toString()}`;
   };
 
+  if (!isOpen || modalType !== "customizePackage" || !customizingPackage)
+    return null;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-auto">
@@ -159,7 +164,7 @@ export default function CustomizePackageModal({
               Customize Your Package
             </h2>
             <button
-              onClick={onClose}
+              onClick={closeModal}
               className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 p-2 rounded-full transition-colors"
               aria-label="Close">
               <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
@@ -470,7 +475,7 @@ export default function CustomizePackageModal({
               Book Customized Package
             </Link>
             <button
-              onClick={onClose}
+              onClick={closeModal}
               className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
               Cancel
             </button>
