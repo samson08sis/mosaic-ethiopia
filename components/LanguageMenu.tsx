@@ -86,7 +86,11 @@ export default function LanguageMenu({
                 <div key={lang.code}>
                   <button
                     onClick={() => handleLanguageChange(lang.code)}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                      lang.code === language
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-gray-700 dark:text-gray-200"
+                    }`}>
                     {lang.name}
                   </button>
                   <div className=" ml-0 mr-2 p-0 border-0 border-t " />
