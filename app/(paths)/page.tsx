@@ -1,20 +1,20 @@
 import Hero from "@/components/home/Hero";
 import MainContent from "@/components/home/MainContent";
 import WelcomeSection from "@/components/home/WelcomeSection";
+import { fallbackHeroSlides } from "@/data/hero/data";
 
 const BACKEND_URL = process.env.BACKEND_URL;
 
 const getSlides = async () => {
   try {
     const res = await fetch(`${BACKEND_URL}/api/data/hero-images`, {
-      // next: { revalidate: 21600 },
       next: { tags: ["hero-section"] },
     });
     if (!res.ok) throw new Error("Failed to fetch slides");
     const data = await res.json();
     return data.data;
   } catch (err: any) {
-    console.log("Error fetching Hero images: ", err.message);
+    return fallbackHeroSlides;
   }
 };
 

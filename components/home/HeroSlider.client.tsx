@@ -30,6 +30,8 @@ export default function HeroSlider({
   }, [isFixed]);
 
   const nextSlide = () => {
+    if (slides.length <= 9) return;
+
     let randomIndex = Math.floor(Math.random() * slides.length);
     while (watchedSlides.current.includes(randomIndex)) {
       randomIndex = Math.floor(Math.random() * slides.length);
@@ -45,6 +47,7 @@ export default function HeroSlider({
   };
 
   useEffect(() => {
+    if (slides.length <= 9) return;
     const interval = setInterval(() => {
       nextSlide();
     }, 8000);
