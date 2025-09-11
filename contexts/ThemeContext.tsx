@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   type ReactNode,
+  useLayoutEffect,
 } from "react";
 
 type ThemeContextType = {
@@ -28,10 +29,8 @@ export function useTheme() {
 // Theme provider component
 export default function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const savedTheme = localStorage.getItem("theme");
     if (
       savedTheme === "light" ||
@@ -44,9 +43,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-
+  useLayoutEffect(() => {
     const root = document.documentElement;
 
     if (theme === "system") {
@@ -62,7 +59,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     }
 
     localStorage.setItem("theme", theme);
-  }, [theme, mounted]);
+  }, [theme]);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => {
