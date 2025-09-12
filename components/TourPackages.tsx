@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import packages from "@/data/packages";
 import { useModal } from "@/contexts/ModalContext";
 import PopularPackageCard from "./home/PopularPackagesCard";
+import SectionHeader from "./SectionHeader";
 
 export default function TourPackages() {
   const { translations } = useLanguage();
@@ -26,9 +27,9 @@ export default function TourPackages() {
   return (
     <section id="packages" className="pb-16">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
-          {translations.customizablePackages || "Ethiopian Tour Packages"}
-        </h2>
+        <SectionHeader>
+          {translations.customizablePackages || "Customizable Packages"}
+        </SectionHeader>
         <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
           Create your perfect Ethiopian journey with our customizable packages.
           Tailor your adventure to match your preferences and interests.

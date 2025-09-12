@@ -1,5 +1,6 @@
 import { MinimalDestination } from "@/types/destinations/types";
 import PopularDestinationCard from "./home/PopularDestinationCard";
+import SectionHeader from "./SectionHeader";
 
 const getPopularDestinations = async () => {
   const res = await fetch(
@@ -19,11 +20,11 @@ export default async function PopularDestinations() {
   return (
     <section id="destinations" className="pb-16">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+        <SectionHeader>
           {/* FIX LATER TRANSLATIONS */}
           {/* {translations.popularDestinations || "Popular Destinations"} */}
           Popular Destinations
-        </h2>
+        </SectionHeader>
         <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
           Explore our most sought-after destinations loved by travelers around
           the world.
