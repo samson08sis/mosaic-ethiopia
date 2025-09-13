@@ -5,4 +5,17 @@ export type HeroSlideType = {
   alt?: string;
 };
 
+export type Testimonial = {
+  rating: number;
+  quote: string;
+  votes?: number;
+  user:
+    | {
+        name: string;
+        avatar?: string;
+        location?: string;
+      }
+    | "anonymous";
+};
+
 // 2. Destinations
