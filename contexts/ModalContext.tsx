@@ -6,6 +6,7 @@ type ModalType =
   | "packageDetails"
   | "customizePackage"
   | "rate"
+  | "loginGate"
   | null;
 type ModalProps = Record<string, any>;
 

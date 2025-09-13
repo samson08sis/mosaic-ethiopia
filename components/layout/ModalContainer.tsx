@@ -1,3 +1,4 @@
+import LoginGate from "../auth/LoginGate";
 import LoginModal from "../LoginModal";
 import RatingPopup from "../RatingModal";
 import CustomizePackageModal from "./modals/PackageCustomizationModal";
@@ -10,6 +11,7 @@ export default function ModalContainer() {
       <PackageDetailsModal />
       <CustomizePackageModal />
       <RatingPopup />
+      <LoginGate />
     </>
   );
 }
