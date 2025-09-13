@@ -15,7 +15,6 @@ export interface Testimonial {
   rating: number;
   quote: string;
   votes?: number;
-  anonymous: boolean;
   user: UserBasicProfile | string;
 }
 
