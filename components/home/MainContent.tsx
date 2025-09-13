@@ -3,7 +3,6 @@ import TourPackages from "../TourPackages";
 import { Suspense } from "react";
 import { DestinationsSkeleton } from "./DestinationSkeleton";
 import TestimonialWrapper from "../TestimonialWrapper";
-import { TestimonialsSkeleton } from "../TestimonialsSkeleton";
 
 export default async function MainContent() {
   return (
@@ -26,9 +25,7 @@ export default async function MainContent() {
         <h2 className="font-arizonia text-primary-400 text-3xl mb-6 mt-16 text-center">
           Customers' Feedback
         </h2>
-        <Suspense fallback={<TestimonialsSkeleton />}>
-          <TestimonialWrapper />
-        </Suspense>
+        <TestimonialWrapper />
       </div>
     </div>
   );

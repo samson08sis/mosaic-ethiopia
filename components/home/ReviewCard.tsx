@@ -1,22 +1,33 @@
+import { Testimonial } from "@/types/types";
 import StarIcon from "../ui/svgs/StarSVG";
 
-export default function ReviewCard({ testimonial }: any) {
+export default function ReviewCard({
+  testimonial,
+}: {
+  testimonial: Testimonial;
+}) {
   return (
     <div
-      key={testimonial.id}
+      key={crypto.randomUUID()}
       className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
       <div className="flex items-center mb-4">
         <img
-          src={testimonial.image || "/placeholder.svg"}
-          alt={testimonial.name}
+          src={
+            typeof testimonial.user === "object"
+              ? testimonial.user.avatar || "placeholder.jpg"
+              : "anonymous.jpg"
+          }
+          alt=""
           className="w-12 h-12 rounded-full mr-4"
         />
         <div>
           <h3 className="font-semibold text-gray-900 dark:text-white">
-            {testimonial.name}
+            {typeof testimonial.user === "object"
+              ? testimonial.user.name
+              : "Anonymous"}
           </h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            {testimonial.location}
+            {typeof testimonial.user === "object" && testimonial.user?.location}
           </p>
         </div>
       </div>
