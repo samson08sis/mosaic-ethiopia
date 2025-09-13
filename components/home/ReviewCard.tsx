@@ -26,17 +26,19 @@ export default function ReviewCard({ testimonial }: any) {
         {[...Array(5)].map((_, i) => (
           <StarIcon
             key={i}
-            customStyle={`w-5 h-5 ${
-              i < testimonial.rating
-                ? "text-yellow-400"
-                : "text-gray-300 dark:text-gray-600"
-            }`}
+            type={
+              testimonial.rating - i >= 1
+                ? "full"
+                : // : testimonial.rating >= 0.5
+                  // ? "half"
+                  "empty"
+            }
           />
         ))}
       </div>
 
       {/* Quote */}
-      <p className="text-gray-700 dark:text-gray-300 italic font-sans">
+      <p className="line-clamp-6 text-gray-700 dark:text-gray-300 italic font-sans">
         "{testimonial.quote}"
       </p>
 
