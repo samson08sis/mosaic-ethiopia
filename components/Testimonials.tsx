@@ -32,7 +32,7 @@ export default function Testimonials({ initialData }: { initialData: any[] }) {
           itemsPerView={3}
           autoPlayInterval={6000}>
           {testimonials.map((testimonial: any) => (
-            <ReviewCard testimonial={testimonial} />
+            <ReviewCard key={testimonial.id} testimonial={testimonial} />
           ))}
         </Carousel>
       </div>
