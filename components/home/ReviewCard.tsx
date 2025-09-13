@@ -1,6 +1,6 @@
 import StarIcon from "../ui/svgs/StarSVG";
 
-export default function ReviewCard(testimonial: any) {
+export default function ReviewCard({ testimonial }: any) {
   return (
     <div
       key={testimonial.id}
