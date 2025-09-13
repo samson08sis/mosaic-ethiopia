@@ -17,6 +17,35 @@ import EthiopianPattern from "./components/EthiopianPattern";
 import AttractionCard from "./components/AttractionCard";
 import FestivalCard from "./components/FestivalCard";
 import DishCard from "./components/DishCard";
+import CTASection from "@/components/ethiopia/CTASection";
+
+const badgeStyle = "h-5 w-5 mr-1";
+const data = {
+  iconBadges: [
+    { label: "Birthplace of Coffee", icon: <Coffee className={badgeStyle} /> },
+    { label: "13-Month Calendar", icon: <Calendar className={badgeStyle} /> },
+    { label: "Unique Music & Dance", icon: <Music className={badgeStyle} /> },
+    { label: "Distinctive Cuisine", icon: <Utensils className={badgeStyle} /> },
+  ],
+
+  facts: [
+    {
+      title: "Ethiopia's Unique Calendar",
+      detail:
+        "Ethiopia follows its own calendar system that is approximately 7-8 years behind the Gregorian calendar. It also has 13 months - 12 months of 30 days each and a 13th month of 5 or 6 days.",
+    },
+    {
+      title: "The Origin of Coffee",
+      detail:
+        "Coffee was first discovered in Ethiopia when a goat herder named Kaldi noticed his goats becoming energetic after eating berries from a certain tree. Ethiopia still performs the traditional coffee ceremony as a sign of friendship and respect",
+    },
+    {
+      title: "Lucy's Home",
+      detail:
+        'Ethiopia is where "Lucy" (Dinkinesh), one of the oldest and most complete hominid skeletons ever found, was discovered. Dating back 3.2 million years, she provides evidence that Ethiopia truly is the cradle of humanity.',
+    },
+  ],
+};
 
 export default function EthiopiaPage() {
   const [activeTab, setActiveTab] = useState("cultural");
@@ -386,7 +415,6 @@ export default function EthiopiaPage() {
           style={{
             backgroundImage:
               "url('https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80')",
-            transform: `translateY(${scrollY * 0.5}px)`,
           }}>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent"></div>
         </div>
@@ -449,83 +477,49 @@ export default function EthiopiaPage() {
                 cultural landscape.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <div className="flex items-center text-primary-600 dark:text-primary-400">
-                  <Coffee className="h-5 w-5 mr-1" />
-                  <span>Birthplace of Coffee</span>
-                </div>
-                <div className="flex items-center text-primary-600 dark:text-primary-400">
-                  <Calendar className="h-5 w-5 mr-1" />
-                  <span>13-Month Calendar</span>
-                </div>
-                <div className="flex items-center text-primary-600 dark:text-primary-400">
-                  <Music className="h-5 w-5 mr-1" />
-                  <span>Unique Music & Dance</span>
-                </div>
-                <div className="flex items-center text-primary-600 dark:text-primary-400">
-                  <Utensils className="h-5 w-5 mr-1" />
-                  <span>Distinctive Cuisine</span>
-                </div>
+                {data.iconBadges.map((item) => (
+                  <div
+                    key={crypto.randomUUID()}
+                    className="flex items-center text-primary-600 dark:text-primary-400">
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
+
             <div className="md:w-1/2 relative h-64 md:h-80 rounded-lg overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1602517150353-4eb9d5d0bf5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
+                src="https://images.unsplash.com/photo-1602517150353-4eb9d5d0bf5b"
                 alt="Ethiopian cultural scene"
                 fill
                 className="object-cover"
               />
             </div>
           </div>
-        </div>
 
-        {/* Category Tabs */}
-        <div className="mb-8 overflow-x-auto scrollbar-hide">
-          <div className="flex space-x-2 min-w-max">
-            <button
-              onClick={() => setActiveTab("cultural")}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-colors ${
-                activeTab === "cultural"
-                  ? "bg-primary-600 text-white"
-                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              }`}>
-              Cultural Places
-            </button>
-            <button
-              onClick={() => setActiveTab("castles")}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-colors ${
-                activeTab === "castles"
-                  ? "bg-primary-600 text-white"
-                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              }`}>
-              Castles & Palaces
-            </button>
-            <button
-              onClick={() => setActiveTab("religious")}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-colors ${
-                activeTab === "religious"
-                  ? "bg-primary-600 text-white"
-                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              }`}>
-              Religious Sites
-            </button>
-            <button
-              onClick={() => setActiveTab("festivals")}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-colors ${
-                activeTab === "festivals"
-                  ? "bg-primary-600 text-white"
-                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              }`}>
-              Festivals & Celebrations
-            </button>
-            <button
-              onClick={() => setActiveTab("dishes")}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-colors ${
-                activeTab === "dishes"
-                  ? "bg-primary-600 text-white"
-                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              }`}>
-              Ethiopian Dishes
-            </button>
+          {/* Category Tabs - now inside Introduction */}
+          <div className="mt-10 overflow-x-auto scrollbar-hide">
+            <div className="flex flex-wrap justify-center gap-2">
+              {["cultural", "castles", "religious", "festivals", "dishes"].map(
+                (tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-6 py-3 rounded-md text-sm font-medium transition-colors ${
+                      activeTab === tab
+                        ? "bg-primary-600 text-white"
+                        : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`}>
+                    {tab === "cultural" && "Cultural Places"}
+                    {tab === "castles" && "Castles & Palaces"}
+                    {tab === "religious" && "Religious Sites"}
+                    {tab === "festivals" && "Festivals & Celebrations"}
+                    {tab === "dishes" && "Ethiopian Dishes"}
+                  </button>
+                )
+              )}
+            </div>
           </div>
         </div>
 
@@ -574,64 +568,23 @@ export default function EthiopiaPage() {
             Did You Know?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
-              <h4 className="font-bold text-primary-600 dark:text-primary-400 mb-2">
-                Ethiopia's Unique Calendar
-              </h4>
-              <p className="text-gray-700 dark:text-gray-300 text-sm">
-                Ethiopia follows its own calendar system that is approximately
-                7-8 years behind the Gregorian calendar. It also has 13 months –
-                12 months of 30 days each and a 13th month of 5 or 6 days.
-              </p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
-              <h4 className="font-bold text-primary-600 dark:text-primary-400 mb-2">
-                The Origin of Coffee
-              </h4>
-              <p className="text-gray-700 dark:text-gray-300 text-sm">
-                Coffee was first discovered in Ethiopia when a goat herder named
-                Kaldi noticed his goats becoming energetic after eating berries
-                from a certain tree. Ethiopia still performs the traditional
-                coffee ceremony as a sign of friendship and respect.
-              </p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
-              <h4 className="font-bold text-primary-600 dark:text-primary-400 mb-2">
-                Lucy's Home
-              </h4>
-              <p className="text-gray-700 dark:text-gray-300 text-sm">
-                Ethiopia is where "Lucy" (Dinkinesh), one of the oldest and most
-                complete hominid skeletons ever found, was discovered. Dating
-                back 3.2 million years, she provides evidence that Ethiopia
-                truly is the cradle of humanity.
-              </p>
-            </div>
+            {data.facts.map((fact) => (
+              <div
+                key={crypto.randomUUID()}
+                className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                <h4 className="font-bold text-primary-600 dark:text-primary-400 mb-2">
+                  {fact.title}
+                </h4>
+                <p className="text-gray-700 dark:text-gray-300 text-sm">
+                  {fact.detail}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* CTA Section */}
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Ready to Experience Ethiopia?
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-            Explore our carefully curated tour packages and embark on an
-            unforgettable journey through Ethiopia's rich cultural heritage,
-            breathtaking landscapes, and ancient historical sites.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              href="/packages"
-              className="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
-              View Tour Packages
-            </Link>
-            <Link
-              href="/contact-us"
-              className="px-8 py-3 border border-primary-600 text-primary-600 hover:bg-primary-50 dark:border-primary-400 dark:text-primary-400 dark:hover:bg-gray-800 rounded-lg transition-colors">
-              Contact Us
-            </Link>
-          </div>
-        </div>
+        <CTASection />
       </div>
 
       {/* Ethiopian Pattern Footer */}
