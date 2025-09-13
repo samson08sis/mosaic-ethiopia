@@ -25,8 +25,8 @@ export default function Testimonials({
 
         <button
           onClick={() => openModal("rate")}
-          className="inline-flex items-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
-          <SparklesIcon className="w-5 h-5 text-orange-500" />
+          className="inline-flex items-center space-x-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+          <SparklesIcon className="w-5 h-5 text-white" />
           <span>Share Your Experience</span>
         </button>
       </div>
