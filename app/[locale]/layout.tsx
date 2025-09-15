@@ -1,9 +1,11 @@
 import type React from "react";
 import type { Metadata } from "next";
 import { Inter, Arizonia } from "next/font/google";
-import "./styles/globals.css";
+import "../styles/globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
 import { Analytics } from "@vercel/analytics/next";
+import { getMessages } from "@/lib/translations/getMessages";
+import { TranslationProvider } from "@/contexts/IntlContext";
 
 // Load fonts
 const inter = Inter({
@@ -30,18 +32,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+  const messages = await getMessages(locale);
+
   return (
     <html
       lang="en"
       // suppressHydrationWarning //Uncomment later
       className={`${inter.variable} ${arizonia.variable}`}>
       <body className={`${inter.className} bg-neutral-50 dark:bg-gray-900`}>
-        <ClientLayout>{children}</ClientLayout>
+        <TranslationProvider messages={messages}>
+          <ClientLayout>{children}</ClientLayout>
+        </TranslationProvider>
         <Analytics />
       </body>
     </html>
