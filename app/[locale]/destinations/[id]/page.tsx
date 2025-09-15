@@ -81,7 +81,7 @@ export default function DestinationDetailPage({
             <span>Best time: {destination.bestTimeToVisit}</span>
           </div>
         </div>
-        <Weather location={destination.city || "Addis Ababa"} days={6} />
+        <Weather location={destination.nearestCity || "Addis Ababa"} days={6} />
       </PageHeader>
 
       <div className="container mx-auto px-4 py-12">
