@@ -1,23 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
-type UpdatedPath = {
-  oldPath: string;
-  newPath: string;
-};
-
 const protectedPaths = ["/dashboard", "/profile", "/bookings", "/admin"];
 const openPaths = ["/login", "/forgot-password", "/reset-password"];
-const updatedPaths: UpdatedPath[] = [
-  { oldPath: "/contact", newPath: "/contact-us" },
-];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const matchedRoute = updatedPaths.find((route) => pathname === route.oldPath);
-
-  // REDIRECT IF THE PATH IS UPDATED
-  // if (matchedRoute)
-  //   return NextResponse.redirect(new URL(matchedRoute.newPath, request.url));
 
   // Get the refresh-token
   const refreshToken = request.cookies.get("refreshToken")?.value;
