@@ -3,9 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { Menu, X, Home, MapPin, Package, Book, Phone } from "lucide-react";
-import LoginModal from "../LoginModal";
+import { Menu, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "../ProfileDropdown";
 import { ThemeSlider } from "../ui/ThemeSlider";
@@ -13,11 +11,13 @@ import LanguageMenu from "../LanguageMenu";
 import { useNavigationTransition } from "@/hooks/navigationTransition";
 import { paths } from "@/data/paths/data";
 import { useModal } from "@/contexts/ModalContext";
+import { useTranslation } from "@/contexts/IntlContext";
 
 const navItems = paths;
 
 export default function Navbar() {
-  const { translations } = useLanguage();
+  // const { t } = useLanguage();
+  const t = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const pathname = usePathname();
@@ -106,13 +106,16 @@ export default function Navbar() {
                       : "text-gray-900 dark:text-white"
                   } hover:text-primary dark:hover:text-primary-400`}
                   data-active={pathname === link.href}>
-                  {(translations as any)[link.name] || link.name}
+                  {(t as any)[link.name] || link.name}
                   <span className="underline-slide" />
                 </Link>
               ))}
 
               {/* Language Selector */}
-              <LanguageMenu isMobile={false} />
+              <LanguageMenu
+                currentLocale={pathname!.split("/")[0]}
+                isMobile={false}
+              />
 
               {/* Theme Toggle */}
               <ThemeSlider isMobile={isMenuOpen} />
@@ -123,7 +126,7 @@ export default function Navbar() {
                 <button
                   onClick={openLoginModal}
                   className="ml-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600">
-                  {translations.login || "Login"}
+                  {t!.login || "Login"}
                 </button>
               )}
             </div>
@@ -156,7 +159,7 @@ export default function Navbar() {
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
                   <span className="flex flex-row">
                     <link.icon className="mr-4" />
-                    {(translations as any)[link.name] ||
+                    {(t as any)[link.name] ||
                       link.name
                         .charAt(0)
                         .toUpperCase()
@@ -171,7 +174,11 @@ export default function Navbar() {
               </div>
 
               {/* Language Options in Mobile Menu */}
-              <LanguageMenu isMobile={true} onLanguageChange={toggleMenu} />
+              <LanguageMenu
+                isMobile={true}
+                currentLocale={pathname!.split("/")[0]}
+                onLanguageChange={toggleMenu}
+              />
 
               {/* Buttons and Links in Mobile Menu */}
               <div className="px-3 py-2">
@@ -181,25 +188,25 @@ export default function Navbar() {
                       href="/dashboard"
                       onClick={() => setIsMenuOpen(false)}
                       className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
-                      {translations.dashboard || "Dashboard"}
+                      {t!.dashboard || "Dashboard"}
                     </Link>
                     <Link
                       href="/profile"
                       onClick={() => setIsMenuOpen(false)}
                       className="block mt-2 w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
-                      {translations.myProfile || "My Profile"}
+                      {t!.myProfile || "My Profile"}
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="block mt-2 w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
-                      {translations.signOut || "Sign Out"}
+                      {t!.signOut || "Sign Out"}
                     </button>
                   </>
                 ) : (
                   <button
                     onClick={openLoginModal}
                     className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
-                    {translations.login || "Login"}
+                    {t!.login || "Login"}
                   </button>
                 )}
               </div>
