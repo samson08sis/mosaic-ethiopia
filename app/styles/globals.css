@@ -28,7 +28,7 @@
   --light: #f8f9fa;
   --dark: #343a40;
 
-  /* Tailwind primary color RGB values */
+  /* Tailwind primary scale */
   --primary-50: 254, 242, 238;
   --primary-100: 253, 228, 221;
   --primary-200: 252, 202, 187;
@@ -42,8 +42,8 @@
   --primary-950: 74, 25, 10;
 
   /* Background and text colors */
-  --background: 248, 249, 250; /* light background */
-  --foreground: 33, 37, 41; /* dark text */
+  --background: 248, 249, 250;
+  --foreground: 33, 37, 41;
   --card: 255, 255, 255;
   --card-foreground: 33, 37, 41;
   --muted: 233, 236, 239;
@@ -51,14 +51,14 @@
 }
 
 .dark {
-  --background: 33, 37, 41; /* dark background */
-  --foreground: 248, 249, 250; /* light text */
+  --background: 33, 37, 41;
+  --foreground: 248, 249, 250;
   --card: 52, 58, 64;
   --card-foreground: 248, 249, 250;
   --muted: 73, 80, 87;
   --muted-foreground: 173, 181, 189;
 
-  /* Invert primary colors for dark mode */
+  /* Inverted primary scale */
   --primary-50: 74, 25, 10;
   --primary-100: 112, 38, 16;
   --primary-200: 149, 51, 21;
@@ -81,7 +81,7 @@ body {
   color: rgb(var(--foreground));
 }
 
-/* Custom utility classes */
+/* Buttons */
 .btn-primary {
   background-color: var(--primary);
   color: var(--white);
@@ -112,7 +112,7 @@ body {
   color: var(--white);
 }
 
-/* Font classes */
+/* Fonts */
 .font-arizonia {
   font-family: var(--font-arizonia), cursive;
 }
@@ -120,10 +120,7 @@ body {
 /* Video modal */
 .video-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -144,7 +141,7 @@ body {
   }
 }
 
-/* Custom background and text color utilities */
+/* Custom background and text utilities */
 .bg-theme {
   background-color: rgb(var(--background));
 }
@@ -175,10 +172,11 @@ body {
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+/* Underline hover effect */
 .underline-slide {
   position: absolute;
   left: 0;
@@ -192,7 +190,6 @@ body {
     currentColor,
     transparent
   );
-  /* background-color: currentColor; */
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease-in-out;
@@ -205,6 +202,7 @@ body {
   transform: scaleX(1);
 }
 
+/* Loading bar */
 @keyframes slideLoading {
   0% {
     transform: translateX(-100%);
