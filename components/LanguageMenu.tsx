@@ -48,6 +48,11 @@ export default function LanguageMenu({
 
   const handleLanguageChange = (lang: string) => {
     const segments = window.location.pathname.split("/");
+    if (segments[1] === lang) {
+      toggleLanguageMenu();
+      return;
+    }
+
     segments[1] = lang; // Replace locale segment
     const newPath = segments.join("/");
     router.push(newPath);
