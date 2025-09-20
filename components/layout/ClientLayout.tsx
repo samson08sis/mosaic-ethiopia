@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import ScrollToTop from "@/components/ui/scroll-to-top";
 import RootProviders from "./Providers";
 import ModalContainer from "./ModalContainer";
+import ScrollDownButton from "../home/ScrollDownButton.client";
 
 export default function ClientLayout({
   children,
@@ -23,7 +24,9 @@ export default function ClientLayout({
         {!isAdminRoute && <Navbar />}
         <main className="flex-grow min-h-screen">{children}</main>
         {!isAdminRoute && <Footer />}
+        {/* Scroll Buttons */}
         <ScrollToTop />
+        <ScrollDownButton />
         {!isAdminRoute && <ChatWidget />}
         <ModalContainer />
       </div>
