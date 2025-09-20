@@ -30,7 +30,7 @@ export default function ClientLayout({
         {!isAdminRoute && <Footer />}
         {/* Scroll Buttons */}
         <ScrollToTop />
-        <ScrollDownButton />
+        {!isAdminRoute && segments.length === 2 && <ScrollDownButton />}
         {!isAdminRoute && <ChatWidget />}
         <ModalContainer />
       </div>
