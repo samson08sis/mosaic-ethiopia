@@ -16,7 +16,11 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isAdminRoute = pathname?.startsWith("/admin");
+
+  const segments = pathname?.split("/") ?? [];
+
+  const isAdminRoute = segments[2] === "admin";
+  console.log(segments);
 
   return (
     <RootProviders>
