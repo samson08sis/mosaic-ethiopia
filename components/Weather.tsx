@@ -1,14 +1,56 @@
-// components/CompactWeatherForecast.js
+"use client";
+
 import { useEffect, useState } from "react";
+import { getWeatherData } from "@/lib/api/weather/route";
+
+interface WeatherProps {
+  location?: string;
+  days?: number;
+  className?: string;
+}
+
+interface ForecastDay {
+  date: string;
+  day: {
+    maxtemp_c: number;
+    mintemp_c: number;
+    condition: {
+      text: string;
+      icon: string;
+    };
+  };
+}
+
+interface WeatherData {
+  location: {
+    name: string;
+    region: string;
+    localtime: string;
+  };
+  current: {
+    temp_c: number;
+    is_day: number;
+    condition: {
+      text: string;
+      icon: string;
+    };
+    humidity: number;
+    wind_kph: number;
+    uv: number;
+  };
+  forecast: {
+    forecastday: ForecastDay[];
+  };
+}
 
 export default function Weather({
   location = "Addis Ababa",
   days = 5,
   className = "",
-}) {
-  const [weather, setWeather] = useState(null);
+}: WeatherProps) {
+  const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -16,20 +58,14 @@ export default function Weather({
         setLoading(true);
         setError(null);
 
-        const response = await fetch(
-          `https://api.weatherapi.com/v1/forecast.json?key=${
-            process.env.WEATHER_API_KEY
-          }&q=${encodeURIComponent(location)}&days=${days}&aqi=no&alerts=no`
-        );
-
-        if (!response.ok) {
-          throw new Error(`Weather API error: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const data = await getWeatherData(location, days);
         setWeather(data);
-      } catch (err) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Unknown error occurred");
+        }
       } finally {
         setLoading(false);
       }
@@ -42,6 +78,7 @@ export default function Weather({
     weather?.current?.condition?.text.toLowerCase() || "";
   const isDaytime = weather?.current?.is_day !== 0;
 
+  // Loading state
   if (loading)
     return (
       <div
@@ -50,10 +87,11 @@ export default function Weather({
           <div className="flex-1 space-y-3 py-1">
             <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4"></div>
             <div className="grid grid-cols-5 gap-2">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(days)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-12 bg-gray-300 dark:bg-gray-700 rounded"></div>
+                  className="h-12 bg-gray-300 dark:bg-gray-700 rounded"
+                />
               ))}
             </div>
           </div>
@@ -61,14 +99,16 @@ export default function Weather({
       </div>
     );
 
+  // Error state
   if (error)
     return (
       <div
         className={`p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300 text-sm ${className}`}>
-        Error: {error}
+        {error}
       </div>
     );
 
+  // No data fallback
   if (!weather)
     return (
       <div
@@ -77,10 +117,10 @@ export default function Weather({
       </div>
     );
 
+  // Main render
   return (
     <div
-      className={`p-3 rounded-xl transition-colors duration-300 
-      ${
+      className={`p-3 rounded-xl transition-colors duration-300 ${
         isDaytime
           ? weatherCondition.includes("sunny")
             ? "bg-amber-50 dark:bg-amber-900/30"
@@ -91,10 +131,11 @@ export default function Weather({
             : "bg-gray-100 dark:bg-gray-800"
           : "bg-gray-100 dark:bg-gray-800"
       } ${className}`}>
-      {/* Current Weather Header */}
+      {/* Header */}
       <div className="flex justify-between items-center mb-2">
         <div>
           <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+            {weather.location.region && `${weather.location.region}, `}
             {weather.location.name}
           </h2>
           <p className="text-xs text-gray-600 dark:text-gray-300">
@@ -107,7 +148,7 @@ export default function Weather({
         </div>
         <div className="flex items-center">
           <img
-            src={`https:${weather.current.condition.icon}`}
+            src={weather.current.condition.icon}
             alt={weather.current.condition.text}
             className="w-8 h-8"
           />
@@ -117,21 +158,22 @@ export default function Weather({
         </div>
       </div>
 
-      {/* Compact Forecast with Side-by-Side Temperatures */}
-      <div className="grid grid-cols-5 gap-1">
+      {/* Forecast */}
+      <div
+        className={`grid grid-cols-${weather.forecast.forecastday.length} gap-1`}>
         {weather.forecast.forecastday.map((day, index) => (
           <div
             key={day.date}
-            className="flex flex-col items-center p-1 rounded-lg bg-white/50 dark:bg-gray-800/50 hover:bg-white/80 dark:hover:bg-gray-700/80 transition-colors">
+            className="w-full flex flex-col items-center p-1 rounded-lg bg-white/50 dark:bg-gray-800/50 hover:bg-white/80 dark:hover:bg-gray-700/80 transition-colors">
             <span className="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
               {index === 0
-                ? "Now"
+                ? "Today"
                 : new Date(day.date).toLocaleDateString("en-US", {
                     weekday: "short",
                   })}
             </span>
             <img
-              src={`https:${day.day.condition.icon}`}
+              src={day.day.condition.icon}
               alt={day.day.condition.text}
               className="w-6 h-6 mb-1"
             />
@@ -147,7 +189,7 @@ export default function Weather({
         ))}
       </div>
 
-      {/* Additional Info - Very Compact */}
+      {/* Extras */}
       <div className="flex justify-between mt-2 text-[0.65rem] text-gray-600 dark:text-gray-400">
         <span>H: {weather.current.humidity}%</span>
         <span>W: {weather.current.wind_kph}km/h</span>
