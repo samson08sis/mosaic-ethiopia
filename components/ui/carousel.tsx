@@ -136,7 +136,7 @@ export default function Carousel({
 
       {/* Dots Indicator */}
       {showDots && itemsCount > itemsPerViewState && (
-        <div className="flex justify-center mt-4 mb-1 gap-2">
+        <div className="flex justify-center items-end mt-1 mb-4 gap-2 absolute inset-0">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
