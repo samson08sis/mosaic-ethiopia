@@ -1,6 +1,6 @@
-"use client";
-
-import { use, useEffect, useState } from "react";
+// import { getDestinationById, getAllDestinationIds } from "@/lib/db";
+import PageHeader from "@/components/PageHeader";
+import Weather from "@/components/Weather";
 import Link from "next/link";
 import {
   MapPin,
@@ -14,34 +14,18 @@ import {
   Check,
 } from "lucide-react";
 import destinations from "@/data/destinations";
-import PageHeader from "@/components/PageHeader";
-import { Destination } from "@/types/destinations/types";
-import Weather from "@/components/Weather";
+import Carousel from "@/components/ui/carousel";
+import Image from "next/image";
+import MapSection from "@/components/pages/contact/MapSection.client";
 
-export default function DestinationDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = use(params);
-  const [destination, setDestination] = useState<Destination | null>(null);
-  const [loading, setLoading] = useState(true);
+// export async function generateStaticParams() {
+//   const destinations = await getAllDestinationIds();
+//   return destinations.map((dest) => ({ id: dest.id }));
+// }
 
-  useEffect(() => {
-    if (id) {
-      const foundDestination = destinations.find((dest) => dest.id === id);
-      setDestination(foundDestination || null);
-      setLoading(false);
-    }
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div className="pt-20 pb-16 flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
+export default async function Page({ params }: { params: { id: string } }) {
+  const { id } = params;
+  const destination = destinations.find((dest) => dest.id === id);
 
   if (!destination) {
     return (
@@ -61,7 +45,7 @@ export default function DestinationDetailPage({
         subtitle={destination.description}
         backgroundImage={destination.image}
         overlayColor="primary"
-        overlayOpacity={0.7}>
+        overlayOpacity={0}>
         <div className="flex flex-wrap gap-4 justify-center mb-4">
           <div className="flex items-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-4 py-2 text-white">
             <Star
@@ -74,19 +58,56 @@ export default function DestinationDetailPage({
           </div>
           <div className="flex items-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-4 py-2 text-white">
             <MapPin className="h-5 w-5 mr-2" />
-            <span>{destination.location}</span>
+            <span>{destination.region}</span>
           </div>
           <div className="flex items-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-4 py-2 text-white">
             <Calendar className="h-5 w-5 mr-2" />
             <span>Best time: {destination.bestTimeToVisit}</span>
           </div>
         </div>
-        <Weather location={destination.nearestCity || "Addis Ababa"} days={6} />
+        <Weather location={destination.city || "Addis Ababa"} days={3} />
       </PageHeader>
 
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
+            {/* Gallery */}
+            <div className="w-full mx-auto rounded-xl bg-card shadow-md overflow-hidden">
+              <Carousel
+                itemsPerView={1}
+                autoPlay
+                showDots
+                showArrows
+                className="w-full">
+                {destination.gallery
+                  ? [destination.image, ...destination.gallery].map(
+                      (src, index) => (
+                        <div
+                          key={index}
+                          className="relative h-[380px] w-full rounded-xl overflow-hidden shadow-md">
+                          <Image
+                            src={src}
+                            alt={`Gallery image ${index + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      )
+                    )
+                  : [
+                      <div
+                        key=""
+                        className="relative h-[380px] w-full rounded-xl overflow-hidden shadow-md">
+                        <Image
+                          src={destination.image}
+                          alt=""
+                          fill
+                          className="object-cover"
+                        />
+                      </div>,
+                    ]}
+              </Carousel>
+            </div>
             {/* Highlights Section */}
             <section className="bg-card rounded-xl p-6 shadow-md">
               <h2 className="text-2xl font-bold mb-4 flex items-center">
@@ -94,16 +115,18 @@ export default function DestinationDetailPage({
                 Highlights
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {destination.highlights.map((highlight, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
-                      <Check className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                {destination.highlights.map(
+                  (highlight: string, index: number) => (
+                    <div key={index} className="flex items-start">
+                      <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
+                        <Check className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                      </div>
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {highlight}
+                      </span>
                     </div>
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {highlight}
-                    </span>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             </section>
 
@@ -114,16 +137,18 @@ export default function DestinationDetailPage({
                 Things to Do
               </h2>
               <div className="space-y-4">
-                {destination.thingsToDo.map((activity, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
-                      <ArrowRight className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                {destination.thingsToDo.map(
+                  (activity: string, index: number) => (
+                    <div key={index} className="flex items-start">
+                      <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
+                        <ArrowRight className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                      </div>
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {activity}
+                      </span>
                     </div>
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {activity}
-                    </span>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             </section>
 
@@ -192,7 +217,7 @@ export default function DestinationDetailPage({
             <div className="bg-card rounded-xl p-6 shadow-md">
               <h3 className="text-xl font-bold mb-4">Activities</h3>
               <div className="flex flex-wrap gap-2">
-                {destination.activities.map((activity) => (
+                {destination.activities.map((activity: string) => (
                   <span
                     key={activity}
                     className="bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 px-3 py-1 rounded-full text-sm">
@@ -219,6 +244,9 @@ export default function DestinationDetailPage({
                 </p>
               </div>
             </div>
+
+            {/* Map */}
+            <MapSection />
           </div>
         </div>
       </div>
