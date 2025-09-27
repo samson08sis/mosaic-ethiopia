@@ -22,6 +22,7 @@ interface DestinationFormData {
   name: string;
   slug: string;
   image: string;
+  gallery: string[];
   description: string;
   rating: number;
   reviews: number;
@@ -84,11 +85,16 @@ export default function NewDestinationPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState("");
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null
+  );
 
   const [formData, setFormData] = useState<DestinationFormData>({
     name: "",
     slug: "",
     image: "",
+    gallery: [],
     description: "",
     rating: 4.5,
     reviews: 0,
@@ -127,6 +133,64 @@ export default function NewDestinationPage() {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const handleAddImage = () => {
+    if (!selectedGalleryImage || !selectedGalleryImage.startsWith("http")) {
+      setErrors({ gallery: "Please enter a valid image URL." });
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      gallery: [...prev.gallery, selectedGalleryImage],
+    }));
+
+    setSelectedGalleryImage("");
+    setErrors({});
+  };
+
+  const handleImageUpload = () => {
+    if (!formData.image || !formData.image.startsWith("http")) {
+      setErrors((prev) => ({
+        ...prev,
+        image: "Please enter a valid image URL.",
+      }));
+      return;
+    }
+    // Optional: preview or upload logic here
+    console.log("Uploading image:", formData.image);
+  };
+
+  const handleSelectImage = (index: number) => {
+    setSelectedGalleryImage(formData.gallery[index]);
+    setSelectedImageIndex(index);
+  };
+
+  const handleSaveImage = () => {
+    if (!selectedGalleryImage || !selectedGalleryImage.startsWith("http")) {
+      setErrors({ gallery: "Please enter a valid image URL." });
+      return;
+    }
+
+    const updatedImages = [...formData.gallery];
+    updatedImages[selectedImageIndex!] = selectedGalleryImage;
+
+    setFormData((prev) => ({ ...prev, gallery: updatedImages }));
+    setSelectedGalleryImage("");
+    setSelectedImageIndex(null);
+    setErrors({});
+  };
+
+  const handleDeleteGalleryImage = (index: number) => {
+    const updatedImages = formData.gallery.filter((_, i) => i !== index);
+    setFormData((prev) => ({ ...prev, gallery: updatedImages }));
+
+    // Reset selection if deleted image was selected
+    if (selectedImageIndex === index) {
+      setSelectedGalleryImage("");
+      setSelectedImageIndex(null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -322,6 +386,7 @@ export default function NewDestinationPage() {
                   <p className="text-red-500 text-sm mt-1">{errors.region}</p>
                 )}
               </div>
+              {/* Map URL */}
               <div className="col-span-full">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Google Maps Embed Code *
@@ -329,7 +394,7 @@ export default function NewDestinationPage() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder='Paste the embed code here (e.g. <iframe src="..."></iframe>)'
+                    placeholder='e.g. <iframe src="..."></iframe> • Paste the embed code here'
                     value={formData.mapEmbed}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -391,6 +456,7 @@ export default function NewDestinationPage() {
                 )}
               </div> */}
 
+              {/* Best Time to Visit */}
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Best Time to Visit *
@@ -414,6 +480,7 @@ export default function NewDestinationPage() {
                 )}
               </div>
 
+              {/* Rating */}
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Rating *
@@ -437,6 +504,7 @@ export default function NewDestinationPage() {
                 )}
               </div>
 
+              {/* Review */}
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Number of Reviews
@@ -459,32 +527,124 @@ export default function NewDestinationPage() {
               </div>
             </div>
 
+            {/* Image URL */}
             <div className="mt-6">
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+              <label
+                htmlFor="image-url"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Image URL *
               </label>
-              <div className="flex gap-3">
+
+              <div className="flex flex-col sm:flex-row gap-3">
                 <input
+                  id="image-url"
                   type="url"
                   value={formData.image}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, image: e.target.value }))
                   }
-                  className="flex-1 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full sm:flex-1 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   placeholder="https://example.com/image.jpg"
+                  required
                 />
+
                 <button
                   type="button"
-                  className="px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all flex items-center gap-2">
+                  onClick={handleImageUpload}
+                  className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all flex items-center justify-center gap-2">
                   <Upload className="w-4 h-4" />
                   Upload
                 </button>
               </div>
+
               {errors.image && (
                 <p className="text-red-500 text-sm mt-1">{errors.image}</p>
               )}
+
+              {formData.image && formData.image.startsWith("http") && (
+                <div className="mt-4">
+                  <img
+                    src={formData.image}
+                    alt="Preview"
+                    className="max-w-xs max-h-40 object-contain rounded-lg border border-slate-300 dark:border-slate-600"
+                  />
+                </div>
+              )}
             </div>
 
+            {/* Image Gallery */}
+            <div className="mt-6">
+              <label
+                htmlFor="image-url"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Image Gallery *
+              </label>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  id="image-url"
+                  type="url"
+                  value={selectedGalleryImage}
+                  onChange={(e) => setSelectedGalleryImage(e.target.value)}
+                  className="w-full sm:flex-1 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  placeholder="https://example.com/image.jpg"
+                />
+
+                {selectedImageIndex === null ? (
+                  <button
+                    type="button"
+                    onClick={handleAddImage}
+                    className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg hover:from-green-600 hover:to-blue-600 transition-all flex items-center justify-center gap-2">
+                    + Add Image
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleSaveImage}
+                    className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-lg hover:from-yellow-600 hover:to-orange-600 transition-all flex items-center justify-center gap-2">
+                    💾 Save Image
+                  </button>
+                )}
+              </div>
+
+              {errors.image && (
+                <p className="text-red-500 text-sm mt-2">{errors.image}</p>
+              )}
+
+              {/* Gallery Preview */}
+              {formData.gallery.length > 0 && (
+                <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  {formData.gallery.map((url, index) => (
+                    <div key={index} className="relative group">
+                      <button
+                        type="button"
+                        onClick={() => handleSelectImage(index)}
+                        className="focus:outline-none w-full">
+                        <img
+                          src={url}
+                          alt={`Preview ${index + 1}`}
+                          className={`w-full h-32 object-contain rounded-lg border ${
+                            selectedImageIndex === index
+                              ? "border-blue-500 ring-2 ring-blue-300"
+                              : "border-slate-300 dark:border-slate-600"
+                          }`}
+                        />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteGalleryImage(index)}
+                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-80 hover:opacity-100 transition"
+                        title="Delete image">
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Description */}
             <div className="mt-6">
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Description *
