@@ -34,34 +34,37 @@ const destinations: Destination[] = [
     culturalSignificance:
       "One of the holiest sites in Ethiopian Orthodox Christianity and a major pilgrimage destination.",
   },
-  // {
-  //   id: "simien-mountains",
-  //   slug: "simien-mountains",
-  //   name: "Simien Mountains, Ethiopia",
-  //   image: "/bg-2.jpg",
-  //   description:
-  //     "A UNESCO World Heritage site with dramatic mountain scenery, deep valleys, and rare wildlife including the Gelada baboon and Walia ibex.",
-  //   rating: 4.8,
-  //   reviews: 187,
-  //   nearestCity: "Gondar",
-  //   activities: ["Trekking", "Wildlife", "Nature"],
-  //   location: "Northern Ethiopia, Amhara Region",
-  //   bestTimeToVisit: "October to March",
-  //   highlights: [
-  //     "Dramatic escarpments and peaks",
-  //     "Endemic wildlife species",
-  //     "Spectacular viewpoints",
-  //     "Traditional villages",
-  //   ],
-  //   thingsToDo: [
-  //     "Multi-day trekking expeditions",
-  //     "Wildlife spotting (Gelada baboons, Ethiopian wolves)",
-  //     "Photography at Jinbar Waterfall",
-  //     "Visit local communities",
-  //   ],
-  //   naturalFeatures:
-  //     "The park features jagged mountain peaks, deep valleys, and sharp precipices dropping some 1,500m.",
-  // },
+  {
+    id: "simien-mountains",
+    slug: "simien-mountains",
+    name: "Simien Mountains, Ethiopia",
+    image: "/bg-2.jpg",
+    gallery: ["bg-73", "bg-32", "bg-33"],
+    description:
+      "A UNESCO World Heritage site with dramatic mountain scenery, deep valleys, and rare wildlife including the Gelada baboon and Walia ibex.",
+    rating: 4.8,
+    reviews: 187,
+    city: "Gondar",
+    activities: ["Trekking", "Wildlife", "Nature"],
+    region: "Northern Ethiopia, Amhara Region",
+    mapEmbed:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26896.341363599993!2d38.25681172933012!3d13.301672155594398!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1669c28cabf2d5ed%3A0xc65f3aec5f823be3!2sSimien%20Mountains!5e1!3m2!1sen!2snl!4v1759020284788!5m2!1sen!2snl",
+    bestTimeToVisit: "October to March",
+    highlights: [
+      "Dramatic escarpments and peaks",
+      "Endemic wildlife species",
+      "Spectacular viewpoints",
+      "Traditional villages",
+    ],
+    thingsToDo: [
+      "Multi-day trekking expeditions",
+      "Wildlife spotting (Gelada baboons, Ethiopian wolves)",
+      "Photography at Jinbar Waterfall",
+      "Visit local communities",
+    ],
+    naturalFeatures:
+      "The park features jagged mountain peaks, deep valleys, and sharp precipices dropping some 1,500m.",
+  },
   // {
   //   id: "danakil",
   //   slug: "danakil",
