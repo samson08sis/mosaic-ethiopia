@@ -130,7 +130,7 @@ export default function Weather({
             : weatherCondition.includes("cloud")
             ? "bg-gray-50 dark:bg-gray-700/30"
             : "bg-gray-100 dark:bg-gray-800"
-          : "bg-gray-100 dark:bg-gray-800"
+          : "bg-gray-100 dark:bg-gray-800/70"
       } ${className}`}>
       {/* Header */}
       <div className="flex justify-between items-center mb-2">
