@@ -17,15 +17,31 @@ import destinations from "@/data/destinations";
 import Carousel from "@/components/ui/carousel";
 import Image from "next/image";
 import MapSection from "@/components/pages/contact/MapSection.client";
+import { Destination } from "@/types/destinations/types";
 
-// export async function generateStaticParams() {
-//   const destinations = await getAllDestinationIds();
-//   return destinations.map((dest) => ({ id: dest.id }));
-// }
+async function getDestination(slug: string) {
+  try {
+    const res = await fetch(
+      `${process.env.BACKEND_URL}/api/destinations/${slug}`
+    );
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch destination: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching destination:", error);
+    return null;
+  }
+}
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const destination = destinations.find((dest) => dest.slug === slug);
+  const destination: Destination = await getDestination(slug);
+  // const destination: Destination =
+  //   destinations.find((d) => d.slug === slug) || destinations[0];
 
   if (!destination) {
     return (
@@ -109,48 +125,52 @@ export default async function Page({ params }: { params: { slug: string } }) {
               </Carousel>
             </div>
             {/* Highlights Section */}
-            <section className="bg-card rounded-xl p-6 shadow-md">
-              <h2 className="text-2xl font-bold mb-4 flex items-center">
-                <Award className="h-6 w-6 mr-2 text-primary" />
-                Highlights
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {destination.highlights.map(
-                  (highlight: string, index: number) => (
-                    <div key={index} className="flex items-start">
-                      <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
-                        <Check className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+            {destination.highlights && (
+              <section className="bg-card rounded-xl p-6 shadow-md">
+                <h2 className="text-2xl font-bold mb-4 flex items-center">
+                  <Award className="h-6 w-6 mr-2 text-primary" />
+                  Highlights
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {destination.highlights.map(
+                    (highlight: string, index: number) => (
+                      <div key={index} className="flex items-start">
+                        <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
+                          <Check className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                        </div>
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {highlight}
+                        </span>
                       </div>
-                      <span className="text-gray-700 dark:text-gray-300">
-                        {highlight}
-                      </span>
-                    </div>
-                  )
-                )}
-              </div>
-            </section>
+                    )
+                  )}
+                </div>
+              </section>
+            )}
 
             {/* Things to Do Section */}
-            <section className="bg-card rounded-xl p-6 shadow-md">
-              <h2 className="text-2xl font-bold mb-4 flex items-center">
-                <Camera className="h-6 w-6 mr-2 text-primary" />
-                Things to Do
-              </h2>
-              <div className="space-y-4">
-                {destination.thingsToDo.map(
-                  (activity: string, index: number) => (
-                    <div key={index} className="flex items-start">
-                      <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
-                        <ArrowRight className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+            {destination.thingsToDo && (
+              <section className="bg-card rounded-xl p-6 shadow-md">
+                <h2 className="text-2xl font-bold mb-4 flex items-center">
+                  <Camera className="h-6 w-6 mr-2 text-primary" />
+                  Things to Do
+                </h2>
+                <div className="space-y-4">
+                  {destination.thingsToDo.map(
+                    (activity: string, index: number) => (
+                      <div key={index} className="flex items-start">
+                        <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-1 mr-3 mt-1">
+                          <ArrowRight className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                        </div>
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {activity}
+                        </span>
                       </div>
-                      <span className="text-gray-700 dark:text-gray-300">
-                        {activity}
-                      </span>
-                    </div>
-                  )
-                )}
-              </div>
-            </section>
+                    )
+                  )}
+                </div>
+              </section>
+            )}
 
             {/* Historical & Cultural Significance */}
             {(destination.historicalImportance ||
@@ -207,43 +227,47 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 experience all it has to offer.
               </p>
               <Link
-                href={`/book?destination=${destination.id}`}
+                href={`/book?destination=${destination.slug}`}
                 className="w-full block text-center py-3 px-4 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
                 Book Now
               </Link>
             </div>
 
             {/* Activities Card */}
-            <div className="bg-card rounded-xl p-6 shadow-md">
-              <h3 className="text-xl font-bold mb-4">Activities</h3>
-              <div className="flex flex-wrap gap-2">
-                {destination.activities.map((activity: string) => (
-                  <span
-                    key={activity}
-                    className="bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 px-3 py-1 rounded-full text-sm">
-                    {activity}
-                  </span>
-                ))}
+            {destination.activities && (
+              <div className="bg-card rounded-xl p-6 shadow-md">
+                <h3 className="text-xl font-bold mb-4">Activities</h3>
+                <div className="flex flex-wrap gap-2">
+                  {destination.activities.map((activity: string) => (
+                    <span
+                      key={activity}
+                      className="bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 px-3 py-1 rounded-full text-sm">
+                      {activity}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Best Time to Visit */}
-            <div className="bg-card rounded-xl p-6 shadow-md">
-              <h3 className="text-xl font-bold mb-4 flex items-center">
-                <Clock className="h-5 w-5 mr-2 text-primary" />
-                Best Time to Visit
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                {destination.bestTimeToVisit}
-              </p>
-              <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                <p>
-                  The dry season offers the best conditions for sightseeing and
-                  outdoor activities. During this time, you'll experience clear
-                  skies and comfortable temperatures.
+            {destination.bestTimeToVisit && (
+              <div className="bg-card rounded-xl p-6 shadow-md">
+                <h3 className="text-xl font-bold mb-4 flex items-center">
+                  <Clock className="h-5 w-5 mr-2 text-primary" />
+                  Best Time to Visit
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300">
+                  {destination.bestTimeToVisit}
                 </p>
+                <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                  <p>
+                    The dry season offers the best conditions for sightseeing
+                    and outdoor activities. During this time, you'll experience
+                    clear skies and comfortable temperatures.
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Map */}
             {destination.mapEmbed && (
