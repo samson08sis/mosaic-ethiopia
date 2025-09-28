@@ -26,6 +26,7 @@ interface WeatherData {
     name: string;
     region: string;
     localtime: string;
+    country: string;
   };
   current: {
     temp_c: number;
@@ -135,8 +136,9 @@ export default function Weather({
       <div className="flex justify-between items-center mb-2">
         <div>
           <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
-            {weather.location.region && `${weather.location.region}, `}
             {weather.location.name}
+            {weather.location.region && `${weather.location.region}, `}
+            {", " + weather.location.country}
           </h2>
           <p className="text-xs text-gray-600 dark:text-gray-300">
             {new Date(weather.location.localtime).toLocaleDateString("en-US", {
