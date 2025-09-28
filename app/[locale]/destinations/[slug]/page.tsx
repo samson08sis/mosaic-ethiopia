@@ -23,9 +23,9 @@ import MapSection from "@/components/pages/contact/MapSection.client";
 //   return destinations.map((dest) => ({ id: dest.id }));
 // }
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const { id } = params;
-  const destination = destinations.find((dest) => dest.id === id);
+export default async function Page({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const destination = destinations.find((dest) => dest.slug === slug);
 
   if (!destination) {
     return (
