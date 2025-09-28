@@ -29,11 +29,11 @@ export default function PopularDestinationCard({
           </span>
         </div>
       </div>
-      <div className="flex flex-wrap gap-2 mt-4 px-4">
+      <div className="flex overflow-x-auto scrollbar-hide whitespace-nowrap gap-2 mt-4 px-4">
         {destination.activities.map((activity) => (
           <span
             key={activity}
-            className="bg-muted px-3 py-1 rounded-full text-xs flex flex-row">
+            className="bg-muted px-3 py-1 rounded-full text-xs inline-flex items-center shrink-0">
             <Tag size={15} className="mr-2 dark:text-cyan-300" />
             {activity}
           </span>
