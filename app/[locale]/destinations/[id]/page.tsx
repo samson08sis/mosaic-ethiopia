@@ -246,7 +246,12 @@ export default async function Page({ params }: { params: { id: string } }) {
             </div>
 
             {/* Map */}
-            <MapSection />
+            {destination.mapEmbed && (
+              <MapSection
+                src={destination.mapEmbed}
+                title={`${destination.name}'s Location`}
+              />
+            )}
           </div>
         </div>
       </div>
