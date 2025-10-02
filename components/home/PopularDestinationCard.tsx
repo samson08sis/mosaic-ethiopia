@@ -22,7 +22,7 @@ export default function PopularDestinationCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="flex items-center">
-            <StarIcon customStyle="text-yellow-400" />
+            <StarIcon type="full" />
             <span className="ml-1">
               {destination.rating} ({destination.reviews})
             </span>
