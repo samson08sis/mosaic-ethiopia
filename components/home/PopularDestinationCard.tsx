@@ -45,12 +45,12 @@ export default function PopularDestinationCard({
         </h3>
         <div className="mt-4 flex flex-col xl:flex-row gap-2">
           <Link
-            href={`/destinations/${destination.id}`}
+            href={`/destinations/${destination.slug}`}
             className="w-full px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
             View Details
           </Link>
           <Link
-            href={`/book?destination=${destination.id}`}
+            href={`/packages?destination=${destination.slug}`}
             className="w-full px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition-colors">
             Book Now
           </Link>

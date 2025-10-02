@@ -20,7 +20,7 @@ export interface Destination {
 }
 
 export interface MinimalDestination {
-  id: string;
+  slug: string;
   name: string;
   image: string;
   rating: number;
