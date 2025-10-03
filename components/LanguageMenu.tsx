@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Globe } from "lucide-react";
+import { Languages } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const langs = [
@@ -65,7 +65,7 @@ export default function LanguageMenu({
       {isMobile ? (
         <div className="px-3 py-2">
           <div className="text-gray-900 dark:text-white mb-2">
-            <Globe className="h-6 w-6 mr-2 mb-1 inline-block" />
+            <Languages className="h-6 w-6 mr-2 mb-1 inline-block" />
             Language
           </div>
           <div className="flex space-x-4">
@@ -88,7 +88,7 @@ export default function LanguageMenu({
           <button
             onClick={toggleLanguageMenu}
             className="flex items-center px-3 py-2 text-sm font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
-            <Globe className="h-4 w-4 mr-1" />
+            <Languages className="h-4 w-4 mr-1" />
             <span className="uppercase">{currentLocale}</span>
           </button>
           {isOpen && (
