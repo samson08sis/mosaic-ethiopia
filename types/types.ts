@@ -12,6 +12,7 @@ type UserBasicProfile = {
 };
 
 export interface Testimonial {
+  _id: string;
   rating: number;
   quote: string;
   votes?: number;

@@ -38,7 +38,7 @@ export default function Testimonials({
           itemsPerView={3}
           autoPlayInterval={6000}>
           {testimonials.map((testimonial: any) => (
-            <ReviewCard key={crypto.randomUUID()} testimonial={testimonial} />
+            <ReviewCard key={testimonial._id} testimonial={testimonial} />
           ))}
         </Carousel>
       </div>

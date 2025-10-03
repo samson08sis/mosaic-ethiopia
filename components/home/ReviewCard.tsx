@@ -8,7 +8,7 @@ export default function ReviewCard({
 }) {
   return (
     <div
-      key={crypto.randomUUID()}
+      key={testimonial._id}
       className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
       <div className="flex items-center mb-4">
         <img
