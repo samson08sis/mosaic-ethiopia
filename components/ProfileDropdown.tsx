@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Image from "next/image";
+import ProfileImage from "./ProfileImage";
 
 const iconClass = "h-4 w-4 mr-2 text-gray-500 dark:text-gray-400";
 const menuItems = [
@@ -79,17 +81,7 @@ export default function ProfileDropdown() {
         className="flex items-center space-x-2 focus:outline-none"
         aria-expanded={isOpen}
         aria-haspopup="true">
-        <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden">
-          {user?.avatar ? (
-            <img
-              src={user.avatar}
-              alt={user.name}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <User className="h-5 w-5 text-primary-600" />
-          )}
-        </div>
+        <ProfileImage user={user!} />
         <span className="hidden lg:block text-sm font-medium text-gray-700 dark:text-gray-200">
           {user?.name?.split(" ")[0] || "User"}
         </span>
