@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const protectedPaths = ["/dashboard", "/profile", "/bookings", "/admin"];
 const openPaths = ["/login", "/forgot-password", "/reset-password"];
 
-const supportedLocales = ["en", "es", "fr"];
+const supportedLocales = ["en", "es", "fr", "de"];
 const defaultLocale = "en";
 
 export function middleware(request: NextRequest) {
