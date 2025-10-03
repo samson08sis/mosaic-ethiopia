@@ -84,16 +84,15 @@ export default function Navbar() {
             <div className="loading-bar"></div>
           </div>
         )}
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center p-2">
+          <div className="lg:container flex justify-start space-x-8">
             {/* Logo */}
             <Link
               href={isAuthenticated ? "/dashboard" : "/"}
-              className="flex-shrink-0 font-arizonia text-3xl text-primary dark:text-primary-400">
+              className="flex-shrink-0 font-arizonia text-3xl text-primary dark:text-primary-400 focus:outline-none focus:ring-0">
               MosaicEthiopia
             </Link>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex md:items-center md:space-x-4">
               {navItems.map((link) => (
                 <Link
@@ -110,40 +109,43 @@ export default function Navbar() {
                   <span className="underline-slide" />
                 </Link>
               ))}
-
-              {/* Language Selector */}
-              <LanguageMenu
-                currentLocale={pathname!.split("/")[0]}
-                isMobile={false}
-              />
-
-              {/* Theme Toggle */}
-              <ThemeSlider isMobile={isMenuOpen} />
-              {/* Login Button or Profile Dropdown */}
-              {isAuthenticated ? (
-                <ProfileDropdown />
-              ) : (
-                <button
-                  onClick={openLoginModal}
-                  className="ml-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600">
-                  {t!.login || "Login"}
-                </button>
-              )}
             </div>
+          </div>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex md:items-center md:space-x-4">
+            {/* Language Selector */}
+            <LanguageMenu
+              currentLocale={pathname!.split("/")[1]}
+              isMobile={isMenuOpen}
+            />
+
+            {/* Theme Toggle */}
+            <ThemeSlider isMobile={isMenuOpen} />
+            {/* Login Button or Profile Dropdown */}
+            {isAuthenticated ? (
+              <ProfileDropdown />
+            ) : (
               <button
-                onClick={toggleMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none"
-                aria-expanded="false">
-                {isMenuOpen ? (
-                  <X className="block h-6 w-6" />
-                ) : (
-                  <Menu className="block h-6 w-6" />
-                )}
+                onClick={openLoginModal}
+                className="ml-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600">
+                {t!.login || "Login"}
               </button>
-            </div>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none"
+              aria-expanded="false">
+              {isMenuOpen ? (
+                <X className="block h-6 w-6" />
+              ) : (
+                <Menu className="block h-6 w-6" />
+              )}
+            </button>
           </div>
         </div>
 
