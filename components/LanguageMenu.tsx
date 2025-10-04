@@ -8,7 +8,7 @@ const langs = [
   { name: "English", code: "en" },
   { name: "Español", code: "es" },
   { name: "Français", code: "fr" },
-  { name: "Dutch", code: "de" },
+  { name: "German", code: "de" },
 ];
 
 type LanguageMenuProps = {
