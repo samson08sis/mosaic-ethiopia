@@ -19,8 +19,8 @@ export function middleware(request: NextRequest) {
   }
 
   // Locale Detection
-  const localeInPath = supportedLocales.find((loc) =>
-    pathname.startsWith(`/${loc}`)
+  const localeInPath = supportedLocales.find(
+    (loc) => pathname === `/${loc}` || pathname.startsWith(`/${loc}/`)
   );
 
   if (!localeInPath) {
