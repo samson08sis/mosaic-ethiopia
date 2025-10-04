@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import LocalizedLink from "../LocalizedLink";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import ProfileDropdown from "../ProfileDropdown";
 import { ThemeSlider } from "../ui/ThemeSlider";
 import LanguageMenu from "../LanguageMenu";
-import { useNavigationTransition } from "@/hooks/navigationTransition";
+import { useNavigationTransition } from "@/contexts/NavigationTransitionContext";
 import { paths } from "@/data/paths/data";
 import { useModal } from "@/contexts/ModalContext";
 import { useTranslation } from "@/contexts/IntlContext";
@@ -23,7 +23,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, logout } = useAuth();
-  const { isTransitioning, handleNavigate } = useNavigationTransition();
+  const { isTransitioning } = useNavigationTransition();
   const { openModal, closeModal } = useModal();
 
   useEffect(() => {
@@ -43,16 +43,6 @@ export default function Navbar() {
       setIsMenuOpen(false);
     }
   }, [isAuthenticated, pathname]);
-
-  const handleClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    path: string
-  ) => {
-    if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) {
-      return;
-    }
-    path !== pathname && handleNavigate();
-  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -87,18 +77,17 @@ export default function Navbar() {
         <div className="flex justify-between items-center p-2">
           <div className="lg:container flex justify-start space-x-8">
             {/* Logo */}
-            <Link
+            <LocalizedLink
               href={isAuthenticated ? "/dashboard" : "/"}
               className="flex-shrink-0 font-arizonia text-3xl text-primary dark:text-primary-400 focus:outline-none focus:ring-0">
               MosaicEthiopia
-            </Link>
+            </LocalizedLink>
 
             <div className="hidden md:flex md:items-center md:space-x-4">
               {navItems.map((link) => (
-                <Link
+                <LocalizedLink
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => handleClick(e, link.href)}
                   className={`relative group px-3 py-2 text-sm font-medium transition-colors${
                     pathname === link.href
                       ? "text-primary dark:text-primary-400"
@@ -107,7 +96,7 @@ export default function Navbar() {
                   data-active={pathname === link.href}>
                   {(t as any)[link.name] || link.name}
                   <span className="underline-slide" />
-                </Link>
+                </LocalizedLink>
               ))}
             </div>
           </div>
@@ -154,7 +143,7 @@ export default function Navbar() {
           <div className="md:hidden bg-white dark:bg-gray-900 p-4">
             <div className="space-y-1">
               {navItems.map((link) => (
-                <Link
+                <LocalizedLink
                   onClick={toggleMenu}
                   key={link.href}
                   href={link.href}
@@ -167,7 +156,7 @@ export default function Navbar() {
                         .toUpperCase()
                         .concat(link.name.slice(1))}
                   </span>
-                </Link>
+                </LocalizedLink>
               ))}
 
               {/* Theme Toggle in Mobile Menu */}
@@ -186,18 +175,18 @@ export default function Navbar() {
               <div className="px-3 py-2">
                 {isAuthenticated ? (
                   <>
-                    <Link
+                    <LocalizedLink
                       href="/dashboard"
                       onClick={() => setIsMenuOpen(false)}
                       className="block w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
                       {t!.dashboard || "Dashboard"}
-                    </Link>
-                    <Link
+                    </LocalizedLink>
+                    <LocalizedLink
                       href="/profile"
                       onClick={() => setIsMenuOpen(false)}
                       className="block mt-2 w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
                       {t!.myProfile || "My Profile"}
-                    </Link>
+                    </LocalizedLink>
                     <button
                       onClick={handleLogout}
                       className="block mt-2 w-full px-4 py-2 rounded bg-primary text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-center">
