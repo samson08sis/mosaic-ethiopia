@@ -5,6 +5,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import LanguageProvider from "@/contexts/LanguageContext";
 import ThemeProvider from "@/contexts/ThemeContext";
 import { ModalProvider } from "@/contexts/ModalContext";
+import { NavigationTransitionProvider } from "@/contexts/NavigationTransitionContext";
 
 export default function RootProviders({
   children,
@@ -14,9 +15,11 @@ export default function RootProviders({
   return (
     <AuthProvider>
       <ThemeProvider>
-        <ModalProvider>
-          <LanguageProvider>{children}</LanguageProvider>
-        </ModalProvider>
+        <NavigationTransitionProvider>
+          <ModalProvider>
+            <LanguageProvider>{children}</LanguageProvider>
+          </ModalProvider>
+        </NavigationTransitionProvider>
       </ThemeProvider>
     </AuthProvider>
   );
