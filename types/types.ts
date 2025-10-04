@@ -5,18 +5,19 @@ export type HeroSlideType = {
   alt?: string;
 };
 
-type UserBasicProfile = {
+export interface UserBasicProfile {
   name: string;
   avatar?: string;
   location?: string;
-};
+}
 
 export interface Testimonial {
   _id: string;
+  anonymous: boolean;
   rating: number;
   quote: string;
   votes?: number;
-  user: UserBasicProfile | string;
+  user: UserBasicProfile | "anonymous";
 }
 
 // 2. Destinations
