@@ -20,7 +20,6 @@ export default function ClientLayout({
   const segments = pathname?.split("/") ?? [];
 
   const isAdminRoute = segments[2] === "admin";
-  console.log(segments);
 
   return (
     <RootProviders>
