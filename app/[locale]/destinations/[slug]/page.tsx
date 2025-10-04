@@ -13,7 +13,6 @@ import {
   ArrowRight,
   Check,
 } from "lucide-react";
-import destinations from "@/data/destinations";
 import Carousel from "@/components/ui/carousel";
 import Image from "next/image";
 import MapSection from "@/components/pages/contact/MapSection.client";
@@ -40,8 +39,6 @@ async function getDestination(slug: string) {
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const destination: Destination = await getDestination(slug);
-  // const destination: Destination =
-  //   destinations.find((d) => d.slug === slug) || destinations[0];
 
   if (!destination) {
     return (
@@ -57,7 +54,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <div className="pt-20 pb-16 bg-theme">
       <PageHeader
-        title={destination.name}
+        title={`${destination.name}, ${
+          !destination.name.toLowerCase().endsWith("ethiopia") && ` Ethiopia`
+        }`}
         subtitle={destination.description}
         backgroundImage={destination.image}
         overlayColor="primary"
