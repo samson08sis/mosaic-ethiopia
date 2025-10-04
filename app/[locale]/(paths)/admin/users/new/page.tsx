@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { ArrowLeft, UserPlus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -140,10 +140,10 @@ export default function NewUserPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Button variant="outline" size="icon" asChild>
-            <Link href="/admin/users">
+            <LocalizedLink href="/admin/users">
               <ArrowLeft className="h-4 w-4" />
               <span className="sr-only">Back</span>
-            </Link>
+            </LocalizedLink>
           </Button>
           <h1 className="text-3xl font-bold tracking-tight">Add New User</h1>
         </div>
@@ -336,7 +336,7 @@ export default function NewUserPage() {
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="outline" asChild>
-                <Link href="/admin/users">Cancel</Link>
+                <LocalizedLink href="/admin/users">Cancel</LocalizedLink>
               </Button>
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? (

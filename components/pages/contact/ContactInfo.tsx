@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink"; //<LocalizedLink
 
 const iconClass = "h-6 w-6 text-primary";
 const addresses = [
@@ -84,13 +84,13 @@ export default function ContactInfo() {
               <h3 className="text-lg font-medium">{address.name}</h3>
               {address.addressList.map((item) =>
                 item.url ? (
-                  <Link
+                  <LocalizedLink
                     target={item?.external ? "_blank" : "_self"}
                     key={crypto.randomUUID()}
                     href={item.url}
                     className="text-gray-700 dark:text-gray-300 block">
                     {item.label}
-                  </Link>
+                  </LocalizedLink>
                 ) : (
                   <p
                     className="text-gray-700 dark:text-gray-300"

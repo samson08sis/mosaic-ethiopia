@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import {
   Search,
   Eye,
@@ -389,11 +389,11 @@ export default function BookingsPage() {
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                   <DropdownMenuItem asChild>
-                                    <Link
+                                    <LocalizedLink
                                       href={`/admin/bookings/${booking.id}`}>
                                       <Eye className="mr-2 h-4 w-4" />
                                       View details
-                                    </Link>
+                                    </LocalizedLink>
                                   </DropdownMenuItem>
                                   {booking.status === "pending" && (
                                     <DropdownMenuItem>

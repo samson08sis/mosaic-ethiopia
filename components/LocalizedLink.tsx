@@ -13,6 +13,7 @@ interface LocalizedLinkProps {
   replace?: boolean;
   scroll?: boolean;
   shallow?: boolean;
+  target?: string;
 }
 
 export default function LocalizedLink({
@@ -23,6 +24,7 @@ export default function LocalizedLink({
   replace,
   scroll,
   shallow,
+  target,
 }: LocalizedLinkProps) {
   const pathname = usePathname();
   const locale = pathname?.split("/")[1] || "en";
@@ -51,6 +53,7 @@ export default function LocalizedLink({
   return (
     <Link
       href={localizedHref}
+      target={target}
       className={className}
       onClick={handleClick}
       replace={replace}

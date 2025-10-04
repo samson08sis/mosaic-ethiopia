@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -315,10 +315,10 @@ export default function NewPackagePage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="icon" asChild>
-            <Link href="/admin/packages">
+            <LocalizedLink href="/admin/packages">
               <ArrowLeft className="h-5 w-5" />
               <span className="sr-only">Back</span>
-            </Link>
+            </LocalizedLink>
           </Button>
           <h1 className="text-3xl font-bold tracking-tight">
             Create New Package
@@ -326,7 +326,7 @@ export default function NewPackagePage() {
         </div>
         <div className="flex items-center space-x-2">
           <Button variant="outline" asChild>
-            <Link href="/admin/packages">Cancel</Link>
+            <LocalizedLink href="/admin/packages">Cancel</LocalizedLink>
           </Button>
           <Button
             type="submit"
@@ -1085,7 +1085,7 @@ export default function NewPackagePage() {
 
           <div className="flex justify-end space-x-2">
             <Button variant="outline" asChild>
-              <Link href="/admin/packages">Cancel</Link>
+              <LocalizedLink href="/admin/packages">Cancel</LocalizedLink>
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (

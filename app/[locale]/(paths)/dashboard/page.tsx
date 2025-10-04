@@ -21,7 +21,7 @@ import {
   Mail,
   MailCheck,
 } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink"; //<LocalizedLink
 import BookingCard from "@/components/dashboard/BookingCard";
 import StatsCard from "@/components/dashboard/StatsCard";
 import QuickActions from "@/components/dashboard/QuickActions";
@@ -358,14 +358,14 @@ export default function Dashboard() {
                     </button>
                   )}
                   {/* Edit Profile Link */}
-                  <Link
+                  <LocalizedLink
                     href="/profile"
                     className="flex items-center justify-center py-2 pl-3 pr-2 hover:pr-3 bg-white/20 hover:bg-white/30 text-white rounded-lg font-medium transition-all duration-350 backdrop-blur-sm border border-white/30 group">
                     <Edit3 className="h-4 w-4 flex-shrink-0" />
                     <span className="max-w-0 group-hover:max-w-[7rem] transition-[max-width,opacity] duration-300 overflow-hidden whitespace-nowrap opacity-0 group-hover:opacity-100 ml-1.5">
                       Edit Profile
                     </span>
-                  </Link>
+                  </LocalizedLink>
                 </div>
               </div>
             </div>
@@ -396,12 +396,12 @@ export default function Dashboard() {
               <Plane className="h-6 w-6 mr-2 text-primary-600" />
               Your Upcoming Adventures
             </h2>
-            <Link
+            <LocalizedLink
               href="/bookings"
               className="text-primary-600 hover:text-primary-700 font-medium flex items-center">
               View All
               <TrendingUp className="h-4 w-4 ml-1" />
-            </Link>
+            </LocalizedLink>
           </div>
 
           {mockBookings.length > 0 ? (
@@ -419,12 +419,12 @@ export default function Dashboard() {
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Ready to explore? Book your next adventure today!
               </p>
-              <Link
+              <LocalizedLink
                 href="/packages"
                 className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
                 <BookOpen className="h-4 w-4 mr-2" />
                 Browse Packages
-              </Link>
+              </LocalizedLink>
             </div>
           )}
         </div>

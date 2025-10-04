@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import { ArrowLeft, Mail } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import FormInput from "@/components/auth/FormInput";
 import ErrorMessage from "@/components/auth/ErrorMessage";
 import Spinner from "@/components/ui/svgs/SpinnerSVG";
@@ -59,12 +59,12 @@ export default function ForgotPasswordPage() {
     <div className="pt-20 pb-16 bg-theme min-h-screen">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-md mx-auto">
-          <Link
+          <LocalizedLink
             href="/login"
             className="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 mb-6">
             <ArrowLeft className="h-4 w-4 mr-1" />
             Back to login
-          </Link>
+          </LocalizedLink>
 
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
             <h1 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-6">
@@ -82,11 +82,11 @@ export default function ForgotPasswordPage() {
                     your password.
                   </p>
                 </div>
-                <Link
+                <LocalizedLink
                   href="/login"
                   className="inline-block mt-4 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
                   Return to Login
-                </Link>
+                </LocalizedLink>
               </div>
             ) : (
               <>

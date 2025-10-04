@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 
 export default function CTASection() {
   return (
@@ -12,16 +12,16 @@ export default function CTASection() {
         breathtaking landscapes, and ancient historical sites.
       </p>
       <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <Link
+        <LocalizedLink
           href="/packages"
           className="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
           View Tour Packages
-        </Link>
-        <Link
+        </LocalizedLink>
+        <LocalizedLink
           href="/contact-us"
           className="px-8 py-3 border border-primary-600 text-primary-600 hover:bg-primary-50 dark:border-primary-400 dark:text-primary-400 dark:hover:bg-gray-800 rounded-lg transition-colors">
           Contact Us
-        </Link>
+        </LocalizedLink>
       </div>
     </div>
   );

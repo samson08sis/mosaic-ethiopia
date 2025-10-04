@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { useTheme } from "@/contexts/ThemeContext";
 import { activityCategories, difficultyLevels } from "@/data/activities";
 import { ArrowLeft, Save, Plus, X, Eye, EyeOff } from "lucide-react";
@@ -177,7 +177,7 @@ export default function NewActivityPage() {
           } rounded-lg border p-6 mb-6`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Link
+              <LocalizedLink
                 href="/admin/activities"
                 className={`p-2 rounded-lg transition-colors ${
                   theme === "dark"
@@ -185,7 +185,7 @@ export default function NewActivityPage() {
                     : "hover:bg-gray-100 text-gray-600"
                 }`}>
                 <ArrowLeft className="w-5 h-5" />
-              </Link>
+              </LocalizedLink>
               <div>
                 <h1
                   className={`text-2xl font-bold ${
@@ -612,7 +612,7 @@ export default function NewActivityPage() {
                     </>
                   )}
                 </button>
-                <Link
+                <LocalizedLink
                   href="/admin/activities"
                   className={`w-full flex items-center justify-center px-4 py-2 border rounded-lg transition-colors ${
                     theme === "dark"
@@ -620,7 +620,7 @@ export default function NewActivityPage() {
                       : "border-gray-300 text-gray-700 hover:bg-gray-50"
                   }`}>
                   Cancel
-                </Link>
+                </LocalizedLink>
               </div>
             </div>
 

@@ -4,15 +4,8 @@ import type React from "react";
 
 import { useState, useEffect, Suspense } from "react";
 import { useParams, useRouter } from "next/navigation";
-import {
-  ArrowLeft,
-  Eye,
-  EyeOff,
-  CheckCircle,
-  AlertCircle,
-  Lock,
-} from "lucide-react";
-import Link from "next/link";
+import { ArrowLeft, CheckCircle, AlertCircle, Lock } from "lucide-react";
+import LocalizedLink from "@/components/LocalizedLink";
 import FormInput from "@/components/auth/FormInput";
 import ErrorMessage from "@/components/auth/ErrorMessage";
 
@@ -189,12 +182,12 @@ function ResetPasswordForm() {
       <div className="pt-20 pb-16 bg-theme min-h-screen">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-md mx-auto">
-            <Link
+            <LocalizedLink
               href="/forgot-password"
               className="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 mb-6">
               <ArrowLeft className="h-4 w-4 mr-1" />
               Back to forgot password
-            </Link>
+            </LocalizedLink>
 
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
               <div className="text-center">
@@ -205,11 +198,11 @@ function ResetPasswordForm() {
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
                   {generalError}
                 </p>
-                <Link
+                <LocalizedLink
                   href="/forgot-password"
                   className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg hover:bg-primary-700 transition-colors inline-block text-center">
                   Request New Reset Link
-                </Link>
+                </LocalizedLink>
               </div>
             </div>
           </div>
@@ -251,12 +244,12 @@ function ResetPasswordForm() {
     <div className="pt-20 pb-16 bg-theme min-h-screen">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-md mx-auto">
-          <Link
+          <LocalizedLink
             href="/login"
             className="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 mb-6">
             <ArrowLeft className="h-4 w-4 mr-1" />
             Back to login
-          </Link>
+          </LocalizedLink>
 
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
             <div className="text-center mb-8">
@@ -374,11 +367,11 @@ function ResetPasswordForm() {
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Remember your password?{" "}
-                <Link
+                <LocalizedLink
                   href="/login"
                   className="text-primary-600 hover:text-primary-700 dark:text-primary-400">
                   Sign in here
-                </Link>
+                </LocalizedLink>
               </p>
             </div>
           </div>

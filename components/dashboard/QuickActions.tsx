@@ -10,7 +10,7 @@ import {
   Gift,
   MessageCircle,
 } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 
 const actions = [
   {
@@ -87,7 +87,7 @@ export default function QuickActions() {
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
         {actions.map((action, index) => (
-          <Link
+          <LocalizedLink
             key={index}
             href={action.href}
             className={`group relative bg-gradient-to-br ${action.color} ${action.hoverColor} text-white rounded-xl p-4 transition-all duration-200 hover:scale-105 hover:shadow-lg`}>
@@ -100,7 +100,7 @@ export default function QuickActions() {
                 <p className="text-xs opacity-90">{action.description}</p>
               </div>
             </div>
-          </Link>
+          </LocalizedLink>
         ))}
       </div>
     </div>

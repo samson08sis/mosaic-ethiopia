@@ -1,7 +1,7 @@
 import { MinimalDestination } from "@/types/destinations/types";
 import StarIcon from "../ui/svgs/StarSVG";
 import { Tag } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 
 export default function PopularDestinationCard({
   destination,
@@ -44,16 +44,16 @@ export default function PopularDestinationCard({
           {destination.name}
         </h3>
         <div className="mt-4 flex flex-col xl:flex-row gap-2">
-          <Link
+          <LocalizedLink
             href={`/destinations/${destination.slug}`}
             className="w-full px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
             View Details
-          </Link>
-          <Link
+          </LocalizedLink>
+          <LocalizedLink
             href={`/packages?destination=${destination.slug}`}
             className="w-full px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition-colors">
             Book Now
-          </Link>
+          </LocalizedLink>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Star, MapPin, TrendingUp } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import destinations from "@/data/destinations";
 
 export default function TrendingDestinations() {
@@ -15,17 +15,17 @@ export default function TrendingDestinations() {
           <TrendingUp className="h-6 w-6 mr-2 text-primary-600" />
           Trending Destinations
         </h2>
-        <Link
+        <LocalizedLink
           href="/destinations"
           className="text-primary-600 hover:text-primary-700 font-medium flex items-center">
           View All
           <MapPin className="h-4 w-4 ml-1" />
-        </Link>
+        </LocalizedLink>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {trendingDestinations.map((destination) => (
-          <Link
+          <LocalizedLink
             key={destination.id}
             href={`/destinations/${destination.id}`}
             className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -60,7 +60,7 @@ export default function TrendingDestinations() {
                 </span>
               </div>
             </div>
-          </Link>
+          </LocalizedLink>
         ))}
       </div>
     </div>

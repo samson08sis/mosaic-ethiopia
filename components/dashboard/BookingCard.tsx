@@ -2,7 +2,7 @@
 
 import { Booking } from "@/types/bookings/types";
 import { Calendar, MapPin, Clock, MoreHorizontal } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { useState } from "react";
 
 interface BookingCardProps {
@@ -73,21 +73,21 @@ export default function BookingCard({ booking }: BookingCardProps) {
             </button>
             {showMenu && (
               <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-10 border border-gray-200 dark:border-gray-600">
-                <Link
+                <LocalizedLink
                   href={`/bookings/${booking.id}`}
                   className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
                   View Details
-                </Link>
-                <Link
+                </LocalizedLink>
+                <LocalizedLink
                   href={`/bookings/modify/${booking.id}`}
                   className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
                   Modify Booking
-                </Link>
-                <Link
+                </LocalizedLink>
+                <LocalizedLink
                   href={`/bookings/reschedule/${booking.id}`}
                   className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
                   Reschedule
-                </Link>
+                </LocalizedLink>
               </div>
             )}
           </div>
@@ -105,16 +105,16 @@ export default function BookingCard({ booking }: BookingCardProps) {
         </div>
 
         <div className="flex space-x-3">
-          <Link
+          <LocalizedLink
             href={`/bookings/${booking.id}`}
             className="flex-1 bg-primary-600 text-white text-center py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium">
             View Details
-          </Link>
-          <Link
+          </LocalizedLink>
+          <LocalizedLink
             href={`/bookings/modify/${booking.id}`}
             className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-center py-2 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
             Modify
-          </Link>
+          </LocalizedLink>
         </div>
       </div>
     </div>

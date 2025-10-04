@@ -11,7 +11,7 @@ import {
   Music,
   Utensils,
 } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import Image from "next/image";
 import EthiopianPattern from "./components/EthiopianPattern";
 import AttractionCard from "./components/AttractionCard";
@@ -445,12 +445,12 @@ export default function EthiopiaPage() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="flex items-center mb-8">
-          <Link
+          <LocalizedLink
             href="/"
             className="flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 mr-4">
             <ArrowLeft className="h-4 w-4 mr-1" />
             Back to Home
-          </Link>
+          </LocalizedLink>
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white font-arizonia">
             Ethiopia's Cultural Treasures
           </h2>

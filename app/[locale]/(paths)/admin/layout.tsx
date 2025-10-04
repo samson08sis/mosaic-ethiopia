@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -49,11 +49,11 @@ export default function AdminLayout({
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       {/* Mobile sidebar toggle */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 p-4 flex justify-between items-center">
-        <Link
+        <LocalizedLink
           href="/admin"
           className="font-arizonia text-2xl text-primary-600 dark:text-primary-400">
           TravelExplorer Admin
-        </Link>
+        </LocalizedLink>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="p-2 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 transition-colors">
@@ -69,11 +69,11 @@ export default function AdminLayout({
         <div className="h-full flex flex-col">
           {/* Logo */}
           <div className="h-16 flex items-center justify-center border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-primary-50 to-orange-50 dark:from-gray-800 dark:to-gray-800">
-            <Link
+            <LocalizedLink
               href="/admin"
               className="font-arizonia text-2xl text-primary-600 dark:text-primary-400 font-bold">
               TravelExplorer Admin
-            </Link>
+            </LocalizedLink>
           </div>
 
           {/* Navigation */}
@@ -82,7 +82,7 @@ export default function AdminLayout({
               const isActive =
                 pathname === item.href || pathname?.startsWith(`${item.href}/`);
               return (
-                <Link
+                <LocalizedLink
                   key={item.name}
                   href={item.href}
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
@@ -99,7 +99,7 @@ export default function AdminLayout({
                     }`}
                   />
                   {item.name}
-                </Link>
+                </LocalizedLink>
               );
             })}
           </nav>
@@ -124,12 +124,12 @@ export default function AdminLayout({
             </button>
 
             {/* Back to Site */}
-            <Link
+            <LocalizedLink
               href="/"
               className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">
               <LogOut className="mr-3 h-5 w-5 text-gray-500 dark:text-gray-400" />
               Back to Site
-            </Link>
+            </LocalizedLink>
           </div>
         </div>
       </aside>

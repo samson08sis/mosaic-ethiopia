@@ -3,7 +3,7 @@
 import type { ChangeEvent, ReactNode } from "react";
 
 import { Eye, EyeOff, LucideIcon } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 
 interface FormInputProps {
   id: string;
@@ -75,11 +75,11 @@ export default function FormInput({
               )}
             </button>
             {showForgotPassword && (
-              <Link
+              <LocalizedLink
                 href="/forgot-password"
                 className="mt-2 text-sm text-primary-600 hover:text-primary-500 dark:text-primary-400">
                 Forgot password?
-              </Link>
+              </LocalizedLink>
             )}
           </>
         )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import {
   Users,
   Package,
@@ -146,10 +146,10 @@ export default function AdminDashboard() {
           </CardContent>
           <CardFooter>
             <Button variant="outline" className="w-full" asChild>
-              <Link href="/admin/bookings">
+              <LocalizedLink href="/admin/bookings">
                 View All Bookings
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              </LocalizedLink>
             </Button>
           </CardFooter>
         </Card>
@@ -165,10 +165,10 @@ export default function AdminDashboard() {
           </CardContent>
           <CardFooter>
             <Button variant="outline" className="w-full" asChild>
-              <Link href="/admin/destinations">
+              <LocalizedLink href="/admin/destinations">
                 View All Destinations
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              </LocalizedLink>
             </Button>
           </CardFooter>
         </Card>

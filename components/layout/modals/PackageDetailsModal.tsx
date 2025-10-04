@@ -1,7 +1,7 @@
 import { useModal } from "@/contexts/ModalContext";
 import { Package } from "@/types/packages/type";
 import { CalendarDays, Check, Clock, MapPin, X } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink"; //<LocalizedLink
 
 export default function PackageDetailsModal() {
   const { isOpen, modalType, openModal, closeModal, modalProps } = useModal();
@@ -155,11 +155,11 @@ export default function PackageDetailsModal() {
           <hr className="my-6 border-gray-200 dark:border-gray-700" />
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link
+            <LocalizedLink
               href={`/book?package=${selectedPackage.id}`}
               className="flex-1 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 text-center">
               Book This Package
-            </Link>
+            </LocalizedLink>
             <button
               onClick={() => {
                 closeModal();

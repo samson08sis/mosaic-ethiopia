@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { useTheme } from "@/contexts/ThemeContext";
 import {
   mockActivities,
@@ -132,12 +132,12 @@ export default function ActivityDetailPage() {
               } mb-4`}>
               The activity you're looking for doesn't exist or has been removed.
             </p>
-            <Link
+            <LocalizedLink
               href="/admin/activities"
               className="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Activities
-            </Link>
+            </LocalizedLink>
           </div>
         </div>
       </div>
@@ -159,7 +159,7 @@ export default function ActivityDetailPage() {
           } rounded-lg border p-6 mb-6`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Link
+              <LocalizedLink
                 href="/admin/activities"
                 className={`p-2 rounded-lg transition-colors ${
                   theme === "dark"
@@ -167,7 +167,7 @@ export default function ActivityDetailPage() {
                     : "hover:bg-gray-100 text-gray-600"
                 }`}>
                 <ArrowLeft className="w-5 h-5" />
-              </Link>
+              </LocalizedLink>
               <div>
                 <h1
                   className={`text-2xl font-bold ${
@@ -198,12 +198,12 @@ export default function ActivityDetailPage() {
                 )}
                 {activity.isActive ? "Active" : "Inactive"}
               </button>
-              <Link
+              <LocalizedLink
                 href={`/admin/activities/${activity.id}/edit`}
                 className="flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors">
                 <Edit className="w-4 h-4 mr-2" />
                 Edit
-              </Link>
+              </LocalizedLink>
               <button
                 onClick={deleteActivity}
                 className="flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">

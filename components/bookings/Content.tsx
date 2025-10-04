@@ -1,7 +1,7 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { useBookings } from "@/contexts/BookingContext";
 import { Calendar, Clock, MapPin, Users } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { useEffect, useState } from "react";
 
 export default function BookingContent() {
@@ -86,11 +86,11 @@ export default function BookingContent() {
           <p className="text-gray-600 dark:text-gray-400 mb-4">
             You don't have any current bookings.
           </p>
-          <Link
+          <LocalizedLink
             href="/packages"
             className="inline-block px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-700">
             Explore Tour Packages
-          </Link>
+          </LocalizedLink>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 gap-8">
@@ -195,16 +195,16 @@ export default function BookingContent() {
                   </span>
 
                   <div className="space-x-2">
-                    <Link
+                    <LocalizedLink
                       href={`/bookings/modify?id=${booking.id}`}
                       className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
                       Modify
-                    </Link>
-                    <Link
+                    </LocalizedLink>
+                    <LocalizedLink
                       href={`/bookings/reschedule?id=${booking.id}`}
                       className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
                       Reschedule
-                    </Link>
+                    </LocalizedLink>
                     <button
                       onClick={() => openDeleteModal(booking.id)}
                       className="px-3 py-1 text-sm border border-red-300 dark:border-red-600 text-red-600 dark:text-red-400 rounded-md hover:bg-red-50 dark:hover:bg-red-900/30">

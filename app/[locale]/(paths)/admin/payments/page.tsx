@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import {
   Search,
   Eye,
@@ -299,11 +299,11 @@ export default function PaymentsPage() {
                               {payment.id}
                             </TableCell>
                             <TableCell>
-                              <Link
+                              <LocalizedLink
                                 href={`/admin/bookings/${payment.bookingId}`}
                                 className="text-primary hover:underline">
                                 {payment.bookingId}
-                              </Link>
+                              </LocalizedLink>
                             </TableCell>
                             <TableCell>
                               <div>
@@ -344,11 +344,11 @@ export default function PaymentsPage() {
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                   <DropdownMenuItem asChild>
-                                    <Link
+                                    <LocalizedLink
                                       href={`/admin/payments/${payment.id}`}>
                                       <Eye className="mr-2 h-4 w-4" />
                                       View details
-                                    </Link>
+                                    </LocalizedLink>
                                   </DropdownMenuItem>
                                   <DropdownMenuItem>
                                     <Download className="mr-2 h-4 w-4" />

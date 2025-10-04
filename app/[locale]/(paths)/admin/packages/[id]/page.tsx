@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { useParams, useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -67,10 +67,10 @@ export default function PackageDetailsPage() {
           The package you are looking for does not exist or has been removed.
         </p>
         <Button asChild>
-          <Link href="/admin/packages">
+          <LocalizedLink href="/admin/packages">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Packages
-          </Link>
+          </LocalizedLink>
         </Button>
       </div>
     );
@@ -135,10 +135,10 @@ export default function PackageDetailsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="icon" asChild>
-            <Link href="/admin/packages">
+            <LocalizedLink href="/admin/packages">
               <ArrowLeft className="h-5 w-5" />
               <span className="sr-only">Back</span>
-            </Link>
+            </LocalizedLink>
           </Button>
           <div>
             <h1 className="text-3xl font-bold tracking-tight">
@@ -155,10 +155,10 @@ export default function PackageDetailsPage() {
 
         <div className="flex items-center space-x-2">
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/packages/${packageData.id}`} target="_blank">
+            <LocalizedLink href={`/packages/${packageData.id}`} target="_blank">
               <Eye className="mr-2 h-4 w-4" />
               Preview
-            </Link>
+            </LocalizedLink>
           </Button>
 
           <Button variant="outline" size="sm" onClick={handleDuplicate}>
@@ -167,10 +167,10 @@ export default function PackageDetailsPage() {
           </Button>
 
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/admin/packages/${packageData.id}/edit`}>
+            <LocalizedLink href={`/admin/packages/${packageData.id}/edit`}>
               <Edit className="mr-2 h-4 w-4" />
               Edit
-            </Link>
+            </LocalizedLink>
           </Button>
 
           <AlertDialog>
@@ -524,7 +524,9 @@ export default function PackageDetailsPage() {
             </CardContent>
             <CardFooter className="pt-0">
               <Button variant="outline" className="w-full" asChild>
-                <Link href="/admin/analytics">View Detailed Analytics</Link>
+                <LocalizedLink href="/admin/analytics">
+                  View Detailed Analytics
+                </LocalizedLink>
               </Button>
             </CardFooter>
           </Card>
@@ -550,7 +552,9 @@ export default function PackageDetailsPage() {
             </CardContent>
             <CardFooter className="pt-0">
               <Button variant="outline" className="w-full" asChild>
-                <Link href="/admin/bookings">View All Bookings</Link>
+                <LocalizedLink href="/admin/bookings">
+                  View All Bookings
+                </LocalizedLink>
               </Button>
             </CardFooter>
           </Card>
@@ -582,10 +586,10 @@ export default function PackageDetailsPage() {
             </CardContent>
             <CardFooter className="pt-0">
               <Button variant="outline" className="w-full" asChild>
-                <Link href={`/admin/packages/${packageData.id}/edit`}>
+                <LocalizedLink href={`/admin/packages/${packageData.id}/edit`}>
                   <Edit className="mr-2 h-4 w-4" />
                   Edit Package
-                </Link>
+                </LocalizedLink>
               </Button>
             </CardFooter>
           </Card>

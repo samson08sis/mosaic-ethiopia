@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import {
   Facebook,
   Twitter,
@@ -117,11 +117,11 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <LocalizedLink
                     href={link.href}
                     className="text-gray-300 hover:text-primary transition-colors duration-300">
                     {link.name}
-                  </Link>
+                  </LocalizedLink>
                 </li>
               ))}
             </ul>
@@ -134,11 +134,11 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.destinations.map((destination) => (
                 <li key={destination.href}>
-                  <Link
+                  <LocalizedLink
                     href={destination.href}
                     className="text-gray-300 hover:text-primary transition-colors duration-300">
                     {destination.name}
-                  </Link>
+                  </LocalizedLink>
                 </li>
               ))}
             </ul>
@@ -182,12 +182,12 @@ export default function Footer() {
           </p>
           <div className="flex space-x-6">
             {footerLinks.bottomSection.map((item) => (
-              <Link
+              <LocalizedLink
                 key={item.name}
                 href={item.href}
                 className="text-sm text-gray-300 hover:text-primary transition-colors duration-300">
                 {item.name}
-              </Link>
+              </LocalizedLink>
             ))}
           </div>
         </div>

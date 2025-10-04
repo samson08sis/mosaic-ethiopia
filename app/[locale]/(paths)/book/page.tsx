@@ -17,7 +17,7 @@ import {
   Camera,
   Star,
 } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink"; //<LocalizedLink
 import packages from "@/data/packages";
 import destinations from "@/data/destinations";
 import PageHeader from "@/components/PageHeader";
@@ -439,12 +439,12 @@ export default function BookPage() {
                     per person
                   </span>
                 </div>
-                <Link
+                <LocalizedLink
                   href={selectedPackage ? "/packages" : "/destinations"}
                   className="flex items-center text-primary dark:text-primary-400 hover:underline">
                   <ArrowLeft className="h-4 w-4 mr-1" />
                   Back to {selectedPackage ? "packages" : "destinations"}
-                </Link>
+                </LocalizedLink>
               </div>
             </div>
           </div>
@@ -902,11 +902,11 @@ export default function BookPage() {
                     <p className="text-gray-600 dark:text-gray-300 mb-4">
                       Proceed to payment to complete your booking.
                     </p>
-                    <Link
+                    <LocalizedLink
                       href="/pay"
                       className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
                       Pay Now
-                    </Link>
+                    </LocalizedLink>
                   </div>
                 </div>
               )}
@@ -939,11 +939,11 @@ export default function BookPage() {
                   Confirm Booking
                 </button>
               ) : (
-                <Link
+                <LocalizedLink
                   href="/"
                   className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                   Return to Home
-                </Link>
+                </LocalizedLink>
               )}
             </div>
           </form>

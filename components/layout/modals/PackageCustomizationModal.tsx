@@ -1,7 +1,7 @@
 import { useModal } from "@/contexts/ModalContext";
 import { Customization, Package } from "@/types/packages/type";
 import { Check, Minus, Plus, X } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { HTMLInputTypeAttribute, useEffect, useState } from "react";
 
 // type CustomizePackageModalProps = {
@@ -469,11 +469,11 @@ export default function CustomizePackageModal() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link
+            <LocalizedLink
               href={getBookingUrl()}
               className="flex-1 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 text-center">
               Book Customized Package
-            </Link>
+            </LocalizedLink>
             <button
               onClick={closeModal}
               className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">

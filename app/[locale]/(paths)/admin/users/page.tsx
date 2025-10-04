@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import {
   Plus,
   Search,
@@ -167,10 +167,10 @@ export default function UsersPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Users</h1>
         <Button asChild>
-          <Link href="/admin/users/new">
+          <LocalizedLink href="/admin/users/new">
             <Plus className="mr-2 h-4 w-4" />
             Add User
-          </Link>
+          </LocalizedLink>
         </Button>
       </div>
 
@@ -328,15 +328,16 @@ export default function UsersPage() {
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
                               <DropdownMenuItem asChild>
-                                <Link href={`/admin/users/${user.id}`}>
+                                <LocalizedLink href={`/admin/users/${user.id}`}>
                                   View profile
-                                </Link>
+                                </LocalizedLink>
                               </DropdownMenuItem>
                               <DropdownMenuItem asChild>
-                                <Link href={`/admin/users/${user.id}/edit`}>
+                                <LocalizedLink
+                                  href={`/admin/users/${user.id}/edit`}>
                                   <Edit className="mr-2 h-4 w-4" />
                                   Edit
-                                </Link>
+                                </LocalizedLink>
                               </DropdownMenuItem>
                               {user.status === "active" ? (
                                 <DropdownMenuItem>Deactivate</DropdownMenuItem>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { useParams, useRouter } from "next/navigation";
 import {
   ArrowLeft,
@@ -139,7 +139,7 @@ export default function UserProfilePage() {
           The user you are looking for does not exist or has been removed.
         </p>
         <Button asChild>
-          <Link href="/admin/users">Back to Users</Link>
+          <LocalizedLink href="/admin/users">Back to Users</LocalizedLink>
         </Button>
       </div>
     );
@@ -209,19 +209,19 @@ export default function UserProfilePage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Button variant="outline" size="icon" asChild>
-            <Link href="/admin/users">
+            <LocalizedLink href="/admin/users">
               <ArrowLeft className="h-4 w-4" />
               <span className="sr-only">Back</span>
-            </Link>
+            </LocalizedLink>
           </Button>
           <h1 className="text-3xl font-bold tracking-tight">User Profile</h1>
         </div>
         <div className="flex items-center space-x-2">
           <Button variant="outline" asChild>
-            <Link href={`/admin/users/${userId}/edit`}>
+            <LocalizedLink href={`/admin/users/${userId}/edit`}>
               <Edit className="mr-2 h-4 w-4" />
               Edit User
-            </Link>
+            </LocalizedLink>
           </Button>
 
           <AlertDialog>

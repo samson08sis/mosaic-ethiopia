@@ -10,7 +10,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import clsx from "clsx";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import { title } from "process";
 
 export default function ImageFeatures() {
@@ -109,12 +109,12 @@ export default function ImageFeatures() {
               <p className="text-sm text-gray-100 leading-relaxed line-clamp-2 mb-2">
                 {feature.description}
               </p>
-              <Link
+              <LocalizedLink
                 href="/ethiopia"
                 className="text-white hover:text-primary-200 font-medium text-xs flex items-center">
                 Learn more
                 <ChevronRight className="ml-1 w-4 h-4" />
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
         </div>

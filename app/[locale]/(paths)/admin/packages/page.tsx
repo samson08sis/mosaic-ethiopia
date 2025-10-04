@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import {
   Plus,
   Search,
@@ -94,10 +94,10 @@ export default function PackagesPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Tour Packages</h1>
         <Button asChild>
-          <Link href="/admin/packages/new">
+          <LocalizedLink href="/admin/packages/new">
             <Plus className="mr-2 h-4 w-4" />
             Add Package
-          </Link>
+          </LocalizedLink>
         </Button>
       </div>
 
@@ -226,15 +226,17 @@ export default function PackagesPage() {
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
                               <DropdownMenuItem asChild>
-                                <Link href={`/admin/packages/${pkg.id}`}>
+                                <LocalizedLink
+                                  href={`/admin/packages/${pkg.id}`}>
                                   View details
-                                </Link>
+                                </LocalizedLink>
                               </DropdownMenuItem>
                               <DropdownMenuItem asChild>
-                                <Link href={`/admin/packages/${pkg.id}/edit`}>
+                                <LocalizedLink
+                                  href={`/admin/packages/${pkg.id}/edit`}>
                                   <Edit className="mr-2 h-4 w-4" />
                                   Edit
-                                </Link>
+                                </LocalizedLink>
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem className="text-destructive">

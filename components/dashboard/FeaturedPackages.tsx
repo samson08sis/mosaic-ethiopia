@@ -1,7 +1,7 @@
 "use client";
 
 import { Star, Clock, Users, Package } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import packages from "@/data/packages";
 
 export default function FeaturedPackages() {
@@ -15,12 +15,12 @@ export default function FeaturedPackages() {
           <Package className="h-6 w-6 mr-2 text-primary-600" />
           Featured Packages
         </h2>
-        <Link
+        <LocalizedLink
           href="/packages"
           className="text-primary-600 hover:text-primary-700 font-medium flex items-center">
           View All
           <Package className="h-4 w-4 ml-1" />
-        </Link>
+        </LocalizedLink>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -66,16 +66,16 @@ export default function FeaturedPackages() {
               </div>
 
               <div className="flex space-x-3">
-                <Link
+                <LocalizedLink
                   href={`/packages/${pkg.id}`}
                   className="flex-1 bg-primary-600 text-white text-center py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium">
                   View Details
-                </Link>
-                <Link
+                </LocalizedLink>
+                <LocalizedLink
                   href={`/book?package=${pkg.id}`}
                   className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-center py-2 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium">
                   Book Now
-                </Link>
+                </LocalizedLink>
               </div>
             </div>
           </div>

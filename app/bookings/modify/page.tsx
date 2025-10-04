@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { AlertCircle } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 
 export default function ModifyBooking() {
   const { isAuthenticated } = useAuth();
@@ -72,16 +72,16 @@ export default function ModifyBooking() {
               team will review your request and contact you within 24 hours.
             </p>
             <div className="flex justify-center space-x-4 mt-6">
-              <Link
+              <LocalizedLink
                 href="/bookings"
                 className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
                 Back to Bookings
-              </Link>
-              <Link
+              </LocalizedLink>
+              <LocalizedLink
                 href="/"
                 className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700">
                 Home
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
         ) : (
@@ -176,11 +176,11 @@ export default function ModifyBooking() {
               </div>
 
               <div className="flex justify-end space-x-4">
-                <Link
+                <LocalizedLink
                   href="/bookings"
                   className="px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
                   Cancel
-                </Link>
+                </LocalizedLink>
                 <button
                   type="submit"
                   disabled={isSubmitting}

@@ -9,7 +9,7 @@ import {
   Calendar,
   CreditCardIcon,
 } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import Head from "next/head";
 
 export default function PayPage() {
@@ -546,11 +546,11 @@ export default function PayPage() {
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center no-print">
-                    <Link
+                    <LocalizedLink
                       href="/"
                       className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
                       Return to Home
-                    </Link>
+                    </LocalizedLink>
                     <button
                       className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       onClick={handlePrint}>

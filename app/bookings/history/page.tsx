@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { Calendar, MapPin, Users, Star } from "lucide-react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 
 // Mock data for booking history
 const mockBookingHistory = [
@@ -75,11 +75,11 @@ export default function BookingHistory() {
           <p className="text-gray-600 dark:text-gray-400 mb-4">
             You don't have any past bookings.
           </p>
-          <Link
+          <LocalizedLink
             href="/packages"
             className="inline-block px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-700">
             Explore Tour Packages
-          </Link>
+          </LocalizedLink>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 gap-8">
@@ -158,11 +158,11 @@ export default function BookingHistory() {
                     ${booking.price}
                   </span>
 
-                  <Link
+                  <LocalizedLink
                     href={`/bookings/details?id=${booking.id}`}
                     className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
                     View Details
-                  </Link>
+                  </LocalizedLink>
                 </div>
               </div>
             </div>

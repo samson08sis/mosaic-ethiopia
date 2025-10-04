@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import ImageFeatures from "./ImageFeatures";
 import WelcomeText from "./WelcomeText";
 
@@ -17,11 +17,11 @@ export default function WelcomeSection() {
                 It's Time to start your adventure
               </h2>
               <WelcomeText />
-              <Link
+              <LocalizedLink
                 href="/ethiopia"
                 className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors">
                 Learn More About Ethiopia
-              </Link>
+              </LocalizedLink>
             </div>
 
             {/* Image Features - Full width on mobile, half width on large screens */}

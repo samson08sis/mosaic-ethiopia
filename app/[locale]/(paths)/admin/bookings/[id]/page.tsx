@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import {
   ArrowLeft,
   Calendar,
@@ -196,9 +196,9 @@ export default function BookingDetailsPage({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Button variant="outline" size="icon" asChild>
-            <Link href="/admin/bookings">
+            <LocalizedLink href="/admin/bookings">
               <ArrowLeft className="h-4 w-4" />
-            </Link>
+            </LocalizedLink>
           </Button>
           <h1 className="text-3xl font-bold tracking-tight">
             Booking {booking.id}
@@ -551,9 +551,10 @@ export default function BookingDetailsPage({
 
               <div className="flex justify-between">
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={`/admin/users/${booking.customer.email}`}>
+                  <LocalizedLink
+                    href={`/admin/users/${booking.customer.email}`}>
                     View Profile
-                  </Link>
+                  </LocalizedLink>
                 </Button>
                 <Button variant="outline" size="sm">
                   <MessageSquare className="mr-2 h-4 w-4" />
@@ -618,9 +619,9 @@ export default function BookingDetailsPage({
             </CardHeader>
             <CardContent className="space-y-2">
               <Button className="w-full" asChild>
-                <Link href={`/admin/bookings/${booking.id}/edit`}>
+                <LocalizedLink href={`/admin/bookings/${booking.id}/edit`}>
                   Edit Booking
-                </Link>
+                </LocalizedLink>
               </Button>
               <Button variant="outline" className="w-full">
                 Send Reminder
