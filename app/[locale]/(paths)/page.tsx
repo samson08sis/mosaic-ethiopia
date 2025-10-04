@@ -45,7 +45,7 @@ export default async function Home() {
   return (
     <>
       <Hero slides={slides} /> {/* SSR */}
-      <WelcomeSection /> {/* SSR */}
+      {/* <WelcomeSection /> */} {/* SSR */}
       <MainContent /> {/* SSR */}
     </>
   );
