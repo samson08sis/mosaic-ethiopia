@@ -70,7 +70,7 @@ export default function RescheduleBooking() {
             </p>
             <div className="flex justify-center space-x-4 mt-6">
               <Link
-                href="/bookings/current"
+                href="/bookings"
                 className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
                 Back to Bookings
               </Link>
@@ -154,7 +154,7 @@ export default function RescheduleBooking() {
 
               <div className="flex justify-end space-x-4">
                 <Link
-                  href="/bookings/current"
+                  href="/bookings"
                   className="px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
                   Cancel
                 </Link>
